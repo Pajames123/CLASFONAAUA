@@ -23,7 +23,6 @@
             <li><a href="#about">About</a></li>
             <li><a href="#services">Meetings</a></li>
             <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#leaders">Executives</a></li>
             <li><a href="#audio">Sermons</a></li>
             <li><a href="#resources">Books</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -44,39 +43,46 @@
         </div>
     </header>
 
-    <section id="about" class="section">
+    <section id="president-message" class="section">
         <div class="container">
-            <h2>About Us</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>Our Mission</h3>
-                    <p>To provide a platform where law students encounter Christ and develop ethical stamina for the legal industry.</p>
+            <div class="message-wrapper">
+                <div class="president-img-container">
+                    <img src="president.jpg" alt="President Ajisafe Koyinsola" class="president-portrait">
                 </div>
-                <div class="card">
-                    <h3>Our Core Values</h3>
-                    <p>Spirituality • Academic Excellence • Integrity • Brotherhood</p>
+                <div class="message-content">
+                    <span class="sub-heading">A Message from the President</span>
+                    <h3>Shalom and Welcome!</h3>
+                    <p>It is a great joy to welcome you to the official digital home of CLASFON AAUA Chapter. We operate under a divine mandate: to raise a <strong>"New Network of Lawyers"</strong> deeply rooted in Christ.</p>
+                    <p>Whether you are seeking spiritual fortification, academic support, or community, there is a place for you here. We are not just studying for degrees; we are preparing for a lifetime of ministry in the temple of justice.</p>
+                    <div class="signature">
+                        <p><strong>In His Service,</strong></p>
+                        <p class="name">Ajisafe Koyinsola</p>
+                        <p class="session">President, CLASFON AAUA 2025/2026</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="services" class="section bg-alt">
-        <h2>Weekly Meetings</h2>
-        <div class="card-container">
-            <div class="card meeting-card">
-                <img src="monday-prayer.jpg" alt="Monday Prayer">
-                <div class="meeting-details">
-                    <span class="date-badge">MONDAY</span>
-                    <h3>Prayer Meeting</h3>
-                    <p>5:00 PM - 6:00 PM</p>
+        <div class="container">
+            <h2>Weekly Meetings</h2>
+            <div class="card-container">
+                <div class="card meeting-card">
+                    <img src="monday-prayer.jpg" alt="Monday Prayer">
+                    <div class="meeting-details">
+                        <span class="date-badge">MONDAY</span>
+                        <h3>Prayer Meeting</h3>
+                        <p>5:00 PM - 6:00 PM</p>
+                    </div>
                 </div>
-            </div>
-            <div class="card meeting-card">
-                <img src="friday-fellowship.jpg" alt="Friday Fellowship">
-                <div class="meeting-details">
-                    <span class="date-badge">FRIDAY</span>
-                    <h3>Fellowship Service</h3>
-                    <p>12:00 PM - 2:00 PM</p>
+                <div class="card meeting-card">
+                    <img src="friday-fellowship.jpg" alt="Friday Fellowship">
+                    <div class="meeting-details">
+                        <span class="date-badge">FRIDAY</span>
+                        <h3>Fellowship Service</h3>
+                        <p>12:00 PM - 2:00 PM</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,8 +95,6 @@
             <a href="photo2.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo2.jpg"></div></a>
             <a href="photo3.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo3.jpg"></div></a>
             <a href="photo4.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo4.jpg"></div></a>
-            <a href="photo5.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo5.jpg"></div></a>
-            <a href="photo6.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo6.jpg"></div></a>
         </div>
     </section>
 
@@ -109,66 +113,76 @@
     </section>
 
     <section id="resources" class="section">
+        <h2>Resource Library</h2>
+        <div class="resource-grid">
+            <div class="card resource-card">
+                <div class="book-icon">📖</div>
+                <h3>Body of Christ Reality</h3>
+                <p>Watchman Nee</p>
+                <a href="body-of-christ.pdf" download class="download-btn gold">Download PDF</a>
+            </div>
+            <div class="card resource-card">
+                <div class="book-icon">📜</div>
+                <h3>Spiritual Authority</h3>
+                <p>Watchman Nee</p>
+                <a href="spiritual-authority.pdf" download class="download-btn gold">Download PDF</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="corporate-links" class="section bg-alt">
         <div class="container">
-            <h2>Resource Library</h2>
-            <div class="resource-grid">
-                <div class="card resource-card">
-                    <div class="book-icon">📖</div>
-                    <h3>Body of Christ Reality</h3>
-                    <p>Watchman Nee</p>
-                    <a href="body-of-christ.pdf" download class="download-btn gold">Download PDF</a>
+            <div class="footer-links-grid">
+                <div class="link-column">
+                    <h4>CLASFON</h4>
+                    <a href="javascript:void(0)" onclick="openDoc('who-we-are')">Who We Are</a>
+                    <a href="javascript:void(0)" onclick="openDoc('about-us')">About Us</a>
+                    <a href="javascript:void(0)" onclick="openDoc('brand-center')">Brand Center</a>
                 </div>
-                <div class="card resource-card">
-                    <div class="book-icon">📜</div>
-                    <h3>Spiritual Authority</h3>
-                    <p>Watchman Nee</p>
-                    <a href="spiritual-authority.pdf" download class="download-btn gold">Download PDF</a>
+                <div class="link-column">
+                    <h4>Development</h4>
+                    <a href="javascript:void(0)" onclick="openDoc('careers')">Careers</a>
+                    <a href="javascript:void(0)" onclick="openDoc('privacy')">Privacy Policy</a>
+                </div>
+                <div class="link-column">
+                    <h4>Contact</h4>
+                    <a href="tel:09121359211">09121359211</a>
+                    <a href="https://instagram.com/CLASFONAAUA">Instagram</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="leaders" class="section bg-alt">
-        <h2>Our Executives</h2>
-        <div class="card-container">
-            <div class="card"><img src="president.jpg" class="leader-img" alt="Exec"><h3>Ajisafe Koyinsola</h3><p class="role">President</p></div>
-            <div class="card"><img src="vp.jpg" class="leader-img" alt="Exec"><h3>Salami Princess</h3><p class="role">Vice President</p></div>
-            </div>
-    </section>
-
-    <section id="contact" class="section">
-        <div class="container">
-            <h2>Connect With Us</h2>
-            <div class="card-container">
-                <a href="https://chat.whatsapp.com/JLeweffpwNmKOwpUu8oZlB" target="_blank" class="card contact-card">
-                    <i class="fab fa-whatsapp contact-icon"></i>
-                    <h3>WhatsApp</h3>
-                    <p>Join the Community</p>
-                </a>
-                <a href="tel:09121359211" class="card contact-card">
-                    <i class="fas fa-phone-alt contact-icon"></i>
-                    <h3>Call Us</h3>
-                    <p>09121359211</p>
-                </a>
-                <a href="https://instagram.com/CLASFONAAUA" target="_blank" class="card contact-card">
-                    <i class="fab fa-instagram contact-icon"></i>
-                    <h3>Instagram</h3>
-                    <p>@CLASFONAAUA</p>
-                </a>
-            </div>
+    <div id="doc-modal" class="doc-overlay">
+        <div class="doc-content">
+            <button class="close-doc" onclick="closeDoc()">&times; Close</button>
+            <div id="doc-body"></div>
         </div>
-    </section>
+    </div>
 
-    <section id="donate" class="section bg-gold">
-        <div class="bank-details-card">
-            <h3>Support Our Mission</h3>
-            <div class="account-info">
-                <p><strong>Bank:</strong> Access Bank</p>
-                <p><strong>Account Name:</strong> Xtian Law Students</p>
-                <p><strong>Account Number:</strong> 0051649056</p>
-            </div>
+    <div id="doc-data" style="display:none;">
+        <div id="who-we-are">
+            <h1>Who We Are</h1>
+            <p>We are the Christian Law Students' Fellowship of Nigeria (CLASFON), AAUA Chapter. We are a family of aspiring legal professionals committed to the Lordship of Jesus Christ.</p>
         </div>
-    </section>
+        <div id="about-us">
+            <h1>About Us</h1>
+            <h3>Our Vision</h3><p>To see a new generation of spiritually grounded and intellectually sound lawyers.</p>
+            <h3>Our Mission</h3><p>Fostering Spiritual Growth, Academic Excellence, and Mentorship.</p>
+        </div>
+        <div id="careers">
+            <h1>Careers</h1>
+            <p>We facilitate internship placements, leadership development, and professional legal workshops.</p>
+        </div>
+        <div id="brand-center">
+            <h1>Brand Center</h1>
+            <p>Motto: "A New legal profession anchored on Christ." Colors: Professionalism and Truth.</p>
+        </div>
+        <div id="privacy">
+            <h1>Privacy Policy</h1>
+            <p>We collect basic data for membership registration. Your data is never shared with third parties.</p>
+        </div>
+    </div>
 
     <footer>
         <p>CLASFON AAUA CHAPTER &copy; 2025</p>
@@ -176,5 +190,17 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script>
+        function openDoc(id) {
+            const content = document.getElementById(id).innerHTML;
+            document.getElementById('doc-body').innerHTML = content;
+            document.getElementById('doc-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeDoc() {
+            document.getElementById('doc-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    </script>
 </body>
 </html>
