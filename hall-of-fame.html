@@ -3,29 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hall of Fame | Archive of Heroes</title>
+    <title>Hall of Fame | CLASFON AAUA Legacy Archive</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body style="background:#050505;">
+<body class="archive-body">
+
     <nav class="institutional-nav">
         <div class="container nav-flex">
-            <div class="brand"><span class="logo-main" style="color:#c5a059; font-family:'Cinzel';">ARCHIVE OF HEROES</span></div>
-            <a href="index.html" class="cta-fame" style="text-decoration: none; border: 1px solid #c5a059; padding: 10px; color: #c5a059;">Return Home</a>
+            <div class="brand">
+                <img src="logo.png" alt="Logo" class="nav-logo">
+                <div class="brand-text">
+                    <span class="logo-main">ARCHIVE OF HEROES</span>
+                </div>
+            </div>
+            <a href="index.html" class="nav-cta">Return to Portal</a>
         </div>
     </nav>
-    <header style="text-align: center; padding: 100px 0;">
-        <h1 style="font-family: 'Cinzel'; color: #c5a059; font-size: 3rem;">Hall of Fame</h1>
-        <p style="color: #8c6d2d; font-style: italic;">A new legal profession anchored on Christ.</p>
+
+    <header class="archive-hero">
+        <div class="archive-overlay"></div>
+        <div class="hero-content">
+            <h1 class="cinzel-title gold">Hall of Fame</h1>
+            <div class="ornament"></div>
+            <p class="archive-subtitle">"Being compassed about with so great a cloud of witnesses"</p>
+        </div>
     </header>
-    <section class="container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px; padding: 0 40px 150px;">
-        <div class="leader-box"><div class="leader-img-wrap"><img src="president.jpg"></div><div class="leader-detail"><h3>Ajisafe Koyinsola</h3><p>2025-2026</p></div></div>
-        <div class="leader-box"><div class="leader-img-wrap"><img src="pres_24.jpg"></div><div class="leader-detail"><h3>Ogungbade Taiwo James</h3><p>2024-2025</p></div></div>
-        <div class="leader-box"><div class="leader-img-wrap"><img src="pres_23.jpg"></div><div class="leader-detail"><h3>Adeshina Nifemi</h3><p>2023-2024</p></div></div>
-        <div class="leader-box"><div class="leader-img-wrap"><img src="pres_22.jpg"></div><div class="leader-detail"><h3>Olumide Badeniyi</h3><p>2022-2023</p></div></div>
-        <div class="leader-box"><div class="leader-img-wrap"><img src="pres_21.jpg"></div><div class="leader-detail"><h3>Olushola Rolake George</h3><p>2021-2022</p></div></div>
-        <div class="leader-box"><div class="leader-img-wrap"><img src="pres_20.jpg"></div><div class="leader-detail"><h3>Ifeoluwa Ali</h3><p>2020-2021</p></div></div>
-        <div class="leader-box"><div class="leader-img-wrap"><img src="pres_18.jpg"></div><div class="leader-detail"><h3>Okezie Daniel</h3><p>2018-2019</p></div></div>
+
+    <section class="container pb-150">
+        <div class="sophisticated-grid">
+            
+            <div class="leader-box">
+                <div class="leader-img-wrap archive-img"><img src="president.jpg" alt="President"></div>
+                <div class="leader-detail">
+                    <span class="tenure-tag">2025 - 2026</span>
+                    <h3>Ajisafe Koyinsola</h3>
+                    <p>Incumbent President</p>
+                </div>
+            </div>
+
+            <div class="leader-box">
+                <div class="leader-img-wrap archive-img"><img src="pres_24.jpg" alt="Taiwo James"></div>
+                <div class="leader-detail">
+                    <span class="tenure-tag">2024 - 2025</span>
+                    <h3>Ogungbade Taiwo James</h3>
+                    <p>Immediate Past President</p>
+                </div>
+            </div>
+
+            <div class="leader-box">
+                <div class="leader-img-wrap archive-img"><img src="pres_23.jpg" alt="Nifemi"></div>
+                <div class="leader-detail">
+                    <span class="tenure-tag">2023 - 2024</span>
+                    <h3>Adeshina Nifemi</h3>
+                    <p>Past President</p>
+                </div>
+            </div>
+
+            <div class="leader-box">
+                <div class="leader-img-wrap archive-img"><img src="pres_22.jpg" alt="Olumide"></div>
+                <div class="leader-detail">
+                    <span class="tenure-tag">2022 - 2023</span>
+                    <h3>Olumide Badeniyi</h3>
+                    <p>Past President</p>
+                </div>
+            </div>
+
+            <div class="leader-box">
+                <div class="leader-img-wrap archive-img"><img src="pres_21.jpg" alt="Rolake George"></div>
+                <div class="leader-detail">
+                    <span class="tenure-tag">2021 - 2022</span>
+                    <h3>Olushola Rolake George</h3>
+                    <p>Past President</p>
+                </div>
+            </div>
+
+            <div class="leader-box">
+                <div class="leader-img-wrap archive-img"><img src="pres_20.jpg" alt="Ifeoluwa Ali"></div>
+                <div class="leader-detail">
+                    <span class="tenure-tag">2020 - 2021</span>
+                    <h3>Ifeoluwa Ali</h3>
+                    <p>Past President</p>
+                </div>
+            </div>
+
+            <div class="leader-box">
+                <div class="leader-img-wrap archive-img"><img src="pres_18.jpg" alt="Okezie Daniel"></div>
+                <div class="leader-detail">
+                    <span class="tenure-tag">2018 - 2019</span>
+                    <h3>Okezie Daniel</h3>
+                    <p>Past President</p>
+                </div>
+            </div>
+
+        </div>
     </section>
+
+    <footer class="archive-footer-bar">
+        <p>A new legal profession anchored on Christ.</p>
+    </footer>
+
 </body>
 </html>
