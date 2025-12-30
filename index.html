@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ancient Words | CLASFON AAUA</title>
+    <title>CLASFON AAUA | A New Legal Profession Anchored on Christ</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 </head>
 <body>
@@ -18,62 +19,50 @@
                 <span class="sub-logo">AAUA CHAPTER</span>
             </div>
         </div>
-        <ul>
+        <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#services">Meetings</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#leaders">Executives</a></li>
-            <li><a href="#audio">Ancient Words</a></li>
+            <li><a href="#audio">Sermons</a></li>
+            <li><a href="#resources">Books</a></li>
             <li><a href="#donate">Donate</a></li>
         </ul>
     </nav>
 
-    <section class="hero">
+    <header class="hero">
+        <div class="hero-slider">
+            <div class="slide" style="background-image: url('background1.jpg');"></div>
+            <div class="slide" style="background-image: url('background2.jpg');"></div>
+            <div class="slide" style="background-image: url('background3.jpg');"></div>
+            <div class="slide" style="background-image: url('background4.jpg');"></div>
+        </div>
         <div class="hero-text">
             <h2>CHRISTIAN LAW STUDENTS' FELLOWSHIP OF NIGERIA</h2>
             <h1>AAUA CHAPTER</h1>
             <p class="motto">"A New Legal Profession anchored on Christ"</p>
             <div class="hero-buttons">
                 <a href="#gallery" class="btn-primary">View Photos</a>
-                <a href="#audio" class="btn-secondary">Listen to Ancient Words</a>
+                <a href="#resources" class="btn-secondary">Resource Library</a>
             </div>
         </div>
-    </section>
-
-    <section id="about" class="section">
-        <div class="container">
-            <h2>About CLASFON AAUA</h2>
-            <div class="about-grid">
-                <div class="about-card">
-                    <h3>Our Mission</h3>
-                    <p>To provide a platform where law students encounter Christ and develop ethical stamina for the legal industry.</p>
-                </div>
-                <div class="about-card">
-                    <h3>Our Core Values</h3>
-                    <ul class="values-list">
-                        <li><strong>Spirituality</strong> • <strong>Academic Excellence</strong></li>
-                        <li><strong>Integrity</strong> • <strong>Brotherhood</strong></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+    </header>
 
     <section id="services" class="section bg-alt">
         <h2>Weekly Meetings</h2>
         <div class="card-container">
             <div class="card meeting-card">
-                <div class="meeting-image"><img src="monday-prayer.jpg" alt="Monday Prayer"></div>
+                <img src="monday-prayer.jpg" alt="Monday Prayer">
                 <div class="meeting-details">
-                    <div class="date-badge">MONDAY</div>
+                    <span class="date-badge">MONDAY</span>
                     <h3>Prayer Meeting</h3>
                     <p>5:00 PM - 6:00 PM</p>
                 </div>
             </div>
             <div class="card meeting-card">
-                <div class="meeting-image"><img src="friday-fellowship.jpg" alt="Friday Fellowship"></div>
+                <img src="friday-fellowship.jpg" alt="Friday Fellowship">
                 <div class="meeting-details">
-                    <div class="date-badge">FRIDAY</div>
+                    <span class="date-badge">FRIDAY</span>
                     <h3>Fellowship Service</h3>
                     <p>12:00 PM - 2:00 PM</p>
                 </div>
@@ -81,52 +70,47 @@
         </div>
     </section>
 
-    <section id="gallery" class="section">
-        <h2>Photo Gallery</h2>
-        <div class="gallery-grid">
-            <a href="photo1.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo1.jpg"></div></a>
-            <a href="photo2.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo2.jpg"></div></a>
-            <a href="photo3.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo3.jpg"></div></a>
-            <a href="photo4.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo4.jpg"></div></a>
-            <a href="photo5.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo5.jpg"></div></a>
-            <a href="photo6.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo6.jpg"></div></a>
-        </div>
-    </section>
-
-    <section id="audio" class="section bg-alt">
+    <section id="audio" class="section">
         <h2>Ancient Words</h2>
         <div class="audio-card">
             <div class="audio-info">
                 <h3>The Living Word</h3>
-                <p>Sermon Archive • Listen or Download</p>
+                <p>Latest Message Archive</p>
             </div>
             <div class="audio-controls">
                 <audio controls><source src="sermon1.mp3" type="audio/mpeg"></audio>
-                <a href="sermon1.mp3" download class="download-btn">Download</a>
+                <a href="sermon1.mp3" download class="download-btn">Download Audio</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources" class="section bg-alt">
+        <div class="container">
+            <h2>Resource Library</h2>
+            <p>Spiritual materials by Watchman Nee and other fathers of faith.</p>
+            
+            <div class="resource-grid">
+                <div class="card resource-card">
+                    <div class="book-icon">📖</div>
+                    <h3>Body of Christ Reality</h3>
+                    <p>Watchman Nee</p>
+                    <a href="body-of-christ.pdf" download class="download-btn gold">Download PDF</a>
+                </div>
+                <div class="card resource-card">
+                    <div class="book-icon">📜</div>
+                    <h3>Spiritual Authority</h3>
+                    <p>Watchman Nee</p>
+                    <a href="spiritual-authority.pdf" download class="download-btn gold">Download PDF</a>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="leaders" class="section">
-        <h2>Meet Our Executives</h2>
+        <h2>Our Executives</h2>
         <div class="card-container">
-            <div class="card profile-card"><img src="president.jpg" class="leader-img"><h3>Ajisafe Koyinsola</h3><p class="role">President</p></div>
-            <div class="card profile-card"><img src="vp.jpg" class="leader-img"><h3>Salami Princess</h3><p class="role">Vice President</p></div>
-            <div class="card profile-card"><img src="gensec.jpg" class="leader-img"><h3>Babatunde Olamide</h3><p class="role">General Secretary</p></div>
-            <div class="card profile-card"><img src="asst_gensec.jpg" class="leader-img"><h3>Ogunesan Hannah</h3><p class="role">Asst. General Secretary</p></div>
-            <div class="card profile-card"><img src="academic_sec.jpg" class="leader-img"><h3>Olajide Comfort</h3><p class="role">Academic Secretary</p></div>
-            <div class="card profile-card"><img src="prayer_sec.jpg" class="leader-img"><h3>Adesina Blessing</h3><p class="role">Prayer / Bible Study Sec</p></div>
-            <div class="card profile-card"><img src="welfare_sec.jpg" class="leader-img"><h3>Fakomogbon Praises</h3><p class="role">Welfare Secretary</p></div>
-            <div class="card profile-card"><img src="fin_sec.jpg" class="leader-img"><h3>Arotiba Adesewa</h3><p class="role">Financial Secretary</p></div>
-            <div class="card profile-card"><img src="org_sec.jpg" class="leader-img"><h3>Akinniyi Bridget</h3><p class="role">Organising Secretary</p></div>
-            <div class="card profile-card"><img src="tech_sec.jpg" class="leader-img"><h3>Adegboro Adetomiwa</h3><p class="role">Technical Secretary</p></div>
-            <div class="card profile-card"><img src="freshers_coord.jpg" class="leader-img"><h3>Paul Ibukun Daniella</h3><p class="role">Freshers Coordinator</p></div>
-            <div class="card profile-card"><img src="media_sec.jpg" class="leader-img"><h3>Akinlade Goodness</h3><p class="role">Media Secretary</p></div>
-            <div class="card profile-card"><img src="asst_media.jpg" class="leader-img"><h3>Williams Oluwatobi Peace</h3><p class="role">Asst. Media Secretary</p></div>
-            <div class="card profile-card"><img src="choir_dir.jpg" class="leader-img"><h3>Olasele Adenike</h3><p class="role">Choir Director</p></div>
-            <div class="card profile-card"><img src="asst_academic.jpg" class="leader-img"><h3>Oguniyi Beatrice D.</h3><p class="role">Asst. Academic Secretary</p></div>
-            <div class="card profile-card"><img src="asst_welfare.jpg" class="leader-img"><h3>Abraham Favour</h3><p class="role">Asst. Welfare Secretary</p></div>
-            <div class="card profile-card"><img src="asst_org.jpg" class="leader-img"><h3>Ayoola Taiwo</h3><p class="role">Asst. Organising Secretary</p></div>
+            <div class="card"><img src="president.jpg" class="leader-img"><h3>Ajisafe Koyinsola</h3><p class="role">President</p></div>
+            <div class="card"><img src="vp.jpg" class="leader-img"><h3>Salami Princess</h3><p class="role">Vice President</p></div>
         </div>
     </section>
 
@@ -142,10 +126,18 @@
     </section>
 
     <footer>
-        <p><strong>CLASFON AAUA CHAPTER</strong> &copy; 2025</p>
+        <p>CLASFON AAUA CHAPTER &copy; 2025</p>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.hero-slider').slick({
+                dots: true, infinite: true, speed: 1000, fade: true, autoplay: true, autoplaySpeed: 4000, arrows: false
+            });
+        });
+    </script>
 </body>
 </html>
