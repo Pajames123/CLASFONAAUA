@@ -1,0 +1,66 @@
+:root { --primary: #1a202c; --accent: #e67e22; --light: #f7fafc; --gold: #f1c40f; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #333; scroll-behavior: smooth; overflow-x: hidden; }
+
+/* Navigation Fixes */
+nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #fff; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo { height: 45px; width: auto; }
+.nav-links { display: flex; list-style: none; gap: 20px; }
+.nav-links a { text-decoration: none; color: var(--primary); font-weight: 600; font-size: 0.9rem; transition: color 0.3s; }
+.nav-links a:hover { color: var(--accent); }
+
+/* Static Hero Header */
+.hero { height: 90vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('background1.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: white; text-align: center; }
+.hero-text { padding: 0 20px; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); margin: 10px 0; }
+.motto { font-size: clamp(1rem, 3vw, 1.5rem); font-style: italic; color: var(--gold); margin-bottom: 25px; }
+
+/* General Sections */
+.section { padding: 80px 5%; text-align: center; }
+.bg-alt { background: var(--light); }
+.bg-gold { background: #fffcf0; border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold); }
+.container { max-width: 1100px; margin: 0 auto; }
+
+/* Meetings Card Layout */
+.card-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 40px; }
+.meeting-card { background: white; border-radius: 12px; overflow: hidden; text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.meeting-image { height: 200px; }
+.meeting-image img { width: 100%; height: 100%; object-fit: cover; }
+.meeting-details { padding: 20px; }
+.date-badge { background: var(--accent); color: white; padding: 4px 10px; border-radius: 5px; font-size: 0.75rem; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+
+/* Photo Gallery Grid */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 40px; }
+.gallery-item { height: 250px; overflow: hidden; border-radius: 10px; cursor: pointer; transition: transform 0.3s ease; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-item:hover { transform: scale(1.02); }
+
+/* Audio (Ancient Words) Styling */
+.audio-card { background: white; padding: 30px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; max-width: 750px; margin: 0 auto; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.audio-info { text-align: left; }
+.audio-controls { display: flex; align-items: center; gap: 20px; }
+.download-btn { background: var(--primary); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+
+/* Executive Profile Cards */
+.profile-card { background: white; border-radius: 15px; overflow: hidden; padding-bottom: 20px; }
+.leader-img { width: 100%; height: 250px; object-fit: cover; object-position: top; }
+.role { font-size: 0.8rem; color: var(--accent); font-weight: bold; text-transform: uppercase; margin-top: 8px; }
+
+/* Support/Donation Card */
+.bank-details-card { background: white; max-width: 450px; margin: 0 auto; padding: 40px; border: 2px solid var(--accent); border-radius: 20px; }
+.account-info { text-align: left; background: var(--light); padding: 20px; border-radius: 10px; margin-top: 20px; }
+
+/* Buttons */
+.btn-primary { background: var(--accent); color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; margin: 10px; }
+.btn-secondary { border: 2px solid white; color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; display: inline-block; }
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .nav-links { display: none; } /* Better to use a hamburger menu, but hiding for simplicity */
+    .hero { height: 70vh; }
+    .audio-card { flex-direction: column; text-align: center; gap: 20px; }
+    .audio-info { text-align: center; }
+    .audio-controls { flex-direction: column; }
+    .section { padding: 50px 5%; }
+}
