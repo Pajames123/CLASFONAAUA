@@ -8,12 +8,7 @@
     
     <title>CLASFON AAUA | A New Network of Lawyers Anchored on Christ</title>
     <meta name="description" content="Official portal of the Christian Law Students' Fellowship of Nigeria (CLASFON), Adekunle Ajasin University Chapter. Raising priest-advocates for the Temple of Justice.">
-    <meta name="keywords" content="CLASFON, AAUA, Law Students, Christian Lawyers Nigeria, Akungba, Ajisafe Koyinsola">
     
-    <meta property="og:title" content="CLASFON AAUA - A legal profession anchored on Christ">
-    <meta property="og:description" content="Raising a New Network of Lawyers. Join our fellowship and explore our resources.">
-    <meta property="og:image" content="logo.png">
-
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -50,17 +45,18 @@
     </nav>
 
     <header class="hero">
+        <div class="hero-reveal-overlay"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Established Upon <br>The <span class="accent">Advocate.</span></h1>
-            <p class="hero-subtitle">A legal profession anchored on Christ.</p>
+            <h1 class="hero-title reveal-text">Established Upon <br>The <span class="accent">Advocate.</span></h1>
+            <p class="hero-subtitle reveal-text-delay">A legal profession anchored on Christ.</p>
         </div>
     </header>
 
     <section id="president-message" class="section-padding">
         <div class="container doc-layout">
             <div class="doc-sidebar">
-                <div class="portrait-container"><img src="president.jpg" alt="President Ajisafe Koyinsola"></div>
+                <div class="portrait-container"><img src="president.jpg" alt="President"></div>
                 <div class="portrait-caption">
                     <h3>Ajisafe Koyinsola</h3>
                     <p>President, 2025/2026 Session</p>
@@ -73,7 +69,6 @@
                     <p class="salutation">Shalom to you in the precious name of our Lord Jesus Christ.</p>
                     <p>It is with a heart full of gratitude and divine purpose that I welcome you to the official digital portal of the Christian Law Students’ Fellowship of Nigeria (CLASFON), Adekunle Ajasin University Chapter.</p>
                     <p>At CLASFON AAUA, we believe that the legal profession is not merely a career path or a means of livelihood; it is a high calling and a sacred ministry. We are a generation of students who have recognized that the "Temple of Justice" requires ministers who are not only learned in the laws of the land but are also governed by the laws of the Kingdom of God. Our mandate is clear: to raise a <strong>"New Network of Lawyers"</strong>—men and women who will stand as pillars of integrity in a world where the lines of justice are often blurred.</p>
-                    <p>As law students in a rigorous academic environment like AAUA, it is easy to become overwhelmed by the weight of statutes, cases, and examinations. However, CLASFON exists to remind you that you are first a citizen of Zion before you are a student of the Law. We provide a sanctuary where your spirit is nourished even as your intellect is sharpened. We believe that Academic Excellence is a form of worship, and we strive to represent Christ by being at the forefront of our classes, law clinics, and moot court competitions.</p>
                     <p>Our fellowship is a family. It is a place where we "iron sharpeneth iron," supporting one another through the spiritual battles of campus life and the intellectual demands of the Faculty of Law. Here, we don’t just study for LL.B; we prepare for a lifetime of advocacy for the voiceless, following the footsteps of the Greatest Advocate, Jesus Christ. Let us build together, pray together, and study together until Christ is formed in us and reflected in our legal system. Welcome to the Family. Welcome to the New Network.</p>
                     <div class="signature">
                         <p>In His Vineyard,</p>
@@ -85,27 +80,7 @@
         </div>
     </section>
 
-    <section id="resources" class="section-padding bg-alt">
-        <div class="container">
-            <h2 class="section-title text-center">Library & Audio Archive</h2>
-            <div class="res-layout">
-                <div class="res-category">
-                    <h3>Legal & Spiritual Texts</h3>
-                    <div class="res-link"><span>Body of Christ Reality</span> <a href="body-of-christ.pdf" download>PDF</a></div>
-                    <div class="res-link"><span>Spiritual Authority</span> <a href="spiritual-authority.pdf" download>PDF</a></div>
-                </div>
-                <div class="res-category">
-                    <h3>Recorded Sermons</h3>
-                    <div class="res-link">
-                        <span>Ancient Words (Audio)</span>
-                        <audio controls class="mini-audio"><source src="sermon1.mp3"></audio>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="leaders" class="section-padding">
+    <section id="leaders" class="section-padding bg-alt">
         <div class="container text-center">
             <h2 class="section-title">Executive Council 2025/2026</h2>
             <div class="exec-grid">
@@ -144,16 +119,18 @@
                     <a href="https://chat.whatsapp.com/JLeweffpwNmKOwpUu8oZlB" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
+
             <div class="contact-card prayer-box">
                 <h3 class="gold-text">Prayer Altar</h3>
                 <form action="https://formspree.io/f/mojqoajk" method="POST" class="prayer-form">
                     <input type="email" name="email" placeholder="Email Address" required>
-                    <textarea name="message" placeholder="Your Prayer Petition..." required></textarea>
+                    <textarea name="petition" placeholder="Your Prayer Request..." required></textarea>
                     <button type="submit" class="submit-btn">Submit Petition</button>
                 </form>
             </div>
+
             <div class="contact-card bank-box">
-                <h3 class="gold-text">Partnership</h3>
+                <h3 class="gold-text">Financial Partnership</h3>
                 <div class="bank-details">
                     <div class="bank-row"><span>BANK:</span> <strong>Access Bank</strong></div>
                     <div class="bank-row"><span>ACC:</span> <strong id="acc-num">0051649056</strong></div>
@@ -175,7 +152,7 @@
     <script>
         function copyAcc() {
             navigator.clipboard.writeText("0051649056");
-            alert("Account details copied.");
+            alert("Account details copied to clipboard.");
         }
         function updateTimer() {
             const now = new Date();
