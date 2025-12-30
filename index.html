@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLASFON AAUA | A new legal profession anchored on Christ</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 </head>
@@ -13,26 +13,22 @@
 
     <div class="news-ticker">
         <div class="ticker-content">
-            <span>Welcome to CLASFON AAUA - A new legal profession anchored on Christ!</span>
-            <span>Fellowship Service: Every Friday, 12:00 PM at Law LT B1.</span>
-            <span>Monday Prayer Meeting: 5:00 PM at the Faculty Law Lawn.</span>
-            <span>Official Email: clasfonaaua24@gmail.com</span>
+            <span>Welcome to CLASFON AAUA Chapter - A new legal profession anchored on Christ!</span>
+            <span>Fellowship Service: Fridays, 12:00 PM at Law LT B1.</span>
+            <span>Monday Prayer Meeting: 5:00 PM at Faculty Law Lawn.</span>
         </div>
     </div>
 
     <nav class="glass-nav">
         <div class="nav-container">
             <div class="logo">
-                <img src="logo.png" alt="CLASFON Logo" class="nav-logo">
-                <div class="logo-text">
-                    <span class="main-logo">CLASFON</span>
-                    <span class="sub-logo">AAUA CHAPTER</span>
-                </div>
+                <img src="logo.png" alt="Logo" class="nav-logo">
+                <div class="logo-text"><span class="main-logo">CLASFON</span><span class="sub-logo">AAUA CHAPTER</span></div>
             </div>
             <ul class="nav-links">
-                <li><a href="#president-message">Welcome</a></li>
-                <li><a href="hall-of-fame.html" style="color:var(--gold);">Hall of Fame</a></li>
-                <li><a href="#leaders">Leadership</a></li>
+                <li><a href="javascript:void(0)" onclick="openDoc('about-us-full')">About Us</a></li>
+                <li><a href="hall-of-fame.html">Hall of Fame</a></li>
+                <li><a href="#leaders">Executives</a></li>
                 <li><a href="#prayer-request">Prayer Request</a></li>
                 <li><a href="https://chat.whatsapp.com/JLeweffpwNmKOwpUu8oZlB" target="_blank" class="btn-nav">Join Us</a></li>
             </ul>
@@ -44,139 +40,103 @@
         <div class="hero-content" data-aos="fade-up">
             <span class="hero-tag">ESTABLISHED UPON CHRIST</span>
             <h1>A new legal profession <br> <span class="accent-text">anchored on Christ.</span></h1>
-            <p>Advancing the Kingdom of God through the Temple of Justice at AAUA.</p>
+            <p>Raising Priest-Advocates at Adekunle Ajasin University.</p>
             <div class="hero-cta">
-                <a href="#prayer-request" class="btn-gold">Submit Prayer Request</a>
-                <a href="#resources" class="btn-outline">Resource Library</a>
+                <a href="#prayer-request" class="btn-gold">Prayer Request</a>
+                <a href="#resources" class="btn-outline">Library</a>
             </div>
         </div>
     </header>
 
     <section id="president-message" class="section-padding">
-        <div class="container">
-            <div class="president-grid">
-                <div class="pres-image" data-aos="fade-right">
-                    <div class="image-frame">
-                        <img src="president.jpg" alt="President Ajisafe Koyinsola">
-                    </div>
+        <div class="container president-grid">
+            <div class="pres-image" data-aos="fade-right">
+                <div class="image-frame"><img src="president.jpg" alt="President"></div>
+            </div>
+            <div class="pres-text" data-aos="fade-left">
+                <span class="section-label">Office of the President</span>
+                <h2>A Message from the President</h2>
+                <div class="message-body">
+                    <p>Shalom. At CLASFON AAUA, we believe the legal profession is a sacred ministry. We are raising a <strong>"New Network of Lawyers"</strong> governed by the laws of Zion.</p>
                 </div>
-                <div class="pres-text" data-aos="fade-left">
-                    <span class="section-label">Office of the President</span>
-                    <h2>A Message from the President</h2>
-                    <p class="lead">Shalom in the precious name of our Lord Jesus Christ.</p>
-                    <div class="message-body">
-                        <p>At CLASFON AAUA, we believe that the legal profession is not merely a career path; it is a high calling and a sacred ministry. We are a generation of students who have recognized that the "Temple of Justice" requires ministers who are governed by the laws of the Kingdom of God.</p>
-                        <p>Our mandate is clear: to raise a <strong>"New Network of Lawyers"</strong>—men and women who will stand as pillars of integrity. CLASFON exists to remind you that you are first a citizen of Zion before you are a student of the Law.</p>
-                    </div>
-                    <div class="pres-signature">
-                        <p class="name">Ajisafe Koyinsola</p>
-                        <p class="title">President, CLASFON AAUA 2025/2026</p>
-                    </div>
-                </div>
+                <p class="name"><strong>Ajisafe Koyinsola</strong></p>
+                <p class="title">President, 2025/2026 Session</p>
             </div>
         </div>
     </section>
 
-    <section id="prayer-request" class="section-padding bg-navy">
-        <div class="container narrow text-center">
-            <span class="section-label">Intercession</span>
-            <h2>Submit a Prayer Request</h2>
-            <form action="https://formspree.io/f/clasfonaaua24@gmail.com" method="POST" class="prayer-form glass-card" data-aos="zoom-in">
-                <input type="email" name="email" placeholder="Your Email Address" class="form-input" required>
-                <textarea name="request" placeholder="Your Prayer Request..." class="form-input textarea" required></textarea>
-                <button type="submit" class="btn-gold full-width">Send to the Secret Place</button>
-            </form>
+    <section id="leaders" class="section-padding bg-navy">
+        <div class="container text-center">
+            <span class="section-label">Leadership</span>
+            <h2>Executive Council</h2>
+            <div class="exec-grid">
+                <div class="exec-card"><div class="exec-img"><img src="president.jpg"></div><h3>Ajisafe Koyinsola</h3><p>President</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="vp.jpg"></div><h3>Salami Princess</h3><p>Vice President</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="gensec.jpg"></div><h3>Babatunde Olamide</h3><p>General Secretary</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="asst_gensec.jpg"></div><h3>Ogunesan Hannah</h3><p>Asst. Gen Sec</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="academic_sec.jpg"></div><h3>Olajide Comfort</h3><p>Academic Sec</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="prayer_sec.jpg"></div><h3>Adesina Blessing</h3><p>Prayer Sec</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="welfare_sec.jpg"></div><h3>Fakomogbon Praises</h3><p>Welfare Sec</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="fin_sec.jpg"></div><h3>Arotiba Adesewa</h3><p>Financial Sec</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="org_sec.jpg"></div><h3>Akinniyi Bridget</h3><p>Organising Sec</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="tech_sec.jpg"></div><h3>Adegboro Adetomiwa</h3><p>Technical Sec</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="freshers_coord.jpg"></div><h3>Paul Ibukun Daniella</h3><p>Freshers Coord</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="media_sec.jpg"></div><h3>Akinlade Goodness</h3><p>Media Sec</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="asst_media.jpg"></div><h3>Williams Oluwatobi Peace</h3><p>Asst. Media Sec</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="choir_dir.jpg"></div><h3>Olasele Adenike</h3><p>Choir Director</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="asst_academic.jpg"></div><h3>Oguniyi Beatrice D.</h3><p>Asst. Academic Sec</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="asst_welfare.jpg"></div><h3>Abraham Favour</h3><p>Asst. Welfare Sec</p></div>
+                <div class="exec-card"><div class="exec-img"><img src="asst_org.jpg"></div><h3>Ayoola Taiwo</h3><p>Asst. Org Sec</p></div>
+            </div>
         </div>
     </section>
 
-    <section id="leaders" class="section-padding">
-        <div class="container text-center">
-            <span class="section-label">Executive Council</span>
-            <h2 class="mb-50">Stewards of the Vision</h2>
-            <div class="exec-grid">
-                <div class="exec-card" data-aos="fade-up">
-                    <div class="exec-img"><img src="president.jpg"></div>
-                    <h3>Ajisafe Koyinsola</h3>
-                    <p>President</p>
-                </div>
-                <div class="exec-card" data-aos="fade-up">
-                    <div class="exec-img"><img src="vp.jpg"></div>
-                    <h3>Salami Princess</h3>
-                    <p>Vice President</p>
-                </div>
-                <div class="exec-card" data-aos="fade-up">
-                    <div class="exec-img"><img src="gensec.jpg"></div>
-                    <h3>Babatunde Olamide</h3>
-                    <p>General Secretary</p>
-                </div>
-                </div>
+    <section id="prayer-request" class="section-padding">
+        <div class="container narrow text-center">
+            <span class="section-label">Altar of Intercession</span>
+            <h2>Submit Prayer Request</h2>
+            <form action="https://formspree.io/f/clasfonaaua24@gmail.com" method="POST" class="glass-card">
+                <input type="email" name="email" placeholder="Your Email" required class="form-input">
+                <textarea name="request" placeholder="Your Burden..." required class="form-input textarea"></textarea>
+                <button type="submit" class="btn-gold" style="width:100%">Send Request</button>
+            </form>
         </div>
     </section>
 
     <section id="resources" class="section-padding bg-navy">
         <div class="container text-center">
-            <span class="section-label">Resource Library</span>
-            <h2>The Library</h2>
+            <span class="section-label">Library</span>
+            <h2>Resources</h2>
             <div class="book-grid">
-                <div class="book-card" data-aos="fade-up">
-                    <div class="book-icon"><i class="fa-solid fa-book-open"></i></div>
-                    <h3>Body of Christ Reality</h3>
-                    <p>Watchman Nee</p>
-                    <a href="body-of-christ.pdf" download class="link-btn">Download PDF</a>
-                </div>
-                <div class="book-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="book-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h3>Spiritual Authority</h3>
-                    <p>Watchman Nee</p>
-                    <a href="spiritual-authority.pdf" download class="link-btn">Download PDF</a>
-                </div>
+                <div class="book-card"><h3>Body of Christ Reality</h3><p>Watchman Nee</p><a href="body-of-christ.pdf" download class="link-btn">Download PDF</a></div>
+                <div class="book-card"><h3>Spiritual Authority</h3><p>Watchman Nee</p><a href="spiritual-authority.pdf" download class="link-btn">Download PDF</a></div>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container footer-grid">
-            <div class="footer-brand">
-                <img src="logo.png" alt="Logo" height="50">
-                <p>"A new legal profession anchored on Christ"</p>
-                <div class="social-icons">
-                    <a href="https://instagram.com/CLASFONAAUA" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://chat.whatsapp.com/JLeweffpwNmKOwpUu8oZlB" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="mailto:clasfonaaua24@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-                </div>
-            </div>
+            <div class="footer-brand"><img src="logo.png" height="50"><p>clasfonaaua24@gmail.com</p></div>
             <div class="footer-links">
-                <h4>Fellowship</h4>
+                <h4>Connect</h4>
                 <a href="hall-of-fame.html">Hall of Fame</a>
                 <a href="javascript:void(0)" onclick="openDoc('privacy')">Privacy Policy</a>
             </div>
         </div>
-        <div class="footer-bottom text-center">
-            <p>&copy; 2025 CLASFON AAUA Chapter. clasfonaaua24@gmail.com</p>
-        </div>
     </footer>
 
-    <div id="doc-modal" class="modal-overlay">
-        <div class="modal-box">
-            <span class="close-modal" onclick="closeDoc()">&times;</span>
-            <div id="doc-body" class="rich-text"></div>
-        </div>
-    </div>
+    <div id="doc-modal" class="modal-overlay"><div class="modal-box"><span class="close-modal" onclick="closeDoc()">&times; Close</span><div id="doc-body" class="rich-text"></div></div></div>
+    
     <div id="doc-data" style="display:none;">
-        <div id="privacy">
-            <h2>Privacy Policy</h2>
-            <p>Your data and prayer requests are handled with sacred confidentiality by the fellowship administration.</p>
-        </div>
+        <div id="about-us-full"><h2>Our Identity</h2><p>We are Priest-Advocates at AAUA Faculty of Law, anchored on Christ.</p></div>
+        <div id="privacy"><h2>Privacy</h2><p>Data is handled with professional confidentiality.</p></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
-        function openDoc(id) {
-            document.getElementById('doc-body').innerHTML = document.getElementById(id).innerHTML;
-            document.getElementById('doc-modal').style.display = 'flex';
-        }
-        function closeDoc() { document.getElementById('doc-modal').style.display = 'none'; }
+        AOS.init();
+        function openDoc(id) { document.getElementById('doc-body').innerHTML = document.getElementById(id).innerHTML; document.getElementById('doc-modal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeDoc() { document.getElementById('doc-modal').style.display = 'none'; document.body.style.overflow = 'auto'; }
     </script>
 </body>
 </html>
