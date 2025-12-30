@@ -40,47 +40,34 @@ body { background: var(--midnight); color: var(--bone-white); font-family: 'Inte
 .nav-cta-fame { border: 1px solid var(--brushed-gold); padding: 8px 18px; color: var(--brushed-gold) !important; text-decoration: none; }
 .nav-cta-prayer { background: var(--brushed-gold); color: var(--midnight) !important; padding: 8px 18px; font-weight: 700; text-decoration: none; }
 
-/* HERO (BACKGROUND1.JPG MAINTAINED) */
+/* HERO (BACKGROUND1.JPG INTEGRATED) */
 .hero { height: 60vh; background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('background1.jpg') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; }
 .hero-title { font-family: 'Cinzel'; font-size: clamp(2rem, 5vw, 3.5rem); }
 .accent { color: var(--brushed-gold); font-style: italic; }
 
-/* EXECUTIVE GRID BUG FIX: REDUCED SIZE AND UNIFORMITY */
-
+/* EXECUTIVE GRID FIX */
 .exec-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
     gap: 25px; 
     margin-top: 40px; 
 }
-
 .exec-card { 
     background: var(--deep-slate); 
     padding: 15px; 
     border: 1px solid rgba(184, 148, 69, 0.1); 
     text-align: center; 
-    transition: 0.3s ease;
 }
-
 .exec-img { 
-    height: 180px; /* Reduced from 240px to prevent "too big" bug */
+    height: 180px; 
     width: 100%;
     overflow: hidden; 
     margin-bottom: 12px; 
     border: 1px solid var(--brushed-gold); 
 }
+.exec-img img { width: 100%; height: 100%; object-fit: cover; }
 
-.exec-img img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    filter: none; /* Maintains natural color as requested previously */
-}
-
-.exec-card h3 { font-size: 0.95rem; font-family: 'Cinzel'; color: var(--bone-white); margin-top: 5px; }
-.exec-card p { font-size: 0.75rem; color: var(--brushed-gold); text-transform: uppercase; }
-
-/* ARCHAIC HALL OF FAME MAINTAINED */
+/* ARCHAIC HALL OF FAME */
 .fame-bg { background: radial-gradient(circle at center, #1a150a 0%, #050505 100%); min-height: 100vh; }
 .fame-header { text-align: center; padding: 100px 20px 40px; }
 .fame-main-title { font-family: 'Cinzel'; font-size: clamp(2.5rem, 8vw, 4rem); color: var(--brushed-gold); }
@@ -93,23 +80,19 @@ body { background: var(--midnight); color: var(--bone-white); font-family: 'Inte
 .hero-card:hover { transform: translateY(-10px); border-color: var(--brushed-gold); }
 .hero-card:hover .hero-image-wrap img { filter: sepia(0.8) contrast(1.1); }
 
-/* CONTENT LAYOUT */
+/* CONTENT & CONTACT */
 .section-padding { padding: 100px 0; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; }
 .bg-alt { background: #0c0c0c; }
 .bg-dark { background: #040404; }
-.pb-150 { padding-bottom: 150px; }
 .doc-layout { display: grid; grid-template-columns: 320px 1fr; gap: 80px; }
 .portrait-container img { width: 100%; border: 1px solid var(--brushed-gold); padding: 10px; }
 .message-text { font-family: 'Libre Baskerville', serif; text-align: justify; color: #ccc; line-height: 1.8; }
-
 .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-.contact-card { background: rgba(255,255,255,0.02); padding: 30px; border: 1px solid rgba(184, 148, 69, 0.2); }
-.social-icons-large a { font-size: 1.8rem; color: var(--brushed-gold); transition: 0.3s; margin-right: 15px; }
 .prayer-form input, .prayer-form textarea { width: 100%; background: #000; border: 1px solid #333; padding: 12px; color: #fff; margin-bottom: 12px; font-family: inherit; }
 .submit-btn, .copy-btn { background: var(--brushed-gold); border: none; padding: 12px; font-weight: 700; cursor: pointer; width: 100%; }
 
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
     .doc-layout, .nav-menu, .contact-grid { grid-template-columns: 1fr; }
     .bottom-timer-bar { flex-direction: column; text-align: center; gap: 5px; padding: 15px; font-size: 0.75rem;}
 }
