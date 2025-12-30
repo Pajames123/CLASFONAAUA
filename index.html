@@ -6,7 +6,6 @@
     <title>CLASFON AAUA | A New Legal Profession Anchored on Christ</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 </head>
 <body>
@@ -31,12 +30,6 @@
     </nav>
 
     <header class="hero">
-        <div class="hero-slider">
-            <div class="slide" style="background-image: url('background1.jpg');"></div>
-            <div class="slide" style="background-image: url('background2.jpg');"></div>
-            <div class="slide" style="background-image: url('background3.jpg');"></div>
-            <div class="slide" style="background-image: url('background4.jpg');"></div>
-        </div>
         <div class="hero-text">
             <h2>CHRISTIAN LAW STUDENTS' FELLOWSHIP OF NIGERIA</h2>
             <h1>AAUA CHAPTER</h1>
@@ -47,6 +40,22 @@
             </div>
         </div>
     </header>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2>About Us</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3>Our Mission</h3>
+                    <p>To provide a platform where law students encounter Christ and develop ethical stamina for the legal industry.</p>
+                </div>
+                <div class="card">
+                    <h3>Our Core Values</h3>
+                    <p>Spirituality • Academic Excellence • Integrity • Brotherhood</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="services" class="section bg-alt">
         <h2>Weekly Meetings</h2>
@@ -70,25 +79,36 @@
         </div>
     </section>
 
-    <section id="audio" class="section">
+    <section id="gallery" class="section">
+        <h2>Photo Gallery</h2>
+        <div class="gallery-grid">
+            <a href="photo1.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo1.jpg" alt="Gallery"></div></a>
+            <a href="photo2.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo2.jpg" alt="Gallery"></div></a>
+            <a href="photo3.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo3.jpg" alt="Gallery"></div></a>
+            <a href="photo4.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo4.jpg" alt="Gallery"></div></a>
+            <a href="photo5.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo5.jpg" alt="Gallery"></div></a>
+            <a href="photo6.jpg" data-lightbox="clasfon"><div class="gallery-item"><img src="photo6.jpg" alt="Gallery"></div></a>
+        </div>
+    </section>
+
+    <section id="audio" class="section bg-alt">
         <h2>Ancient Words</h2>
         <div class="audio-card">
             <div class="audio-info">
                 <h3>The Living Word</h3>
-                <p>Latest Message Archive</p>
+                <p>Latest Sermon Archive</p>
             </div>
             <div class="audio-controls">
                 <audio controls><source src="sermon1.mp3" type="audio/mpeg"></audio>
-                <a href="sermon1.mp3" download class="download-btn">Download Audio</a>
+                <a href="sermon1.mp3" download class="download-btn gold">Download Audio</a>
             </div>
         </div>
     </section>
 
-    <section id="resources" class="section bg-alt">
+    <section id="resources" class="section">
         <div class="container">
             <h2>Resource Library</h2>
-            <p>Spiritual materials by Watchman Nee and other fathers of faith.</p>
-            
+            <p>Download spiritual materials to build your faith.</p>
             <div class="resource-grid">
                 <div class="card resource-card">
                     <div class="book-icon">📖</div>
@@ -106,12 +126,12 @@
         </div>
     </section>
 
-    <section id="leaders" class="section">
+    <section id="leaders" class="section bg-alt">
         <h2>Our Executives</h2>
         <div class="card-container">
-            <div class="card"><img src="president.jpg" class="leader-img"><h3>Ajisafe Koyinsola</h3><p class="role">President</p></div>
-            <div class="card"><img src="vp.jpg" class="leader-img"><h3>Salami Princess</h3><p class="role">Vice President</p></div>
-        </div>
+            <div class="card"><img src="president.jpg" class="leader-img" alt="President"><h3>Ajisafe Koyinsola</h3><p class="role">President</p></div>
+            <div class="card"><img src="vp.jpg" class="leader-img" alt="VP"><h3>Salami Princess</h3><p class="role">Vice President</p></div>
+            </div>
     </section>
 
     <section id="donate" class="section bg-gold">
@@ -130,14 +150,6 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('.hero-slider').slick({
-                dots: true, infinite: true, speed: 1000, fade: true, autoplay: true, autoplaySpeed: 4000, arrows: false
-            });
-        });
-    </script>
 </body>
 </html>
