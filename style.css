@@ -15,7 +15,6 @@ body { background: var(--midnight); color: var(--bone-white); font-family: 'Inte
     position: fixed; bottom: 0; width: 100%; background: var(--brushed-gold); 
     color: var(--midnight); display: flex; justify-content: space-around; 
     align-items: center; padding: 12px 0; font-weight: 800; z-index: 3000;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
 }
 .timer-values { font-family: 'Cinzel', serif; font-size: 1.1rem; }
 
@@ -40,14 +39,9 @@ body { background: var(--midnight); color: var(--bone-white); font-family: 'Inte
 .hero-title { font-family: 'Cinzel'; font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 10px; }
 .accent { color: var(--brushed-gold); font-style: italic; }
 
-/* LAYOUT */
+/* LAYOUT & MESSAGE */
 .section-padding { padding: 100px 0; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 30px; }
-.bg-alt { background: #0c0c0c; }
-.bg-dark { background: #040404; }
-.pb-150 { padding-bottom: 150px; }
-
-/* DOC LAYOUT */
 .doc-layout { display: grid; grid-template-columns: 320px 1fr; gap: 80px; }
 .portrait-container img { width: 100%; border: 1px solid var(--brushed-gold); padding: 10px; }
 .message-text { font-family: 'Libre Baskerville', serif; text-align: justify; color: #ccc; font-size: 1rem; line-height: 1.8; }
@@ -58,8 +52,7 @@ body { background: var(--midnight); color: var(--bone-white); font-family: 'Inte
 .res-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 40px; }
 .res-category { border: 1px solid rgba(184, 148, 69, 0.2); padding: 30px; background: rgba(255,255,255,0.02); }
 .res-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(184, 148, 69, 0.1); }
-.res-link a { color: var(--brushed-gold); text-decoration: none; font-weight: 700; font-size: 0.8rem; border: 1px solid var(--brushed-gold); padding: 5px 12px; transition: 0.3s; }
-.res-link a:hover { background: var(--brushed-gold); color: var(--midnight); }
+.res-link a { color: var(--brushed-gold); text-decoration: none; font-weight: 700; font-size: 0.8rem; border: 1px solid var(--brushed-gold); padding: 5px 12px; }
 .mini-audio { width: 100%; height: 30px; filter: invert(1); margin-top: 10px; }
 
 /* EXECUTIVES (NATURAL COLOR) */
@@ -86,14 +79,11 @@ body { background: var(--midnight); color: var(--bone-white); font-family: 'Inte
 .contact-card { background: rgba(255,255,255,0.02); padding: 30px; border: 1px solid rgba(184, 148, 69, 0.2); }
 .social-icons-large { display: flex; gap: 20px; margin-top: 20px; }
 .social-icons-large a { font-size: 1.8rem; color: var(--brushed-gold); transition: 0.3s; }
-.social-icons-large a:hover { transform: scale(1.1); }
 .prayer-form input, .prayer-form textarea { width: 100%; background: #000; border: 1px solid #333; padding: 12px; color: #fff; margin-bottom: 12px; font-family: inherit; }
-.submit-btn, .copy-btn { background: var(--brushed-gold); border: none; padding: 12px; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; }
-.submit-btn:hover, .copy-btn:hover { background: var(--bone-white); }
+.submit-btn, .copy-btn { background: var(--brushed-gold); border: none; padding: 12px; font-weight: 700; cursor: pointer; width: 100%; }
 .bank-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.85rem; }
 
 @media (max-width: 900px) {
-    .doc-layout { grid-template-columns: 1fr; }
-    .nav-menu { display: none; }
-    .bottom-timer-bar { font-size: 0.7rem; flex-direction: column; height: auto; padding: 10px; gap: 5px;}
+    .doc-layout, .nav-menu, .contact-grid, .res-layout { grid-template-columns: 1fr; }
+    .bottom-timer-bar { flex-direction: column; text-align: center; gap: 5px; padding: 15px; font-size: 0.75rem;}
 }
