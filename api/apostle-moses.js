@@ -4,52 +4,35 @@ export default async function handler(req, res) {
     const { question } = req.body;
     const API_KEY = process.env.GEMINI_API_KEY;
 
-    if (!API_KEY) {
-        return res.status(500).json({ answer: "Apostle Moses: The key to the sanctuary is missing (API Key Not Set)." });
-    }
-
     try {
-        // Updated to the most stable 2026 endpoint and model string
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+        // BUG FIX: Updated to gemini-2.0-flash (stable) for 2026 support
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
             method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{ 
                     parts: [{ 
-                        text: `You are Apostle Moses, a Digital Theological Assistant for CLASFON AAUA. 
-                        Give a scriptural and reverent response to this: ${question}` 
+                        text: `System Instruction: You are Apostle Moses, the Digital Theological Assistant for CLASFON AAUA. Respond with scripture and a reverent tone. 
+                        
+                        User Question: ${question}` 
                     }] 
-                }],
-                generationConfig: {
-                    temperature: 0.7,
-                    topK: 40,
-                    topP: 0.95,
-                    maxOutputTokens: 1024,
-                }
+                }]
             })
         });
 
         const data = await response.json();
 
-        // Check for specific API errors
         if (data.error) {
-            console.error("Gemini API Error:", data.error.message);
-            return res.status(500).json({ 
-                answer: "The sanctuary is undergoing maintenance. (Error: " + data.error.message + ")" 
-            });
+            return res.status(500).json({ answer: "Sanctuary Error: " + data.error.message });
         }
 
         if (data.candidates && data.candidates[0].content) {
-            const mosesAnswer = data.candidates[0].content.parts[0].text;
-            return res.status(200).json({ answer: mosesAnswer });
-        } else {
-            return res.status(500).json({ answer: "The oracle is currently silent. Please try again." });
+            return res.status(200).json({ answer: data.candidates[0].content.parts[0].text });
         }
+        
+        return res.status(500).json({ answer: "The oracle is silent. Please try again." });
 
     } catch (error) {
-        console.error("Server-side Error:", error);
-        return res.status(500).json({ answer: "Shalom. The connection to the sanctuary was interrupted." });
+        return res.status(500).json({ answer: "Shalom. The connection was interrupted." });
     }
 }
