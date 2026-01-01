@@ -9,30 +9,36 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Updated model name to 'gemini-pro' for better v1beta compatibility
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
+        // Switching to the Stable v1 API and the 1.5 Flash Model
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                contents: [{ parts: [{ text: "You are Apostle Moses, a biblical expert for CLASFON AAUA. Answer with scripture: " + question }] }]
+                contents: [{ 
+                    parts: [{ 
+                        text: "You are Apostle Moses, a biblical expert for CLASFON AAUA. Answer the following question with scripture and a reverent tone: " + question 
+                    }] 
+                }]
             })
         });
 
         const data = await response.json();
 
+        // Error Handling for Google API
         if (data.error) {
+            console.error("Gemini Error:", data.error.message);
             return res.status(500).json({ answer: "The sanctuary is under maintenance. Error: " + data.error.message });
         }
 
-        // Gemini-pro response structure check
+        // Response check
         if (data.candidates && data.candidates[0].content) {
             const mosesAnswer = data.candidates[0].content.parts[0].text;
             return res.status(200).json({ answer: mosesAnswer });
         } else {
-            return res.status(500).json({ answer: "Apostle Moses is in deep meditation. Please try again." });
+            return res.status(500).json({ answer: "Apostle Moses is currently in a season of silence. Please try again." });
         }
 
     } catch (error) {
-        return res.status(500).json({ answer: "Shalom. The connection failed. Please redeploy the portal." });
+        return res.status(500).json({ answer: "Shalom. The connection to the sanctuary was interrupted." });
     }
 }
