@@ -2,168 +2,133 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Arena | CLASFON AAUA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Marketplace Arena | CLASFON AAUA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="market-theme">
 
-    <div id="diff-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:5000; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
-        <h2 class="hub-title" style="font-size: 1.8rem;">Choose Your Spiritual Rank</h2>
-        <p style="color: #888; margin-bottom: 30px; font-size: 0.9rem;">The Scribe provides scrolls based on your growth.</p>
-        <div style="display:flex; gap:15px; flex-wrap: wrap; justify-content: center; padding: 0 20px;">
-            <button class="rank-btn" onclick="selectRank('Novice', 10)">NOVICE (10 XP)</button>
-            <button class="rank-btn" onclick="selectRank('Disciple', 25)">DISCIPLE (25 XP)</button>
-            <button class="rank-btn" onclick="selectRank('Apostle', 60)">APOSTLE (60 XP)</button>
+    <div id="diff-overlay" style="display:none;">
+        <h2 class="hub-title" style="font-size: 1.8rem;">Select Spiritual Rank</h2>
+        <div class="rank-flex">
+            <button class="rank-btn" onclick="initGame('Novice', 10)">NOVICE (10 XP)</button>
+            <button class="rank-btn" onclick="initGame('Disciple', 25)">DISCIPLE (25 XP)</button>
+            <button class="rank-btn" onclick="initGame('Apostle', 60)">APOSTLE (60 XP)</button>
         </div>
-        <p onclick="document.getElementById('diff-overlay').style.display='none'" style="margin-top:40px; color:var(--gold); cursor:pointer; text-transform:uppercase; font-size:0.7rem; letter-spacing:2px;">← Return to Marketplace</p>
+        <p style="margin-top:20px; color:var(--gold); cursor:pointer;" onclick="hideOverlay()">← Back to Marketplace</p>
     </div>
 
-    <div id="game-hub">
-        <div class="hub-header">
-            <h1 class="hub-title">The Marketplace</h1>
-            <p class="hub-subtitle">Visit a Stall to Unseal Infinite Bible Scrolls</p>
-        </div>
-        <div class="market-grid" id="hubGrid"></div>
-        
-        <div class="hub-leaderboard">
-            <h2 style="font-family:'Cinzel'; color:var(--gold); font-size:1rem; margin-bottom:15px; text-align:center;">Scroll of Honor</h2>
-            <div id="leaderboard-list" style="max-height: 200px; overflow-y: auto;">Loading witnesses...</div>
+    <div id="hub">
+        <header class="hub-header">
+            <h1 class="hub-title">Village Marketplace</h1>
+            <p class="hub-subtitle">Visit a stall to unseal the infinite scrolls</p>
+        </header>
+
+        <div class="market-grid" id="marketGrid">
+            </div>
+
+        <div class="leaderboard-card">
+            <h2 class="gold-label" style="font-family:'Cinzel'; color:var(--gold); margin-bottom:15px;">Scroll of Honor</h2>
+            <div id="leaderboard-content">Fetching the faithful witnesses...</div>
         </div>
     </div>
 
-    <div id="arena-play" style="display:none;">
+    <div id="arena" style="display:none;">
         <div class="market-hud">
-            <div class="back-to-village" onclick="exitArena()">← Leave Stall</div>
-            <div class="xp-display" id="xp-display">XP: 0</div>
+            <button onclick="exitArena()" class="back-to-village">← Leave Stall</button>
+            <div id="xp-display" class="gold-display">XP: 0</div>
         </div>
 
-        <div class="game-container"> <div id="stall-name-display" style="color:var(--gold); font-family:'Cinzel'; font-size:0.7rem; margin-bottom:15px; letter-spacing:3px; opacity:0.8;"></div>
-            <div class="scrambled-text" id="scrambled-text">---</div>
-            <div class="hint-scroll" id="hint-text">Consulting the Scribe...</div>
-            <br>
-            <input type="text" id="ansInput" class="ans-input" placeholder="TYPE THE WORD" autocomplete="off" spellcheck="false">
+        <div class="game-container">
+            <div id="stall-indicator" style="color:var(--gold); font-family:'Cinzel'; font-size:0.75rem; letter-spacing:2px; margin-bottom:15px;"></div>
+            <div id="word-display" class="scrambled-text">FETCHING...</div>
+            <div id="hint-display" class="hint-scroll">The Scribe is unrolling the parchment...</div>
+            <input type="text" id="playerInput" class="ans-input" placeholder="UNSCRAMBLE THE WORD" autocomplete="off" spellcheck="false">
         </div>
     </div>
 
     <script>
-        const stalls = [
-            { title: "Torah", icon: "📜", desc: "Foundations of the Law" },
-            { title: "Prophets", icon: "👁️", desc: "Visions and Warnings" },
-            { title: "Wisdom", icon: "💎", desc: "Psalms and Proverbs" },
-            { title: "Gospels", icon: "✝️", desc: "The Life of Jesus" },
-            { title: "Acts", icon: "🔥", desc: "The Early Church" },
-            { title: "Epistles", icon: "✉️", desc: "Apostolic Doctrine" },
-            { title: "Heroes", icon: "🛡️", desc: "Men & Women of Faith" },
-            { title: "Miracles", icon: "🌊", desc: "Signs & Wonders" },
-            { title: "Parables", icon: "🍎", desc: "Stories with Meaning" },
-            { title: "Judgment", icon: "⚖️", desc: "Divine Verdicts" }
+        const STALLS = [
+            { id: "Torah", icon: "📜" }, { id: "Gospels", icon: "✝️" },
+            { id: "Prophets", icon: "👁️" }, { id: "Acts", icon: "🔥" },
+            { id: "Wisdom", icon: "💎" }, { id: "Epistles", icon: "✉️" },
+            { id: "Heroes", icon: "🛡️" }, { id: "Miracles", icon: "🌊" },
+            { id: "Parables", icon: "🍎" }, { id: "Revelation", icon: "🎺" }
         ];
 
-        let selectedStall = "";
-        let activeWord = "";
-        let playerXP = 0;
-        let pointsPerWin = 10;
-        let availableQuestions = [];
-        let playerName = localStorage.getItem('clasfon_user');
+        let selectedStall = null, activeWord = "", playerXP = 0, xpPerWord = 0, questionQueue = [];
+        let playerName = localStorage.getItem('user');
 
-        // Build the Marketplace Grid
-        const hubGrid = document.getElementById('hubGrid');
-        stalls.forEach(s => {
-            const card = document.createElement('div');
-            card.className = 'market-stall';
-            card.innerHTML = `<span class="stall-icon">${s.icon}</span><h3>${s.title}</h3><p>${s.desc}</p>`;
-            card.onclick = () => { 
-                selectedStall = s.title; 
-                document.getElementById('diff-overlay').style.display = 'flex'; 
-            };
-            hubGrid.appendChild(card);
+        const grid = document.getElementById('marketGrid');
+        STALLS.forEach(s => {
+            const div = document.createElement('div');
+            div.className = 'market-stall';
+            div.innerHTML = `<span class="stall-icon">${s.icon}</span><h3>${s.id}</h3>`;
+            div.onclick = () => showOverlay(s.id);
+            grid.appendChild(div);
         });
 
-        // Trigger Gemini API based on selected stall and rank
-        async function selectRank(rank, xpValue) {
-            pointsPerWin = xpValue;
-            document.getElementById('diff-overlay').style.display = 'none';
-            document.getElementById('game-hub').style.display = 'none';
-            document.getElementById('arena-play').style.display = 'flex';
-            document.getElementById('scrambled-text').innerText = "CONSULTING...";
-            document.getElementById('hint-text').innerText = `Generating ${rank}-level challenges...`;
-            
+        function showOverlay(id) { selectedStall = id; document.getElementById('diff-overlay').style.display = 'flex'; }
+        function hideOverlay() { document.getElementById('diff-overlay').style.display = 'none'; }
+
+        async function initGame(rank, xp) {
+            xpPerWord = xp;
+            hideOverlay();
+            document.getElementById('hub').style.display = 'none';
+            document.getElementById('arena').style.display = 'flex';
+
             try {
                 const res = await fetch('/api/game-master', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ stallTitle: selectedStall, difficulty: rank })
                 });
-                availableQuestions = await res.json();
-                document.getElementById('stall-name-display').innerText = `${selectedStall.toUpperCase()} • ${rank.toUpperCase()}`;
-                nextRound();
-            } catch (e) {
-                alert("The Scribe is silent. Return to the Village.");
-                exitArena();
-            }
+                questionQueue = await res.json();
+                document.getElementById('stall-indicator').innerText = `${selectedStall.toUpperCase()} • ${rank.toUpperCase()}`;
+                loadRound();
+            } catch (e) { alert("The Scribe is silent. Check Gemini API settings."); exitArena(); }
         }
 
-        function nextRound() {
-            if(availableQuestions.length === 0) {
-                alert("Scroll Fully Unsealed! You have grown in spiritual stature.");
-                exitArena();
-                return;
-            }
-            const round = availableQuestions.shift(); // Remove from pool to ensure no repeats
+        function loadRound() {
+            if(questionQueue.length === 0) { alert("Scroll Fully Deciphered!"); exitArena(); return; }
+            const round = questionQueue.shift();
             activeWord = round.w.trim().toUpperCase();
-            
-            // Scramble Logic
-            const scrambled = activeWord.split('').sort(() => Math.random() - 0.5).join(' ');
-            document.getElementById('scrambled-text').innerText = scrambled;
-            document.getElementById('hint-text').innerText = round.h;
-            document.getElementById('ansInput').value = "";
-            document.getElementById('ansInput').focus();
+            document.getElementById('word-display').innerText = activeWord.split('').sort(() => Math.random() - 0.5).join(' ');
+            document.getElementById('hint-display').innerText = round.h;
+            document.getElementById('playerInput').value = "";
+            document.getElementById('playerInput').focus();
         }
 
-        document.getElementById('ansInput').addEventListener('input', async (e) => {
+        document.getElementById('playerInput').addEventListener('input', async (e) => {
             if(e.target.value.trim().toUpperCase() === activeWord) {
-                playerXP += pointsPerWin;
+                playerXP += xpPerWord;
                 document.getElementById('xp-display').innerText = `XP: ${playerXP}`;
-                
-                if (!playerName) {
-                    playerName = prompt("Victory! Enter your name for the Scroll of Honor:");
-                    if (playerName) localStorage.setItem('clasfon_user', playerName.trim());
+                if(!playerName) {
+                    playerName = prompt("Identify yourself for the Scroll of Honor:");
+                    if(playerName) localStorage.setItem('user', playerName);
                 }
-
-                // Save to Vercel KV via API
                 await fetch('/api/save-score', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ name: playerName || "Villager", score: playerXP })
                 });
-                
-                nextRound();
+                loadRound();
             }
         });
 
+        function exitArena() { location.reload(); }
+        
         async function loadLeaderboard() {
             try {
                 const res = await fetch('/api/get-scores');
                 const data = await res.json();
-                document.getElementById('leaderboard-list').innerHTML = data.map((e, i) => 
-                    `<div style="padding:8px 0; border-bottom:1px solid rgba(197,160,89,0.1); font-size:0.85rem; display:flex; justify-content:space-between;">
-                        <span>${i+1}. <strong>${e.member}</strong></span>
-                        <span style="color:var(--gold)">${e.score} XP</span>
+                document.getElementById('leaderboard-content').innerHTML = data.map((e, i) => 
+                    `<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #222;">
+                        <span>${i+1}. ${e.member}</span><span>${e.score} XP</span>
                     </div>`).join('');
-            } catch (err) {
-                document.getElementById('leaderboard-list').innerText = "The Scroll is temporarily sealed.";
-            }
+            } catch (e) { document.getElementById('leaderboard-content').innerText = "Database error."; }
         }
-
-        function exitArena() {
-            document.getElementById('game-hub').style.display = 'flex';
-            document.getElementById('arena-play').style.display = 'none';
-            loadLeaderboard();
-        }
-
-        // Initialize leaderboard on load
         loadLeaderboard();
     </script>
 </body>
