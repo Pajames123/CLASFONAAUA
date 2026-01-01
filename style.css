@@ -12,7 +12,7 @@
     --glass: rgba(10, 10, 11, 0.95); 
 }
 
-/* --- CORE RESET & SCROLLING --- */
+/* --- CORE RESET --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { 
@@ -23,7 +23,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- THE BACKGROUND FIX (Force removal of Egypt/3D remnants) --- */
+/* --- THE BACKGROUND BUG FIX (Removes A-Frame remnants) --- */
 .market-theme {
     background: radial-gradient(circle at 50% 50%, #1a120b 0%, #050505 100%) !important;
     background-color: #050505 !important;
@@ -31,14 +31,14 @@ body {
     background-attachment: fixed !important;
 }
 
-/* --- NEWS TICKER BAR --- */
+/* --- NEWS TICKER --- */
 .news-ticker-bar { 
     position: fixed; top: 0; width: 100%; height: 40px; 
     background: #000; border-bottom: 2px solid var(--gold); 
     z-index: 2000; display: flex; align-items: center; overflow: hidden; 
 }
 .ticker-content { display: flex; white-space: nowrap; animation: broadcastFlow 30s linear infinite; }
-.ticker-item { display: flex; align-items: center; padding: 0 50px; font-size: 0.75rem; font-weight: 500; }
+.ticker-item { display: flex; align-items: center; padding: 0 50px; font-size: 0.75rem; }
 .news-badge { background: #d00000; color: white; font-size: 0.6rem; font-weight: 800; padding: 2px 8px; margin-right: 15px; border-radius: 2px; }
 .news-badge.gold { background: var(--gold); color: #000; }
 @keyframes broadcastFlow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -49,52 +49,43 @@ body {
     backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
     z-index: 1000; padding: 15px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.1); 
 }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-.nav-flex { display: flex; justify-content: space-between; align-items: center; }
-.brand { display: flex; align-items: center; text-decoration: none; }
-.nav-logo { height: 50px; }
-.brand-text { display: flex; flex-direction: column; margin-left: 12px; }
+.nav-flex { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
 .logo-main { font-family: 'Cinzel'; color: var(--gold); font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; }
 .logo-sub { font-size: 0.6rem; letter-spacing: 3px; opacity: 0.8; color: white; }
 
 .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
-.nav-links a { text-decoration: none; color: white; font-size: 0.7rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; transition: 0.3s; }
+.nav-links a { text-decoration: none; color: white; font-size: 0.7rem; text-transform: uppercase; font-weight: 600; transition: 0.3s; }
 .nav-links a:hover { color: var(--gold); }
-.nav-cta { border: 1px solid var(--gold); padding: 8px 18px; color: var(--gold); border-radius: 2px; text-decoration: none; transition: 0.3s; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-.nav-cta:hover { background: var(--gold); color: #000 !important; box-shadow: 0 0 15px var(--gold-glow); }
+.nav-cta { border: 1px solid var(--gold); padding: 8px 18px; color: var(--gold); border-radius: 2px; text-decoration: none; font-size: 0.7rem; font-weight: 700; transition: 0.3s; }
+.nav-cta:hover { background: var(--gold); color: #000 !important; }
 
-/* --- CINEMATIC HERO SECTION --- */
+/* --- HERO SECTION --- */
 .hero { 
-    height: 85vh; width: 100%; display: flex; align-items: center; justify-content: center; 
+    height: 85vh; display: flex; align-items: center; justify-content: center; 
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('background1.jpg') center/cover no-repeat; 
-    position: relative; text-align: center; margin-top: -40px;
+    text-align: center; margin-top: -40px;
 }
-.hero-content { position: relative; z-index: 10; padding: 0 20px; }
 .hero-main-title { font-family: 'Cinzel'; font-size: clamp(2.5rem, 8vw, 5rem); line-height: 1.1; margin-bottom: 20px; }
 .gold-italic { color: var(--gold); font-family: 'Playfair Display', serif; font-style: italic; }
-.hero-motto { font-size: 0.8rem; letter-spacing: 6px; color: #ccc; text-transform: uppercase; margin-bottom: 40px; }
 
-.btn-gold { background: var(--gold); color: #000; padding: 15px 35px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; transition: 0.3s; display: inline-block; }
-.btn-gold:hover { background: var(--gold-bright); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
-
-/* --- VILLAGE MARKETPLACE ARENA (games.html) --- */
-#hub { padding: 80px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+/* --- VILLAGE MARKETPLACE (games.html) --- */
+.hub-header { text-align: center; padding: 60px 20px; }
 .hub-title { font-family: 'Cinzel'; color: var(--gold); font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 6px; }
-.hub-subtitle { color: #888; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; margin: 10px 0 50px; }
+.hub-subtitle { color: #888; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; }
 
 .market-grid { 
     display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-    gap: 25px; width: 100%; max-width: 1100px; margin: 0 auto;
+    gap: 25px; width: 90%; max-width: 1100px; margin: 0 auto;
 }
 .market-stall {
     background: var(--village); border: 2px solid #3d2b1f; padding: 40px 25px; text-align: center;
-    border-radius: 15px; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 15px; cursor: pointer; transition: 0.4s;
     box-shadow: 0 10px 0 #1a1107;
 }
 .market-stall:hover { border-color: var(--gold); transform: translateY(-10px); background: #3d2b1f; box-shadow: 0 5px 0 #1a1107, 0 0 30px var(--gold-glow); }
 .stall-icon { font-size: 3rem; color: var(--gold); margin-bottom: 15px; display: block; }
 
-/* --- GAMEPLAY COMPONENTS & OVERLAY --- */
+/* --- GAMEPLAY COMPONENTS --- */
 #diff-overlay {
     position: fixed; inset: 0; background: rgba(0,0,0,0.98);
     z-index: 5000; display: none; flex-direction: column; 
@@ -103,7 +94,7 @@ body {
 .rank-btn {
     background: transparent; border: 1px solid var(--gold); color: var(--gold);
     padding: 15px 35px; font-family: 'Cinzel'; cursor: pointer; transition: 0.3s;
-    font-size: 0.8rem; margin: 10px; min-width: 180px; letter-spacing: 1px;
+    font-size: 0.8rem; margin: 10px; min-width: 180px;
 }
 .rank-btn:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold-glow); }
 
@@ -113,49 +104,31 @@ body {
     max-width: 750px; width: 90%; margin: 40px auto; backdrop-filter: blur(20px);
     box-shadow: 0 40px 100px rgba(0,0,0,0.8);
 }
-.scrambled-text { font-size: clamp(2.5rem, 8vw, 4.5rem); letter-spacing: 15px; font-weight: 800; color: white; margin-bottom: 25px; text-transform: uppercase; }
+.scrambled-text { font-size: clamp(2rem, 8vw, 4rem); letter-spacing: 12px; font-weight: 800; color: white; margin-bottom: 25px; text-transform: uppercase; }
 .ans-input { 
-    width: 100%; padding: 20px; background: #000; border: 1px solid #333; 
+    width: 100%; padding: 18px; background: #000; border: 1px solid #333; 
     color: var(--gold); text-align: center; font-size: 1.8rem; outline: none; border-radius: 12px;
-    font-family: 'Montserrat'; transition: 0.3s;
 }
-.ans-input:focus { border-color: var(--gold); box-shadow: 0 0 20px var(--gold-glow); }
-.hint-scroll { color: var(--gold); font-style: italic; border-top: 1px solid #222; padding-top: 25px; display: block; margin-bottom: 20px; font-size: 1.1rem; }
+.hint-scroll { color: var(--gold); font-style: italic; border-top: 1px solid #222; padding-top: 25px; display: block; margin-bottom: 20px; }
 
-/* --- LEADERBOARD & HUD --- */
+/* --- HUD & LEADERBOARD --- */
 .market-hud { position: fixed; top: 30px; width: 90%; left: 5%; display: flex; justify-content: space-between; align-items: center; z-index: 2001; }
-.gold-display { font-family: 'Cinzel'; color: var(--gold); font-size: 1.6rem; font-weight: 800; text-shadow: 0 0 10px var(--gold-glow); }
-.leaderboard-card { width: 100%; max-width: 550px; margin: 60px auto; background: rgba(0,0,0,0.4); padding: 30px; border: 1px solid rgba(197,160,89,0.1); border-radius: 15px; }
+.gold-display { font-family: 'Cinzel'; color: var(--gold); font-size: 1.6rem; font-weight: 800; }
+.back-to-village { cursor: pointer; color: var(--gold); text-transform: uppercase; font-size: 0.75rem; border: 1px solid var(--gold); padding: 10px 20px; border-radius: 50px; background: none; }
+.leaderboard-card { width: 90%; max-width: 550px; margin: 60px auto; background: rgba(0,0,0,0.4); padding: 30px; border: 1px solid rgba(197,160,89,0.1); border-radius: 15px; }
 
 /* --- AI LECTERN (Apostle Moses) --- */
-#ai-trigger { position: fixed; bottom: 30px; right: 30px; background: var(--gold); color: #000; padding: 15px 25px; border-radius: 50px; cursor: pointer; z-index: 3000; font-weight: 800; text-transform: uppercase; font-size: 0.7rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: none; }
-#moses-lectern { position: fixed; bottom: 100px; right: 30px; width: 380px; height: 550px; background: rgba(10,10,11,0.98); border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 3000; border-radius: 15px; overflow: hidden; backdrop-filter: blur(25px); box-shadow: 0 30px 60px rgba(0,0,0,0.8); }
+#ai-trigger { position: fixed; bottom: 30px; right: 30px; background: var(--gold); color: #000; padding: 15px 25px; border-radius: 50px; cursor: pointer; z-index: 3000; font-weight: 800; text-transform: uppercase; font-size: 0.7rem; border: none; }
+#moses-lectern { position: fixed; bottom: 100px; right: 30px; width: 350px; height: 500px; background: rgba(10,10,11,0.98); border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 3000; border-radius: 15px; overflow: hidden; backdrop-filter: blur(25px); }
 .lectern-header { padding: 20px; background: #000; border-bottom: 1px solid var(--gold); display: flex; justify-content: space-between; align-items: center; color: var(--gold); font-family: 'Cinzel', serif; }
-#chat-archive { flex: 1; padding: 25px; overflow-y: auto; font-size: 0.9rem; scrollbar-width: thin; }
-.input-box { display: flex; padding: 20px; gap: 10px; background: #000; }
+#chat-archive { flex: 1; padding: 20px; overflow-y: auto; font-size: 0.9rem; }
+.input-box { display: flex; padding: 15px; gap: 10px; background: #000; }
 .input-box input { flex: 1; background: #111; border: 1px solid #222; color: #fff; padding: 12px; border-radius: 5px; outline: none; }
 
-/* --- PRESIDENTIAL & SECTION STYLES --- */
-.section-padding { padding: 100px 0; }
-.parchment-doc { background: var(--parchment); color: #1a1a1a; padding: 80px 60px; max-width: 950px; margin: 0 auto; border-top: 8px solid var(--gold); box-shadow: 0 50px 100px rgba(0,0,0,0.5); }
-.doc-h2 { font-family: 'Cinzel'; font-size: 2.2rem; color: #111; }
-.doc-main { text-align: justify; line-height: 2.2; font-family: 'Libre Baskerville', serif; font-size: 1.15rem; color: #333; }
-.first-letter { float: left; font-size: 5rem; color: var(--gold); line-height: 0.8; padding: 10px 15px 0 0; font-family: 'Cinzel'; }
-
-/* --- FOOTER --- */
-.luxury-footer { padding: 100px 0; border-top: 1px solid rgba(197, 160, 89, 0.1); background: #050505; }
-.altar-form input, .altar-form textarea { width: 100%; background: #111; border: 1px solid #333; padding: 18px; color: white; margin-bottom: 20px; font-family: 'Montserrat'; border-radius: 4px; }
-.altar-form button { background: var(--gold); color: #000; border: none; padding: 18px; width: 100%; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
-
-/* --- MOBILE RESPONSIVENESS --- */
+/* --- MOBILE --- */
 @media (max-width: 768px) {
     .nav-links { display: none; }
-    .nav-flex { padding: 0 20px; }
     .hero-main-title { font-size: 2.8rem; }
-    .hub-title { font-size: 1.8rem; }
     .market-grid { grid-template-columns: 1fr; }
-    .scrambled-text { letter-spacing: 6px; font-size: 2rem; }
-    .game-container { padding: 40px 20px; }
-    #moses-lectern { width: 92%; right: 4%; bottom: 90px; }
-    .parchment-doc { padding: 40px 25px; }
+    #moses-lectern { width: 92%; right: 4%; }
 }
