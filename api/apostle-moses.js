@@ -1,33 +1,35 @@
 export default async function handler(req, res) {
-    if (req.method !== 'POST') return res.status(405).json({ message: 'Method Not Allowed' });
-    
+    // Basic Security
+    if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
+
     const { question } = req.body;
     const API_KEY = process.env.GEMINI_API_KEY;
 
-    // The theological instruction for the AI
-    const systemInstruction = "You are Apostle Moses, the Digital Theological Assistant for CLASFON AAUA. Answer reverently with scripture.";
+    // 1. Check if Key exists in Vercel
+    if (!API_KEY) {
+        return res.status(500).json({ answer: "Apostle Moses says: The key to the sanctuary is missing (GEMINI_API_KEY not found)." });
+    }
 
     try {
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                contents: [{ parts: [{ text: `${systemInstruction}\n\nQuestion: ${question}` }] }]
+                contents: [{ parts: [{ text: "You are Apostle Moses, a biblical expert for CLASFON AAUA. Answer with scripture: " + question }] }]
             })
         });
 
         const data = await response.json();
-        
-        // Safety check to ensure Gemini returned a valid candidate
-        if (data.candidates && data.candidates[0].content) {
-            const answer = data.candidates[0].content.parts[0].text;
-            return res.status(200).json({ answer });
-        } else {
-            throw new Error("Invalid response from Gemini");
+
+        // 2. Check for Google-side errors
+        if (data.error) {
+            return res.status(500).json({ answer: "The sanctuary is currently under maintenance. Error: " + data.error.message });
         }
 
+        const mosesAnswer = data.candidates[0].content.parts[0].text;
+        return res.status(200).json({ answer: mosesAnswer });
+
     } catch (error) {
-        console.error("Apostle Moses Error:", error);
-        return res.status(500).json({ answer: "Shalom. I am currently in deep study. Please try your consultation again shortly." });
+        return res.status(500).json({ answer: "Shalom. Connection to the sanctuary failed. Please check your internet or redeploy." });
     }
 }
