@@ -1,52 +1,31 @@
-:root {
-    --gold: #c5a059;
-    --dark: #0a0a0b;
-    --white: #ffffff;
-    --parchment: #fdfdfb;
-}
-
+:root { --gold: #c5a059; --dark: #0a0a0b; --white: #ffffff; --parchment: #fdfdfb; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { background: var(--dark); color: var(--white); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+body { background: var(--dark); color: var(--white); font-family: 'Montserrat', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
 
-/* NEWS TICKER */
+/* OPTICAL IMAGE BALANCE */
+.doc-portrait { width: 180px; height: 240px; border: 1px solid #ddd; padding: 5px; margin: 0 auto; overflow: hidden; }
+.doc-portrait img, .leader-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.sophisticated-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 30px; padding: 0 20px; }
+.leader-img-wrap { height: 220px; border: 1px solid var(--gold); filter: grayscale(1); transition: 0.5s; overflow: hidden; }
+.leader-box:hover .leader-img-wrap { filter: grayscale(0); transform: scale(1.02); }
+.leader-box h3 { font-size: 0.9rem; margin-top: 10px; color: var(--gold); }
+
+/* STRUCTURE */
 .news-ticker-bar { position: fixed; top: 0; width: 100%; height: 40px; background: #000; border-bottom: 2px solid var(--gold); z-index: 2000; display: flex; align-items: center; overflow: hidden; }
 .ticker-content { display: flex; white-space: nowrap; animation: broadcastFlow 30s linear infinite; }
-.ticker-item { display: flex; align-items: center; padding: 0 50px; }
-.news-badge { background: #d00000; color: white; font-size: 0.6rem; font-weight: 800; padding: 2px 8px; margin-right: 15px; }
 @keyframes broadcastFlow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* NAVIGATION (MOBILE FLOW) */
 .institutional-nav { position: sticky; top: 40px; background: rgba(10, 10, 11, 0.95); backdrop-filter: blur(20px); z-index: 1000; padding: 15px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.1); }
-.nav-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; max-width: 1400px; margin: 0 auto; padding: 0 20px; }
-.nav-logo { height: 45px; }
-.nav-links { list-style: none; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; width: 100%; }
-.nav-links a { text-decoration: none; color: white; font-size: 0.65rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
+.nav-flex { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
+.nav-links { display: flex; gap: 20px; list-style: none; }
+.nav-links a { color: white; text-decoration: none; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
 
-/* HERO */
-.hero { height: 80vh; display: flex; align-items: center; justify-content: center; background: url('background1.jpg') center/cover no-repeat; text-align: center; position: relative; }
-.hero-lighting { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%); z-index: 2; }
-.hero-main-title { font-family: 'Cinzel'; font-size: clamp(2.2rem, 8vw, 5rem); position: relative; z-index: 10; line-height: 1; }
-.gold-italic { color: var(--gold); font-family: 'Playfair Display'; font-style: italic; }
-
-/* PRESIDENTIAL ADDRESS */
-.parchment-doc { background: var(--parchment); color: #1a1a1a; padding: 60px 40px; max-width: 1000px; margin: 0 auto; border-top: 6px solid var(--gold); }
-.doc-header { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; justify-content: center; text-align: center; margin-bottom: 40px; }
-.doc-portrait { width: 180px; height: 240px; border: 1px solid #ddd; padding: 8px; flex-shrink: 0; }
-.doc-portrait img { width: 100%; height: 100%; object-fit: cover; }
-.doc-main { text-align: justify; line-height: 2; font-family: 'Libre Baskerville', serif; font-size: 1.1rem; }
-.first-letter { float: left; font-size: 4rem; color: var(--gold); line-height: 0.8; padding: 10px 10px 0 0; font-family: 'Cinzel'; }
-
-/* GRIDS */
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; padding: 0 40px; }
 .info-block { border-left: 2px solid var(--gold); padding-left: 25px; }
-.event-card { background: rgba(255,255,255,0.03); padding: 15px; margin-top: 15px; border-radius: 4px; }
-.sophisticated-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 30px; }
-.leader-box { background: #080808; padding: 15px; border: 1px solid rgba(197, 160, 89, 0.1); text-align: center; }
-.leader-img-wrap { height: 240px; filter: grayscale(1); transition: 0.6s; border: 1px solid var(--gold); margin-bottom: 15px; overflow: hidden; }
-.leader-box:hover .leader-img-wrap { filter: grayscale(0); transform: scale(1.02); }
 
-/* FOOTER */
-.luxury-footer { padding: 80px 0; border-top: 1px solid rgba(197, 160, 89, 0.1); }
-.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 60px; }
-.acc-num { font-size: 1.5rem; color: var(--gold); font-family: 'Cinzel'; margin: 10px 0; }
+/* AI LECTERN */
+#ai-lectern-trigger { position: fixed; bottom: 20px; right: 20px; background: var(--gold); color: #000; padding: 12px 20px; border-radius: 50px; cursor: pointer; z-index: 3000; font-weight: 700; }
+.glass-lectern { position: fixed; bottom: 80px; right: 20px; width: 320px; height: 450px; background: rgba(10, 10, 11, 0.98); border: 1px solid var(--gold); border-radius: 12px; display: none; flex-direction: column; z-index: 3000; }
+.chat-display { flex: 1; padding: 15px; overflow-y: auto; font-size: 0.85rem; }
+.lectern-input { display: flex; padding: 10px; gap: 5px; border-top: 1px solid #222; }
+.lectern-input input { flex: 1; background: #111; border: 1px solid #333; color: #fff; padding: 8px; }
