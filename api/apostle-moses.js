@@ -9,15 +9,17 @@ export default async function handler(req, res) {
     }
 
     try {
-        // BUG FIX: Changed endpoint to v1beta and ensured model string is correct
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+        // FIX: Using gemini-1.5-flash-latest and v1beta endpoint
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{ 
                     parts: [{ 
                         text: `System Instruction: You are Apostle Moses, the Digital Theological Assistant for CLASFON AAUA. 
-                        Answer with scripture and a reverent tone. 
+                        Respond as a biblical and legal scholar with a reverent tone. 
+                        Always include relevant scripture.
+                        
                         User Question: ${question}` 
                     }] 
                 }]
@@ -26,11 +28,11 @@ export default async function handler(req, res) {
 
         const data = await response.json();
 
-        // Error Handling for Model Not Found
+        // Handle specific API errors
         if (data.error) {
-            console.error("Gemini API Error:", data.error.message);
+            console.error("Gemini API Error Detail:", data.error);
             return res.status(500).json({ 
-                answer: "Apostle Moses is currently in a season of silence (API Error: " + data.error.message + ")" 
+                answer: "The sanctuary gates are heavy. (Error: " + data.error.message + ")" 
             });
         }
 
@@ -38,11 +40,11 @@ export default async function handler(req, res) {
             const mosesAnswer = data.candidates[0].content.parts[0].text;
             return res.status(200).json({ answer: mosesAnswer });
         } else {
-            return res.status(500).json({ answer: "The oracle is silent. Please try again later." });
+            return res.status(500).json({ answer: "Apostle Moses is deep in meditation. Please seek counsel again in a moment." });
         }
 
     } catch (error) {
-        console.error("Server Error:", error);
+        console.error("Server-side Fetch Error:", error);
         return res.status(500).json({ answer: "Shalom. The connection to the sanctuary was interrupted." });
     }
 }
