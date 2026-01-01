@@ -1,16 +1,29 @@
-/* --- UPDATED PREMIUM CSS FOR CLASFON AAUA PORTAL --- */
+/* --- CONSOLIDATED PREMIUM CSS FOR CLASFON AAUA PORTAL --- */
 
 :root { 
     --gold: #c5a059; 
     --gold-glow: rgba(197, 160, 89, 0.4);
+    --gold-bright: #e2c285;
     --dark: #0a0a0b; 
     --slate: #121214; 
+    --village-brown: #2a1b0a;
     --white: #ffffff; 
     --parchment: #fdfdfb; 
     --glass: rgba(18, 18, 20, 0.95); 
 }
 
-/* --- OPTICAL IMAGE & GRID BALANCE --- */
+/* --- CORE GLOBAL STYLES --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { 
+    background: var(--dark); 
+    color: var(--white); 
+    font-family: 'Montserrat', sans-serif; 
+    overflow-x: hidden; 
+    line-height: 1.6; 
+}
+
+/* --- OPTICAL IMAGE & GRID BALANCE (Portal & Hall of Fame) --- */
 .doc-portrait { 
     width: 200px; height: 260px; border: 1px solid #ddd; padding: 6px; 
     background: white; flex-shrink: 0; box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
@@ -23,37 +36,70 @@
     gap: 25px; margin-top: 50px; 
 }
 
-/* --- STAGE 1: THE ARENA HUB (GAME SELECTION) --- */
+.leader-box { 
+    background: #080808; padding: 15px; border: 1px solid rgba(255,255,255,0.03); 
+    text-align: center; transition: 0.4s; 
+}
+.leader-img-wrap { 
+    width: 100%; height: 240px; overflow: hidden; margin-bottom: 15px; 
+    border: 1px solid var(--gold); filter: grayscale(1); transition: 0.6s; 
+}
+.leader-box:hover { border-color: var(--gold); transform: translateY(-10px); }
+.leader-box:hover .leader-img-wrap { filter: grayscale(0); transform: scale(1.02); }
+.leader-box h3 { font-size: 0.9rem; color: var(--gold); margin-bottom: 5px; font-family: 'Cinzel', serif; }
+
+/* --- NAVIGATION & TICKER (Global) --- */
+.news-ticker-bar { 
+    position: fixed; top: 0; width: 100%; height: 40px; 
+    background: #000; border-bottom: 2px solid var(--gold); 
+    z-index: 2000; display: flex; align-items: center; overflow: hidden; 
+}
+.ticker-content { display: flex; white-space: nowrap; animation: broadcastFlow 30s linear infinite; }
+@keyframes broadcastFlow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.institutional-nav { 
+    position: sticky; top: 40px; background: var(--glass); 
+    backdrop-filter: blur(15px); z-index: 1000; 
+    padding: 15px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.1); 
+}
+.nav-flex { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
+.nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
+.nav-links a { color: white; text-decoration: none; font-size: 0.7rem; text-transform: uppercase; font-weight: 600; transition: 0.3s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta { border: 1px solid var(--gold); padding: 8px 15px !important; color: var(--gold) !important; border-radius: 2px; text-decoration: none; }
+.nav-cta:hover { background: var(--gold); color: #000 !important; }
+
+/* --- VILLAGE MARKETPLACE ARENA HUB (games.html) --- */
 #game-hub {
     position: fixed; inset: 0; 
-    background: radial-gradient(circle at 50% 50%, #1a1a1c 0%, #0a0a0b 100%);
+    background-image: radial-gradient(circle at 50% 50%, #1a120b 0%, #050505 100%);
     display: flex; flex-direction: column; align-items: center; 
     z-index: 2000; padding: 60px 20px; overflow-y: auto;
 }
 .hub-title { font-family: 'Cinzel'; color: var(--gold); font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: 6px; margin-bottom: 10px; }
 .hub-subtitle { color: #888; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 50px; }
 
-.game-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; width: 100%; max-width: 1100px; }
-.game-card {
-    background: var(--slate); border: 1px solid #222; padding: 35px 25px; text-align: center;
+.market-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; width: 100%; max-width: 1100px; }
+.market-stall {
+    background: var(--village-brown); border: 2px solid #3d2b1f; padding: 35px 25px; text-align: center;
     cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 15px;
+    box-shadow: 0 10px 0 #1a1107;
 }
-.game-card:hover { 
+.market-stall:hover { 
     border-color: var(--gold); transform: translateY(-10px); 
     box-shadow: 0 15px 30px rgba(0,0,0,0.6), 0 0 20px var(--gold-glow); 
-    background: #161618;
+    background: #3d2b1f;
 }
-.game-card h3 { font-family: 'Cinzel'; color: var(--gold); margin-bottom: 12px; font-size: 1.2rem; }
-.game-card p { font-size: 0.8rem; opacity: 0.6; line-height: 1.5; }
+.stall-icon { font-size: 2rem; color: var(--gold); margin-bottom: 15px; display: block; }
 
-/* --- STAGE 2: THE ARENA (ADVANCED 2D INTERFACE) --- */
+/* --- SANCTUARY TENT GAMEPLAY (games.html) --- */
 #arena-play { 
     display: none; height: 100vh; flex-direction: column; 
     align-items: center; justify-content: center; padding: 20px;
 }
 .game-container {
     width: 100%; max-width: 700px;
-    background: var(--glass); border: 1px solid rgba(197, 160, 89, 0.3);
+    background: var(--glass); border: 2px solid var(--gold);
     padding: 50px 30px; border-radius: 24px; text-align: center;
     backdrop-filter: blur(20px); box-shadow: 0 40px 100px rgba(0,0,0,0.8);
     position: relative; animation: slideUp 0.6s ease-out;
@@ -70,13 +116,13 @@
     padding-top: 20px; border-top: 1px solid #222; display: inline-block;
 }
 .ans-input {
-    width: 80%; padding: 18px; background: rgba(0,0,0,0.4); 
+    width: 85%; padding: 18px; background: rgba(0,0,0,0.4); 
     border: 2px solid #333; border-radius: 12px; color: white; font-size: 1.6rem;
     text-align: center; outline: none; transition: 0.3s; font-family: 'Montserrat';
 }
 .ans-input:focus { border-color: var(--gold); box-shadow: 0 0 15px var(--gold-glow); }
 
-/* --- HUD & STATS --- */
+/* --- HUD & STATS (Arena) --- */
 .top-hud { position: fixed; top: 30px; width: 90%; display: flex; justify-content: space-between; align-items: center; z-index: 2001; }
 .btn-back { 
     cursor: pointer; color: var(--gold); font-family: 'Cinzel'; font-size: 0.75rem; 
@@ -86,18 +132,19 @@
 .btn-back:hover { background: var(--gold); color: black; }
 .score-box { font-family: 'Cinzel'; color: var(--gold); font-size: 1.4rem; font-weight: 800; }
 
-/* --- NAVIGATION & FOOTER --- */
-.institutional-nav { 
-    position: sticky; top: 40px; background: var(--glass); 
-    backdrop-filter: blur(15px); z-index: 1000; 
-    padding: 15px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.1); 
-}
-.nav-flex { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
-.nav-cta { 
-    border: 1px solid var(--gold); padding: 8px 15px !important; 
-    color: var(--gold) !important; border-radius: 2px; 
-}
-.nav-cta:hover { background: var(--gold); color: #000 !important; }
+/* --- AI LECTERN (index.html) --- */
+#ai-trigger { position: fixed; bottom: 30px; right: 30px; background: var(--gold); color: #000; padding: 15px 25px; border-radius: 50px; cursor: pointer; z-index: 3000; font-weight: 800; text-transform: uppercase; font-size: 0.7rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+#moses-lectern { position: fixed; bottom: 100px; right: 30px; width: 350px; height: 500px; background: rgba(10,10,11,0.98); border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 3000; backdrop-filter: blur(20px); box-shadow: 0 30px 60px rgba(0,0,0,0.8); border-radius: 12px; overflow: hidden; }
+.lectern-header { padding: 20px; background: #000; border-bottom: 1px solid var(--gold); display: flex; justify-content: space-between; align-items: center; color: var(--gold); font-family: 'Cinzel', serif; }
+#chat-archive { flex: 1; padding: 20px; overflow-y: auto; font-size: 0.85rem; }
+.input-box { display: flex; padding: 15px; gap: 10px; background: #000; }
+.input-box input { flex: 1; background: #111; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 4px; border: none; }
+
+/* --- FOOTER (index.html) --- */
+.luxury-footer { padding: 80px 0; border-top: 1px solid rgba(197, 160, 89, 0.1); background: #050505; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; }
+.altar-form input, .altar-form textarea { width: 100%; background: #111; border: 1px solid #333; padding: 15px; color: white; margin-bottom: 20px; font-family: 'Montserrat'; }
+.altar-form button { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
 
 /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
@@ -106,5 +153,6 @@
     .hero-main-title { font-size: 3rem; }
     .scrambled-box { letter-spacing: 6px; }
     .game-container { padding: 40px 15px; }
-    .ans-input { width: 95%; }
+    .ans-input { width: 95%; font-size: 1.2rem; }
+    #moses-lectern { width: 90%; right: 5%; }
 }
