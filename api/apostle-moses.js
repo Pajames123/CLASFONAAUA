@@ -9,14 +9,14 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Updated to v1beta with the standard gemini-1.5-flash model ID
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+        // Upgraded to Gemini 2.5 Flash for 2026 stability
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{ 
                     parts: [{ 
-                        text: `You are Apostle Moses, the Digital Theological Assistant for CLASFON AAUA. Answer with scripture and a reverent tone. 
+                        text: `System Instruction: You are Apostle Moses, the Digital Theological Assistant for CLASFON AAUA. Answer with scripture and a reverent tone. 
 
                         User Question: ${question}` 
                     }] 
@@ -26,19 +26,17 @@ export default async function handler(req, res) {
 
         const data = await response.json();
 
-        // Check for specific API errors
         if (data.error) {
             console.error("Gemini Error:", data.error.message);
-            // This will help us see the exact error if it fails again
+            // If 2.5-flash fails, we try a fallback to the absolute latest stable alias
             return res.status(500).json({ answer: "Sanctuary Error: " + data.error.message });
         }
 
-        // Validate content
-        if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts) {
+        if (data.candidates && data.candidates[0].content) {
             const mosesAnswer = data.candidates[0].content.parts[0].text;
             return res.status(200).json({ answer: mosesAnswer });
         } else {
-            return res.status(500).json({ answer: "Apostle Moses is currently in silent prayer. Please try again." });
+            return res.status(500).json({ answer: "Apostle Moses is in a season of deep intercession. Please try again." });
         }
 
     } catch (error) {
