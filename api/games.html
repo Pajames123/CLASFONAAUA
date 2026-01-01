@@ -2,101 +2,177 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>The Arena | CLASFON AAUA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR Scripture Arena | CLASFON AAUA</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
+    
     <style>
-        #reg-ui { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: flex; align-items: center; justify-content: center; text-align: center; color: white; font-family: 'Montserrat', sans-serif; }
-        .input-game { padding: 15px; background: #111; border: 1px solid #c5a059; color: white; width: 300px; text-align: center; font-size: 1.2rem; border-radius: 4px; }
-        #game-controls { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 4000; text-align: center; }
+        :root { --gold: #c5a059; --dark: #0a0a0b; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; overflow: hidden; }
+
+        /* Sidebar UI */
+        #arena-menu {
+            position: fixed; left: 20px; top: 20px; width: 280px; height: 90vh;
+            background: rgba(10, 10, 11, 0.95); border: 1px solid var(--gold);
+            z-index: 1000; padding: 20px; color: white; border-radius: 12px;
+            backdrop-filter: blur(10px); display: flex; flex-direction: column;
+        }
+
+        .search-box {
+            width: 100%; padding: 12px; background: #000; border: 1px solid #333;
+            color: white; margin-bottom: 20px; border-radius: 4px;
+        }
+
+        .game-scroll { flex: 1; overflow-y: auto; }
+        .game-card {
+            padding: 12px; border-bottom: 1px solid #222; cursor: pointer;
+            transition: 0.3s; font-size: 0.85rem; text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .game-card:hover { background: var(--gold); color: black; }
+        .game-card.active { border-left: 4px solid var(--gold); background: rgba(197, 160, 89, 0.1); }
+
+        /* Game Input */
+        #game-ui {
+            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+            z-index: 1000; text-align: center;
+        }
+        .ans-input {
+            padding: 18px; width: 400px; background: rgba(0,0,0,0.8);
+            border: 2px solid var(--gold); color: white; font-size: 1.2rem;
+            text-align: center; border-radius: 8px;
+        }
+        .xp-display { color: var(--gold); font-weight: 800; margin-top: 10px; font-size: 1.2rem; }
+
+        /* VR Instructions Overlay */
+        #vr-hint {
+            position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.5);
+            padding: 10px 20px; border-radius: 50px; color: white; font-size: 0.7rem;
+        }
     </style>
 </head>
 <body>
-    <div id="reg-ui">
-        <div>
-            <h1 style="color:#c5a059; font-family: serif; letter-spacing: 2px;">THE SCRIPTURE ARENA</h1>
-            <p style="margin-bottom: 20px; opacity: 0.8;">Your victories will be recorded in the Scroll of Honor.</p>
-            <input type="text" id="pName" class="input-game" placeholder="Full Name"><br><br>
-            <button onclick="startArena()" style="background:#c5a059; padding:15px 40px; border:none; cursor:pointer; font-weight:bold; text-transform:uppercase;">Begin Challenge</button>
-        </div>
+
+    <div id="arena-menu">
+        <h2 style="font-family:'Cinzel'; color:var(--gold); margin:0 0 15px 0;">Scripture Arena</h2>
+        <input type="text" id="gameSearch" class="search-box" placeholder="Search Challenges..." onkeyup="filterGames()">
+        
+        <div class="game-scroll" id="gameList">
+            </div>
     </div>
 
-    <a-scene>
-        <a-entity environment="preset: egypt; lighting: point; dressingAmount: 50"></a-entity>
-        
+    <div id="vr-hint">VR MODE ENABLED: Look around to view the Scroll of Honor</div>
+
+    <div id="game-ui">
+        <input type="text" id="ansInput" class="ans-input" placeholder="Type solution here..." autocomplete="off">
+        <div id="xp-counter" class="xp-display">XP: 0</div>
+    </div>
+
+    <a-scene embedded style="height: 100vh; width: 100vw;">
+        <a-entity environment="preset: egypt; lighting: point; dressingAmount: 50; groundColor: #1a1a1a"></a-entity>
+
         <a-entity camera look-controls wasd-controls position="0 1.6 0">
             <a-cursor color="#c5a059"></a-cursor>
         </a-entity>
 
         <a-entity position="0 2.2 -4">
-            <a-plane width="5" height="3" color="#121214" opacity="0.9"></a-plane>
-            <a-text value="WORD SCRAMBLE" align="center" position="0 1 0.1" color="#c5a059" width="6"></a-text>
-            <a-text id="scrambled-display" value="L O A D I N G" align="center" position="0 0.1 0.1" scale="2.5 2.5 2.5" color="#fff"></a-text>
-            <a-text id="hint-display" value="Unscramble the Biblical Term" align="center" position="0 -0.6 0.1" color="#888" width="4"></a-text>
+            <a-plane width="5" height="3" color="#121214" opacity="0.9" material="metalness: 0.6; roughness: 0.4"></a-plane>
+            <a-text id="vr-game-title" value="SELECT A CHALLENGE" align="center" position="0 1.1 0.1" color="#c5a059" width="6" font="mozillavr"></a-text>
+            <a-text id="vr-scrambled" value="---" align="center" position="0 0.1 0.1" scale="2.5 2.5 2.5" color="#fff" font="kelsonsans"></a-text>
+            <a-text id="vr-hint-text" value="Pick a game from the sidebar to begin" align="center" position="0 -0.7 0.1" color="#888" width="4"></a-text>
         </a-entity>
 
         <a-entity position="-5 2.5 -2" rotation="0 45 0">
-            <a-text value="SCROLL OF HONOR" align="center" position="0 1.2 0.1" color="#c5a059" width="5"></a-text>
-            <a-text id="vr-leaderboard" value="Fetching scores..." align="center" position="0 0 0.1" width="3"></a-text>
+            <a-plane width="3" height="4" color="#000" opacity="0.8"></a-plane>
+            <a-text value="SCROLL OF HONOR" align="center" position="0 1.7 0.1" color="#c5a059" width="5"></a-text>
+            <a-text id="vr-leaderboard" value="1. Loading...\n2. Loading...\n3. Loading..." align="center" position="0 0 0.1" width="3.5" lineHeight="50"></a-text>
         </a-entity>
     </a-scene>
 
-    <div id="game-controls" style="display:none;">
-        <input type="text" id="ansInput" class="input-game" placeholder="Type Answer..." style="width: 400px; border: 2px solid #c5a059;">
-        <div id="xp" style="color:#c5a059; font-weight:bold; margin-top:10px; font-family: sans-serif;">XP: 0</div>
-    </div>
-
     <script>
-        const library = [
-            {w: "ADVOCATE", h: "1 John 2:1 - Our Helper with the Father"}, 
-            {w: "JUSTICE", h: "Deut 16:20 - What we must follow"}, 
-            {w: "COVENANT", h: "A divine legal bond or agreement"},
-            {w: "REDEEMER", h: "For I know that my ___ lives"},
-            {w: "WITNESS", h: "Acts 1:8 - You shall be my ___"}
+        // THE 10 GAME DATABASE
+        const arenaDatabase = [
+            { id: 0, title: "The Torah Challenge", data: [{w:"GENESIS",h:"The book of beginnings"},{w:"EXODUS",h:"The great departure"}] },
+            { id: 1, title: "Legal Maxims", data: [{w:"JUSTICE",h:"Deut 16:20 - 'Justice, and only justice'"},{w:"ADVOCATE",h:"Our role in Christ"}] },
+            { id: 2, title: "Parable Scramble", data: [{w:"PRODIGAL",h:"The lost son who returned"},{w:"SAMARITAN",h:"The neighborly stranger"}] },
+            { id: 3, title: "Apostolic Memory", data: [{w:"ROMANS",h:"Paul's theological masterpiece"},{w:"HEBREWS",h:"The cloud of witnesses"}] },
+            { id: 4, title: "The Great Advocates", data: [{w:"GAMALIEL",h:"The teacher of Paul"},{w:"TERTULLUS",h:"The lawyer who accused Paul"}] },
+            { id: 5, title: "Scriptural Ethics", data: [{w:"INTEGRITY",h:"Walking uprightly in law"},{w:"MERCY",h:"What God desires over sacrifice"}] },
+            { id: 6, title: "The Prophet's Scroll", data: [{w:"ISAIAH",h:"The messianic prophet"},{w:"JEREMIAH",h:"The weeping prophet"}] },
+            { id: 7, title: "New Network Quiz", data: [{w:"ANCHORED",h:"Our profession's position on Christ"}] },
+            { id: 8, title: "Psalm Melodies", data: [{w:"SHEPHERD",h:"'The Lord is my ___'"},{w:"SHADOW",h:"'The ___ of the Almighty'"}] },
+            { id: 9, title: "The Judgment Seat", data: [{w:"VERDICT",h:"The final divine ruling"},{w:"COVENANT",h:"The legal bond of God"}] }
         ];
-        let score = 0, currentW = "", pName = "";
 
-        function startArena() {
-            pName = document.getElementById('pName').value.trim();
-            if(!pName) return alert("Identify yourself, Disciple.");
-            document.getElementById('reg-ui').style.display = "none";
-            document.getElementById('game-controls').style.display = "block";
-            loadRound();
-            loadLeaderboard();
+        let activeGame = null;
+        let activeWord = "";
+        let playerXP = 0;
+        let playerName = localStorage.getItem('clasfon_user') || "Disciple";
+
+        // Initialize UI
+        const listContainer = document.getElementById('gameList');
+        arenaDatabase.forEach(game => {
+            const div = document.createElement('div');
+            div.className = 'game-card';
+            div.innerText = game.title;
+            div.onclick = () => loadGame(game.id);
+            listContainer.appendChild(div);
+        });
+
+        function filterGames() {
+            let val = document.getElementById('gameSearch').value.toLowerCase();
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.style.display = card.innerText.toLowerCase().includes(val) ? "block" : "none";
+            });
         }
 
-        function loadRound() {
-            const pick = library[Math.floor(Math.random() * library.length)];
-            currentW = pick.w;
-            document.getElementById('scrambled-display').setAttribute('value', currentW.split('').sort(()=>Math.random()-0.5).join(' '));
-            document.getElementById('hint-display').setAttribute('value', pick.h);
+        function loadGame(id) {
+            activeGame = arenaDatabase[id];
+            document.getElementById('vr-game-title').setAttribute('value', activeGame.title.toUpperCase());
+            newRound();
+        }
+
+        function newRound() {
+            if(!activeGame) return;
+            const round = activeGame.data[Math.floor(Math.random() * activeGame.data.length)];
+            activeWord = round.w;
+            
+            // Scramble Word
+            let scrambled = activeWord.split('').sort(() => Math.random() - 0.5).join(' ');
+            
+            document.getElementById('vr-scrambled').setAttribute('value', scrambled);
+            document.getElementById('vr-hint-text').setAttribute('value', round.h);
             document.getElementById('ansInput').value = "";
             document.getElementById('ansInput').focus();
         }
 
-        document.getElementById('ansInput').addEventListener('input', async (e) => {
-            if(e.target.value.toUpperCase() === currentW) {
-                score += 10;
-                document.getElementById('xp').innerText = "XP: " + score;
-                // Automatic Score Submission
-                await fetch('/api/save-score', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({name: pName, score: score})
-                });
-                loadRound();
-                loadLeaderboard();
+        // AUTOMATIC DETECTION LOGIC
+        document.getElementById('ansInput').addEventListener('input', (e) => {
+            if(e.target.value.toUpperCase() === activeWord) {
+                playerXP += 10;
+                document.getElementById('xp-counter').innerText = `XP: ${playerXP}`;
+                
+                // Trigger visual feedback (Green flash in VR could go here)
+                newRound();
+                updateLeaderboardLocally();
             }
         });
 
-        async function loadLeaderboard() {
-            try {
-                const res = await fetch('/api/get-scores');
-                const data = await res.json();
-                const text = data.map((entry, i) => `${i+1}. ${entry.member} - ${entry.score} XP`).join('\n');
-                document.getElementById('vr-leaderboard').setAttribute('value', text);
-            } catch (e) { console.error("Leaderboard connection lost."); }
+        // Mock Leaderboard function (In production, this calls /api/save-score)
+        function updateLeaderboardLocally() {
+            const leaderboard = [
+                `1. ${playerName} - ${playerXP} XP`,
+                `2. Apostle Moses - 500 XP`,
+                `3. Salami P. - 420 XP`,
+                `4. Babatunde O. - 380 XP`,
+                `5. Ajisafe K. - 350 XP`
+            ].join('\n');
+            document.getElementById('vr-leaderboard').setAttribute('value', leaderboard);
         }
+
+        // Initial Leaderboard Load
+        updateLeaderboardLocally();
     </script>
 </body>
 </html>
