@@ -255,7 +255,7 @@
         <div class="lectern-header"><span>Apostle Moses</span><button onclick="toggleMoses()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button></div>
         <div id="chat-archive"></div>
         <div class="input-box">
-            <input type="text" id="user-q" placeholder="Consult the Word...">
+            <input type="text" id="user-q" placeholder="Consult the Word..." onkeypress="if(event.key==='Enter') askMoses()">
             <button onclick="askMoses()" style="background:var(--gold); border:none; padding:10px 15px; cursor:pointer;"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
     </div>
@@ -282,9 +282,25 @@
     </footer>
 
     <script>
+        // Identify the user for the Scroll of Honor
+        window.onload = function() {
+            if (!localStorage.getItem('clasfon_user')) {
+                let name = prompt("Identify yourself, Disciple (Enter your full name):");
+                if (name && name.trim().length > 0) {
+                    localStorage.setItem('clasfon_user', name.trim());
+                } else {
+                    localStorage.setItem('clasfon_user', 'Disciple');
+                }
+            }
+        };
+
         function toggleMoses() {
             const l = document.getElementById('moses-lectern');
-            l.style.display = (l.style.display === 'flex') ? 'none' : 'flex';
+            if (l) {
+                l.style.display = (l.style.display === 'flex') ? 'none' : 'flex';
+                // Auto-focus the input when opened for better UX
+                if (l.style.display === 'flex') document.getElementById('user-q').focus();
+            }
         }
 
         async function askMoses() {
@@ -293,8 +309,10 @@
             const q = input.value.trim();
             if(!q) return;
 
-            archive.innerHTML += `<div style="color:var(--gold); margin-bottom:15px;"><b>You:</b> ${q}</div>`;
+            // Show user message in chat
+            archive.innerHTML += `<div style="color:var(--gold); margin-bottom:15px; text-align:right;"><b>You:</b> ${q}</div>`;
             input.value = "";
+            archive.scrollTop = archive.scrollHeight;
 
             try {
                 const res = await fetch('/api/apostle-moses', {
@@ -302,17 +320,25 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({question: q})
                 });
+                
                 const data = await res.json();
-                archive.innerHTML += `<div style="border-left:2px solid var(--gold); padding-left:15px; margin-bottom:25px; color:#ddd;"><b>Apostle Moses:</b> ${data.answer}</div>`;
-            } catch {
-                archive.innerHTML += `<div style="color:red;">Shalom. Connection lost. Try again soon.</div>`;
+                
+                // Incorporate 429 quota handling
+                let answer = data.answer;
+                if (res.status === 429) {
+                    answer = "Apostle Moses is attending to many seekers. Please wait a few moments.";
+                }
+
+                archive.innerHTML += `<div style="border-left:2px solid var(--gold); padding-left:15px; margin-bottom:25px; color:#ddd;"><b>Apostle Moses:</b> ${answer}</div>`;
+            } catch (err) {
+                archive.innerHTML += `<div style="color:red; font-size:0.8rem;">Shalom. Connection to the sanctuary lost. Try again soon.</div>`;
             }
             archive.scrollTop = archive.scrollHeight;
         }
 
         function copyAcc() {
             navigator.clipboard.writeText("0051649056");
-            alert("Account details copied to clipboard.");
+            alert("Account details copied to clipboard. May your partnership be rewarded.");
         }
     </script>
 </body>

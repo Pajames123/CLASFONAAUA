@@ -29,7 +29,8 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
         .logo-main { font-family: 'Cinzel'; color: var(--gold); font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; text-decoration: none; }
-        .nav-cta { border: 1px solid var(--gold); padding: 8px 15px; color: var(--gold); text-decoration: none; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; }
+        .nav-cta { border: 1px solid var(--gold); padding: 8px 15px; color: var(--gold); text-decoration: none; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; transition: 0.3s; }
+        .nav-cta:hover { background: var(--gold); color: #000; }
 
         /* Header Section */
         .archive-header { 
@@ -42,7 +43,7 @@
 
         /* The Grid */
         .sophisticated-grid { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
             gap: 30px; margin-top: 60px; padding-bottom: 100px;
         }
         .leader-box { 
@@ -50,16 +51,17 @@
             text-align: center; transition: 0.4s; position: relative;
         }
         .leader-img-wrap { 
-            width: 100%; height: 260px; overflow: hidden; margin-bottom: 20px; 
+            width: 100%; height: 280px; overflow: hidden; margin-bottom: 20px; 
             border: 1px solid var(--gold); filter: grayscale(1); transition: 0.6s; 
         }
         .leader-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
+        
         .leader-box:hover { border-color: var(--gold); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .leader-box:hover .leader-img-wrap { filter: grayscale(0); }
         .leader-box:hover img { transform: scale(1.1); }
         
-        .tenure { display: block; font-size: 0.65rem; letter-spacing: 3px; color: var(--gold); font-weight: 700; margin-bottom: 8px; text-transform: uppercase; }
-        .leader-name { font-family: 'Cinzel'; font-size: 1rem; color: var(--white); margin-bottom: 5px; }
+        .tenure { display: block; font-size: 0.65rem; letter-spacing: 3px; color: var(--gold); font-weight: 700; margin-bottom: 12px; text-transform: uppercase; }
+        .leader-name { font-family: 'Cinzel'; font-size: 1.1rem; color: var(--white); margin-bottom: 5px; }
         .leader-rank { font-size: 0.75rem; color: #666; font-style: italic; }
 
         .footer-line { text-align: center; padding: 50px 0; border-top: 1px solid rgba(255,255,255,0.05); opacity: 0.5; font-size: 0.7rem; letter-spacing: 2px; }
@@ -76,7 +78,7 @@
 
     <header class="archive-header">
         <h1 class="archive-title">Hall of Fame</h1>
-        <p class="archive-subtitle">"Being compassed about with so great a cloud of witnesses"</p>
+        <p class="archive-subtitle">"Being compassed about with so great a cloud of witnesses" (Hebrews 12:1)</p>
     </header>
 
     <div class="container">
@@ -91,7 +93,7 @@
 
             <div class="leader-box">
                 <span class="tenure">2024 - 2025</span>
-                <div class="leader-img-wrap"><img src="pres_24.jpg" alt="Taiwo James"></div>
+                <div class="leader-img-wrap"><img src="pres_24.jpg" alt="Ogungbade Taiwo James"></div>
                 <h3 class="leader-name">Ogungbade Taiwo James</h3>
                 <p class="leader-rank">Immediate Past President</p>
             </div>

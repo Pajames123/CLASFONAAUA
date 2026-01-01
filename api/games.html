@@ -36,6 +36,7 @@
             border-radius: 8px; color: white; text-align: center; font-size: 0.65rem;
             text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
             display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
         }
 
         .game-card.active { border-color: var(--gold); background: rgba(197, 160, 89, 0.2); color: var(--gold); }
@@ -55,7 +56,7 @@
 
         .xp-display { color: var(--gold); font-weight: 800; text-align: center; margin-top: 8px; font-size: 0.9rem; }
 
-        /* --- VR CANVAS ADJUSTMENT --- */
+        /* VR CANVAS ADJUSTMENT */
         .a-canvas { top: 20vh !important; height: 55vh !important; }
 
         #vr-hint {
@@ -72,8 +73,7 @@
             <input type="text" id="gameSearch" placeholder="Search..." onkeyup="filterGames()" 
                    style="width: 100px; font-size: 0.7rem; background: #000; color: #fff; border: 1px solid #444; padding: 4px;">
         </div>
-        <div class="game-scroll" id="gameList">
-            </div>
+        <div class="game-scroll" id="gameList"></div>
     </div>
 
     <div id="vr-hint">Look around to see the Scroll of Honor</div>
@@ -142,7 +142,6 @@
         function loadGame(id, element) {
             document.querySelectorAll('.game-card').forEach(c => c.classList.remove('active'));
             element.classList.add('active');
-            
             activeGame = arenaDatabase[id];
             document.getElementById('vr-game-title').setAttribute('value', activeGame.full.toUpperCase());
             newRound();
@@ -152,40 +151,50 @@
             if(!activeGame) return;
             const round = activeGame.data[Math.floor(Math.random() * activeGame.data.length)];
             activeWord = round.w.trim().toUpperCase();
-            
             let scrambled = activeWord.split('').sort(() => Math.random() - 0.5).join(' ');
-            
             document.getElementById('vr-scrambled').setAttribute('value', scrambled);
             document.getElementById('vr-hint-text').setAttribute('value', round.h);
             document.getElementById('ansInput').value = "";
         }
 
-        // BUG FIX: Case Insensitivity & Trimmed Detection
-        document.getElementById('ansInput').addEventListener('input', (e) => {
+        document.getElementById('ansInput').addEventListener('input', async (e) => {
             const val = e.target.value.trim().toUpperCase();
             if(activeWord && val === activeWord) {
                 playerXP += 10;
                 document.getElementById('xp-counter').innerText = `XP: ${playerXP}`;
                 
-                newRound();
-                updateLeaderboardLocally();
+                // SAVE SCORE TO CLOUD DATABASE
+                try {
+                    await fetch('/api/save-score', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({ name: playerName, score: playerXP })
+                    });
+                } catch (err) { console.error("Heavenly records sync failed."); }
                 
-                // Haptic feedback for mobile if supported
+                newRound();
+                loadLeaderboard();
                 if ("vibrate" in navigator) navigator.vibrate(50);
             }
         });
 
-        function updateLeaderboardLocally() {
-            const leaderboard = [
-                `1. ${playerName} - ${playerXP} XP`,
-                `2. Apostle Moses - 500 XP`,
-                `3. Salami P. - 420 XP`,
-                `4. Babatunde O. - 380 XP`
-            ].join('\n');
-            document.getElementById('vr-leaderboard').setAttribute('value', leaderboard);
+        async function loadLeaderboard() {
+            try {
+                // FETCH REAL-TIME SCORES
+                const res = await fetch('/api/get-scores');
+                const data = await res.json();
+                
+                // Format: i+1. MemberName - Score XP
+                const text = data.map((entry, i) => `${i+1}. ${entry.member} - ${entry.score} XP`).join('\n');
+                document.getElementById('vr-leaderboard').setAttribute('value', text);
+            } catch (e) { 
+                console.error("Leaderboard connection lost."); 
+                document.getElementById('vr-leaderboard').setAttribute('value', "1. Connection Lost");
+            }
         }
 
-        updateLeaderboardLocally();
+        // Initial Load
+        loadLeaderboard();
     </script>
 </body>
 </html>
