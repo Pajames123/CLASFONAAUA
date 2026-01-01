@@ -86,7 +86,30 @@
         .doc-h2 { font-family: 'Cinzel'; font-size: 2rem; color: #111; }
         .pres-meta { font-size: 0.8rem; font-style: italic; color: #666; }
         .doc-main { text-align: justify; line-height: 2.1; font-family: 'Libre Baskerville', serif; font-size: 1.1rem; color: #333; }
+        .doc-main p { margin-bottom: 25px; }
         .first-letter { float: left; font-size: 4.5rem; color: var(--gold); line-height: 0.8; padding: 10px 15px 0 0; font-family: 'Cinzel'; }
+
+        /* --- NEWS EDITION SECTION --- */
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .news-card-featured {
+            background: var(--slate);
+            border: 1px solid rgba(197, 160, 89, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .news-img { width: 100%; height: 350px; object-fit: cover; }
+        .news-tag { position: absolute; top: 20px; left: 20px; background: var(--gold); color: #000; padding: 5px 12px; font-weight: 800; font-size: 0.6rem; z-index: 5; }
+        .news-info { padding: 30px; }
+        .news-info h3 { font-family: 'Cinzel'; color: var(--gold); margin-bottom: 15px; }
+        .secondary-news-list { display: flex; flex-direction: column; gap: 20px; }
+        .mini-news-item { display: flex; gap: 20px; background: rgba(255,255,255,0.03); padding: 15px; border-left: 3px solid var(--gold); transition: 0.3s; cursor: pointer; }
+        .mini-news-item:hover { background: rgba(255,255,255,0.08); }
+        .mini-news-item h4 { font-family: 'Cinzel'; font-size: 0.85rem; line-height: 1.4; }
 
         /* --- GRIDS & CARDS --- */
         .bg-slate { background: var(--slate); }
@@ -112,20 +135,18 @@
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; }
         .altar-form input, .altar-form textarea { width: 100%; background: #111; border: 1px solid #333; padding: 15px; color: white; margin-bottom: 20px; font-family: 'Montserrat'; }
         .altar-form button { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-        .acc-num { font-family: 'Cinzel'; font-size: 1.5rem; color: var(--gold); letter-spacing: 2px; margin: 10px 0; }
         
         /* --- AI LECTERN --- */
         #ai-trigger { position: fixed; bottom: 30px; right: 30px; background: var(--gold); color: #000; padding: 15px 25px; border-radius: 50px; cursor: pointer; z-index: 3000; font-weight: 800; text-transform: uppercase; font-size: 0.7rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         #moses-lectern { position: fixed; bottom: 100px; right: 30px; width: 350px; height: 500px; background: rgba(10,10,11,0.98); border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 3000; backdrop-filter: blur(20px); box-shadow: 0 30px 60px rgba(0,0,0,0.8); border-radius: 12px; overflow: hidden; }
-        .lectern-header { padding: 20px; background: #000; border-bottom: 1px solid var(--gold); display: flex; justify-content: space-between; align-items: center; }
-        #chat-archive { flex: 1; padding: 20px; overflow-y: auto; font-size: 0.85rem; }
-        .input-box { display: flex; padding: 15px; gap: 10px; background: #000; }
-        .input-box input { flex: 1; background: #111; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 4px; }
+
+        @media (max-width: 992px) {
+            .news-grid { grid-template-columns: 1fr; }
+        }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .parchment-doc { padding: 40px 20px; }
-            .doc-header { flex-direction: column; text-align: center; }
             .hero-main-title { font-size: 3rem; }
         }
     </style>
@@ -149,6 +170,7 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#president-message">Welcome</a></li>
+                <li><a href="#news-edition">News</a></li>
                 <li><a href="#schedule">Liturgy</a></li>
                 <li><a href="games.html" class="nav-cta" style="background:var(--gold); color:#000 !important; margin-right:15px;">Scripture Arena</a></li>
                 <li><a href="#leaders">Leadership</a></li>
@@ -164,10 +186,54 @@
             <p class="hero-motto">A New Legal Profession Anchored on Christ</p>
             <div class="hero-actions">
                 <a href="#president-message" class="btn-gold">Read Address</a>
-                <a href="#contact" class="btn-outline">Prayer Altar</a>
+                <a href="#news-edition" class="btn-outline">News Edition</a>
             </div>
         </div>
     </header>
+
+    <section id="news-edition" class="section-padding" style="background: #080808;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <span class="stamp">WEEKLY COMMUNIQUÉ</span>
+                <h2 class="cinzel-title gold" style="font-size: 2.5rem; margin-bottom: 0;">News Edition</h2>
+                <p style="color: #666; font-size: 0.8rem; letter-spacing: 2px;">STAY INFORMED ON DIVINE ASSIGNMENTS</p>
+            </div>
+            
+            <div class="news-grid">
+                <div class="news-card-featured">
+                    <span class="news-tag">LATEST EDITION</span>
+                    <img src="event1.jpg" alt="Featured News" class="news-img">
+                    <div class="news-info">
+                        <span class="news-date">January 2, 2026</span>
+                        <h3>The Call to the Bar: A Spiritual Mandate for the Modern Advocate</h3>
+                        <p style="color: #bbb; font-size: 0.9rem;">As we usher in the new academic session, the fellowship focuses on the duality of the legal profession as both a civil duty and a spiritual ministry...</p>
+                        <a href="#" style="color: var(--gold); text-decoration: none; font-weight: 700; font-size: 0.75rem; margin-top: 20px; display: inline-block;">READ FULL ARTICLE →</a>
+                    </div>
+                </div>
+                
+                <div class="secondary-news-list">
+                    <div class="mini-news-item">
+                        <div>
+                            <span class="news-date" style="font-size: 0.6rem;">Dec 28, 2025</span>
+                            <h4>Orientation 2026: Anchoring Freshmen in Kingdom Values</h4>
+                        </div>
+                    </div>
+                    <div class="mini-news-item">
+                        <div>
+                            <span class="news-date" style="font-size: 0.6rem;">Dec 20, 2025</span>
+                            <h4>Community Outreach: Legal Aid Clinic in Akungba-Akoko</h4>
+                        </div>
+                    </div>
+                    <div class="mini-news-item">
+                        <div>
+                            <span class="news-date" style="font-size: 0.6rem;">Dec 15, 2025</span>
+                            <h4>End of Year Thanksgiving: Celebrating God's Faithfulness</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="president-message" class="section-padding">
         <div class="container">
@@ -182,7 +248,15 @@
                 </div>
                 <div class="doc-main">
                     <p class="first-letter">S</p>
-                    <p>halom to you in the precious name of our Lord Jesus Christ. It is with a heart full of gratitude and divine purpose that I welcome you to the official digital portal of the Christian Law Students’ Fellowship of Nigeria (CLASFON), Adekunle Ajasin University Chapter. At CLASFON AAUA, we believe that the legal profession is not merely a career path or a means of livelihood; it is a high calling and a sacred ministry. We are raising a <strong>"New Network of Lawyers"</strong> governed by the laws of the Kingdom of God.</p>
+                    <p>halom to you in the precious name of our Lord Jesus Christ. It is with a heart full of gratitude and divine purpose that I welcome you to the official digital portal of the Christian Law Students’ Fellowship of Nigeria (CLASFON), Adekunle Ajasin University Chapter.</p>
+                    
+                    <p>At CLASFON AAUA, we believe that the legal profession is not merely a career path or a means of livelihood; it is a high calling and a sacred ministry. We are raising a <strong>"New Network of Lawyers"</strong> governed by the laws of the Kingdom of God. In a world where the lines of justice are often blurred, we stand as a beacon of integrity, excellence, and spiritual fervor.</p>
+                    
+                    <p>Our mandate is clear: to integrate our legal training with our spiritual convictions, producing advocates who are not only learned in the law of the land but are deeply rooted in the Law of the Spirit of Life in Christ Jesus. We exist to provide a sanctuary where your faith is not compromised by your studies, but rather strengthened by it.</p>
+                    
+                    <p>As you navigate this portal, I invite you to explore our spiritual liturgy, engage with the Scripture Arena, and connect with the Leadership Council. Whether you are a seeker, a disciple, or a partner in this ministry, there is a word for you here. May your stay on this portal and your membership in this fellowship be the catalyst for your spiritual and academic transformation.</p>
+                    
+                    <p>We are established upon the Advocate, and in Him, our victory is certain.</p>
                 </div>
                 <div class="doc-footer">
                     <p class="sig-name" style="margin-top:40px; font-weight:700;">Ajisafe Koyinsola</p>
@@ -250,55 +324,11 @@
         </div>
     </section>
 
-    <div id="ai-trigger" onclick="toggleMoses()"><i class="fa-solid fa-book-bible"></i> Ask Apostle Moses</div>
-    <div id="moses-lectern">
-        <div class="lectern-header"><span>Apostle Moses</span><button onclick="toggleMoses()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button></div>
-        <div id="chat-archive"></div>
-        <div class="input-box">
-            <input type="text" id="user-q" placeholder="Consult the Word..." onkeypress="if(event.key==='Enter') askMoses()">
-            <button onclick="askMoses()" style="background:var(--gold); border:none; padding:10px 15px; cursor:pointer;"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-    </div>
-
-    <footer id="contact" class="luxury-footer">
-        <div class="container footer-grid">
-            <div class="f-col">
-                <img src="logo.png" style="height:60px; margin-bottom:20px;">
-                <p style="font-size:0.8rem; color:#888;">"A new legal profession anchored on Christ."</p>
-                <div style="margin-top:20px; display:flex; gap:15px;">
-                    <a href="#" style="color:var(--gold);"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" style="color:var(--gold);"><i class="fa-brands fa-whatsapp"></i></a>
-                </div>
-            </div>
-            <div class="f-col">
-                <h3 class="cinzel-title gold" style="font-size:1rem;">Prayer Altar</h3>
-                <form class="altar-form" action="https://formspree.io/f/mojqoajk" method="POST">
-                    <input type="email" name="email" placeholder="Email Address" required>
-                    <textarea name="message" placeholder="Submit your petition..." required></textarea>
-                    <button type="submit">Send to Altar</button>
-                </form>
-            </div>
-        </div>
-    </footer>
-
     <script>
-        // Identify the user for the Scroll of Honor
-        window.onload = function() {
-            if (!localStorage.getItem('clasfon_user')) {
-                let name = prompt("Identify yourself, Disciple (Enter your full name):");
-                if (name && name.trim().length > 0) {
-                    localStorage.setItem('clasfon_user', name.trim());
-                } else {
-                    localStorage.setItem('clasfon_user', 'Disciple');
-                }
-            }
-        };
-
         function toggleMoses() {
             const l = document.getElementById('moses-lectern');
             if (l) {
                 l.style.display = (l.style.display === 'flex') ? 'none' : 'flex';
-                // Auto-focus the input when opened for better UX
                 if (l.style.display === 'flex') document.getElementById('user-q').focus();
             }
         }
@@ -309,7 +339,6 @@
             const q = input.value.trim();
             if(!q) return;
 
-            // Show user message in chat
             archive.innerHTML += `<div style="color:var(--gold); margin-bottom:15px; text-align:right;"><b>You:</b> ${q}</div>`;
             input.value = "";
             archive.scrollTop = archive.scrollHeight;
@@ -320,18 +349,13 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({question: q})
                 });
-                
                 const data = await res.json();
-                
-                // Incorporate 429 quota handling
                 let answer = data.answer;
-                if (res.status === 429) {
-                    answer = "Apostle Moses is attending to many seekers. Please wait a few moments.";
-                }
+                if (res.status === 429) answer = "Apostle Moses is attending to many seekers. Please wait.";
 
                 archive.innerHTML += `<div style="border-left:2px solid var(--gold); padding-left:15px; margin-bottom:25px; color:#ddd;"><b>Apostle Moses:</b> ${answer}</div>`;
             } catch (err) {
-                archive.innerHTML += `<div style="color:red; font-size:0.8rem;">Shalom. Connection to the sanctuary lost. Try again soon.</div>`;
+                archive.innerHTML += `<div style="color:red; font-size:0.8rem;">Shalom. Connection lost. Try again soon.</div>`;
             }
             archive.scrollTop = archive.scrollHeight;
         }
