@@ -3,197 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CLASFON Arena | Mobile VR Optimized</title>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
-    
-    <style>
-        :root { --gold: #c5a059; --dark: #0a0a0b; --glass: rgba(10, 10, 11, 0.9); }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background: #000; overflow: hidden; }
-
-        /* --- MOBILE OPTIMIZED TOP PICKER --- */
-        #arena-menu {
-            position: fixed; top: 0; left: 0; width: 100%; height: 20vh;
-            background: var(--glass); border-bottom: 2px solid var(--gold);
-            z-index: 1000; display: flex; flex-direction: column; padding: 10px;
-            box-sizing: border-box; backdrop-filter: blur(10px);
-        }
-
-        .menu-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .menu-header h2 { font-family: 'Cinzel'; color: var(--gold); font-size: 1rem; margin: 0; }
-
-        .game-scroll {
-            display: flex; overflow-x: auto; gap: 10px; padding-bottom: 5px;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .game-card {
-            flex: 0 0 130px; padding: 12px; background: #1a1a1c; border: 1px solid #333;
-            border-radius: 8px; color: white; text-align: center; font-size: 0.65rem;
-            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-        }
-
-        .game-card.active { border-color: var(--gold); background: rgba(197, 160, 89, 0.2); color: var(--gold); }
-
-        /* --- MOBILE GAMEPAD --- */
-        #game-ui {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(0,0,0,0.85); padding: 15px; z-index: 1000;
-            border-top: 1px solid var(--gold); box-sizing: border-box;
-        }
-
-        .ans-input {
-            width: 100%; padding: 15px; background: #111; border: 2px solid var(--gold);
-            color: white; font-size: 1.1rem; text-align: center; border-radius: 8px;
-            text-transform: uppercase; outline: none;
-        }
-
-        .xp-display { color: var(--gold); font-weight: 800; text-align: center; margin-top: 8px; font-size: 0.9rem; }
-
-        /* VR CANVAS ADJUSTMENT */
-        .a-canvas { top: 20vh !important; height: 55vh !important; }
-
-        #vr-hint {
-            position: fixed; top: 22vh; right: 10px; background: rgba(0,0,0,0.6);
-            padding: 5px 12px; border-radius: 20px; color: white; font-size: 0.6rem; z-index: 500;
-        }
-    </style>
+    <title>The Arena | CLASFON AAUA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="market-theme">
 
-    <div id="arena-menu">
-        <div class="menu-header">
-            <h2>Scripture Arena</h2>
-            <input type="text" id="gameSearch" placeholder="Search..." onkeyup="filterGames()" 
-                   style="width: 100px; font-size: 0.7rem; background: #000; color: #fff; border: 1px solid #444; padding: 4px;">
+    <div id="diff-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:5000; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+        <h2 class="hub-title" style="font-size: 1.8rem;">Choose Your Spiritual Rank</h2>
+        <p style="color: #888; margin-bottom: 30px; font-size: 0.9rem;">The Scribe provides scrolls based on your growth.</p>
+        <div style="display:flex; gap:15px; flex-wrap: wrap; justify-content: center; padding: 0 20px;">
+            <button class="rank-btn" onclick="selectRank('Novice', 10)">NOVICE (10 XP)</button>
+            <button class="rank-btn" onclick="selectRank('Disciple', 25)">DISCIPLE (25 XP)</button>
+            <button class="rank-btn" onclick="selectRank('Apostle', 60)">APOSTLE (60 XP)</button>
         </div>
-        <div class="game-scroll" id="gameList"></div>
+        <p onclick="document.getElementById('diff-overlay').style.display='none'" style="margin-top:40px; color:var(--gold); cursor:pointer; text-transform:uppercase; font-size:0.7rem; letter-spacing:2px;">← Return to Marketplace</p>
     </div>
 
-    <div id="vr-hint">Look around to see the Scroll of Honor</div>
-
-    <div id="game-ui">
-        <input type="text" id="ansInput" class="ans-input" placeholder="TAP TO TYPE ANSWER..." autocomplete="off" spellcheck="false">
-        <div id="xp-counter" class="xp-display">XP: 0</div>
+    <div id="game-hub">
+        <div class="hub-header">
+            <h1 class="hub-title">The Marketplace</h1>
+            <p class="hub-subtitle">Visit a Stall to Unseal Infinite Bible Scrolls</p>
+        </div>
+        <div class="market-grid" id="hubGrid"></div>
+        
+        <div class="hub-leaderboard">
+            <h2 style="font-family:'Cinzel'; color:var(--gold); font-size:1rem; margin-bottom:15px; text-align:center;">Scroll of Honor</h2>
+            <div id="leaderboard-list" style="max-height: 200px; overflow-y: auto;">Loading witnesses...</div>
+        </div>
     </div>
 
-    <a-scene embedded vr-mode-ui="enabled: false">
-        <a-entity environment="preset: egypt; lighting: point; dressingAmount: 30; groundColor: #1a1a1a"></a-entity>
+    <div id="arena-play" style="display:none;">
+        <div class="market-hud">
+            <div class="back-to-village" onclick="exitArena()">← Leave Stall</div>
+            <div class="xp-display" id="xp-display">XP: 0</div>
+        </div>
 
-        <a-entity camera look-controls="pointerLockEnabled: false" position="0 1.6 0">
-            <a-cursor color="#c5a059" fuse="true" fuse-timeout="1500"></a-cursor>
-        </a-entity>
-
-        <a-entity position="0 2 -3.5">
-            <a-plane width="4" height="2.5" color="#121214" opacity="0.9" material="metalness: 0.6"></a-plane>
-            <a-text id="vr-game-title" value="PICK A PATH ABOVE" align="center" position="0 0.8 0.1" color="#c5a059" width="4.5"></a-text>
-            <a-text id="vr-scrambled" value="---" align="center" position="0 0 0.1" scale="1.8 1.8 1.8" color="#fff"></a-text>
-            <a-text id="vr-hint-text" value="The Arena Awaits" align="center" position="0 -0.7 0.1" color="#888" width="3"></a-text>
-        </a-entity>
-
-        <a-entity position="-4 2.2 -2" rotation="0 45 0">
-            <a-plane width="2.5" height="3.5" color="#000" opacity="0.8"></a-plane>
-            <a-text value="SCROLL OF HONOR" align="center" position="0 1.4 0.1" color="#c5a059" width="4"></a-text>
-            <a-text id="vr-leaderboard" value="1. Loading..." align="center" position="0 0 0.1" width="3" lineHeight="50"></a-text>
-        </a-entity>
-    </a-scene>
+        <div class="game-container"> <div id="stall-name-display" style="color:var(--gold); font-family:'Cinzel'; font-size:0.7rem; margin-bottom:15px; letter-spacing:3px; opacity:0.8;"></div>
+            <div class="scrambled-text" id="scrambled-text">---</div>
+            <div class="hint-scroll" id="hint-text">Consulting the Scribe...</div>
+            <br>
+            <input type="text" id="ansInput" class="ans-input" placeholder="TYPE THE WORD" autocomplete="off" spellcheck="false">
+        </div>
+    </div>
 
     <script>
-        const arenaDatabase = [
-            { id: 0, title: "Torah", full: "The Torah Challenge", data: [{w:"GENESIS",h:"The book of beginnings"},{w:"EXODUS",h:"The great departure"}] },
-            { id: 1, title: "Maxims", full: "Legal Maxims", data: [{w:"JUSTICE",h:"Deut 16:20 - 'Justice, and only justice'"},{w:"ADVOCATE",h:"Our role in Christ"}] },
-            { id: 2, title: "Parables", full: "Parable Scramble", data: [{w:"PRODIGAL",h:"The lost son who returned"},{w:"SAMARITAN",h:"The neighborly stranger"}] },
-            { id: 3, title: "Apostolic", full: "Apostolic Memory", data: [{w:"ROMANS",h:"Paul's theological masterpiece"},{w:"HEBREWS",h:"The cloud of witnesses"}] },
-            { id: 4, title: "Advocates", full: "The Great Advocates", data: [{w:"GAMALIEL",h:"The teacher of Paul"},{w:"TERTULLUS",h:"The lawyer who accused Paul"}] },
-            { id: 5, title: "Ethics", full: "Scriptural Ethics", data: [{w:"INTEGRITY",h:"Walking uprightly in law"},{w:"MERCY",h:"What God desires over sacrifice"}] },
-            { id: 6, title: "Prophets", full: "The Prophet's Scroll", data: [{w:"ISAIAH",h:"The messianic prophet"},{w:"JEREMIAH",h:"The weeping prophet"}] },
-            { id: 7, title: "Network", full: "New Network Quiz", data: [{w:"ANCHORED",h:"Our position on Christ"}] },
-            { id: 8, title: "Psalms", full: "Psalm Melodies", data: [{w:"SHEPHERD",h:"'The Lord is my ___'"},{w:"SHADOW",h:"'The ___ of the Almighty'"}] },
-            { id: 9, title: "Judgment", full: "The Judgment Seat", data: [{w:"VERDICT",h:"The final divine ruling"}] }
+        const stalls = [
+            { title: "Torah", icon: "📜", desc: "Foundations of the Law" },
+            { title: "Prophets", icon: "👁️", desc: "Visions and Warnings" },
+            { title: "Wisdom", icon: "💎", desc: "Psalms and Proverbs" },
+            { title: "Gospels", icon: "✝️", desc: "The Life of Jesus" },
+            { title: "Acts", icon: "🔥", desc: "The Early Church" },
+            { title: "Epistles", icon: "✉️", desc: "Apostolic Doctrine" },
+            { title: "Heroes", icon: "🛡️", desc: "Men & Women of Faith" },
+            { title: "Miracles", icon: "🌊", desc: "Signs & Wonders" },
+            { title: "Parables", icon: "🍎", desc: "Stories with Meaning" },
+            { title: "Judgment", icon: "⚖️", desc: "Divine Verdicts" }
         ];
 
-        let activeGame = null;
+        let selectedStall = "";
         let activeWord = "";
         let playerXP = 0;
-        let playerName = localStorage.getItem('clasfon_user') || "Disciple";
+        let pointsPerWin = 10;
+        let availableQuestions = [];
+        let playerName = localStorage.getItem('clasfon_user');
 
-        const listContainer = document.getElementById('gameList');
-        arenaDatabase.forEach(game => {
-            const div = document.createElement('div');
-            div.className = 'game-card';
-            div.innerText = game.title;
-            div.onclick = (e) => loadGame(game.id, e.target);
-            listContainer.appendChild(div);
+        // Build the Marketplace Grid
+        const hubGrid = document.getElementById('hubGrid');
+        stalls.forEach(s => {
+            const card = document.createElement('div');
+            card.className = 'market-stall';
+            card.innerHTML = `<span class="stall-icon">${s.icon}</span><h3>${s.title}</h3><p>${s.desc}</p>`;
+            card.onclick = () => { 
+                selectedStall = s.title; 
+                document.getElementById('diff-overlay').style.display = 'flex'; 
+            };
+            hubGrid.appendChild(card);
         });
 
-        function filterGames() {
-            let val = document.getElementById('gameSearch').value.toLowerCase();
-            document.querySelectorAll('.game-card').forEach(card => {
-                card.style.display = card.innerText.toLowerCase().includes(val) ? "flex" : "none";
-            });
+        // Trigger Gemini API based on selected stall and rank
+        async function selectRank(rank, xpValue) {
+            pointsPerWin = xpValue;
+            document.getElementById('diff-overlay').style.display = 'none';
+            document.getElementById('game-hub').style.display = 'none';
+            document.getElementById('arena-play').style.display = 'flex';
+            document.getElementById('scrambled-text').innerText = "CONSULTING...";
+            document.getElementById('hint-text').innerText = `Generating ${rank}-level challenges...`;
+            
+            try {
+                const res = await fetch('/api/game-master', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ stallTitle: selectedStall, difficulty: rank })
+                });
+                availableQuestions = await res.json();
+                document.getElementById('stall-name-display').innerText = `${selectedStall.toUpperCase()} • ${rank.toUpperCase()}`;
+                nextRound();
+            } catch (e) {
+                alert("The Scribe is silent. Return to the Village.");
+                exitArena();
+            }
         }
 
-        function loadGame(id, element) {
-            document.querySelectorAll('.game-card').forEach(c => c.classList.remove('active'));
-            element.classList.add('active');
-            activeGame = arenaDatabase[id];
-            document.getElementById('vr-game-title').setAttribute('value', activeGame.full.toUpperCase());
-            newRound();
-        }
-
-        function newRound() {
-            if(!activeGame) return;
-            const round = activeGame.data[Math.floor(Math.random() * activeGame.data.length)];
+        function nextRound() {
+            if(availableQuestions.length === 0) {
+                alert("Scroll Fully Unsealed! You have grown in spiritual stature.");
+                exitArena();
+                return;
+            }
+            const round = availableQuestions.shift(); // Remove from pool to ensure no repeats
             activeWord = round.w.trim().toUpperCase();
-            let scrambled = activeWord.split('').sort(() => Math.random() - 0.5).join(' ');
-            document.getElementById('vr-scrambled').setAttribute('value', scrambled);
-            document.getElementById('vr-hint-text').setAttribute('value', round.h);
+            
+            // Scramble Logic
+            const scrambled = activeWord.split('').sort(() => Math.random() - 0.5).join(' ');
+            document.getElementById('scrambled-text').innerText = scrambled;
+            document.getElementById('hint-text').innerText = round.h;
             document.getElementById('ansInput').value = "";
+            document.getElementById('ansInput').focus();
         }
 
         document.getElementById('ansInput').addEventListener('input', async (e) => {
-            const val = e.target.value.trim().toUpperCase();
-            if(activeWord && val === activeWord) {
-                playerXP += 10;
-                document.getElementById('xp-counter').innerText = `XP: ${playerXP}`;
+            if(e.target.value.trim().toUpperCase() === activeWord) {
+                playerXP += pointsPerWin;
+                document.getElementById('xp-display').innerText = `XP: ${playerXP}`;
                 
-                // SAVE SCORE TO CLOUD DATABASE
-                try {
-                    await fetch('/api/save-score', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ name: playerName, score: playerXP })
-                    });
-                } catch (err) { console.error("Heavenly records sync failed."); }
+                if (!playerName) {
+                    playerName = prompt("Victory! Enter your name for the Scroll of Honor:");
+                    if (playerName) localStorage.setItem('clasfon_user', playerName.trim());
+                }
+
+                // Save to Vercel KV via API
+                await fetch('/api/save-score', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ name: playerName || "Villager", score: playerXP })
+                });
                 
-                newRound();
-                loadLeaderboard();
-                if ("vibrate" in navigator) navigator.vibrate(50);
+                nextRound();
             }
         });
 
         async function loadLeaderboard() {
             try {
-                // FETCH REAL-TIME SCORES
                 const res = await fetch('/api/get-scores');
                 const data = await res.json();
-                
-                // Format: i+1. MemberName - Score XP
-                const text = data.map((entry, i) => `${i+1}. ${entry.member} - ${entry.score} XP`).join('\n');
-                document.getElementById('vr-leaderboard').setAttribute('value', text);
-            } catch (e) { 
-                console.error("Leaderboard connection lost."); 
-                document.getElementById('vr-leaderboard').setAttribute('value', "1. Connection Lost");
+                document.getElementById('leaderboard-list').innerHTML = data.map((e, i) => 
+                    `<div style="padding:8px 0; border-bottom:1px solid rgba(197,160,89,0.1); font-size:0.85rem; display:flex; justify-content:space-between;">
+                        <span>${i+1}. <strong>${e.member}</strong></span>
+                        <span style="color:var(--gold)">${e.score} XP</span>
+                    </div>`).join('');
+            } catch (err) {
+                document.getElementById('leaderboard-list').innerText = "The Scroll is temporarily sealed.";
             }
         }
 
-        // Initial Load
+        function exitArena() {
+            document.getElementById('game-hub').style.display = 'flex';
+            document.getElementById('arena-play').style.display = 'none';
+            loadLeaderboard();
+        }
+
+        // Initialize leaderboard on load
         loadLeaderboard();
     </script>
 </body>
