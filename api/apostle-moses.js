@@ -13,9 +13,9 @@ export default async function handler(req, res) {
     const question = req.body?.question || req.query.question;
 
     // --- CONFIGURATION ---
-    // CHANGED: Switched to 'gemini-1.5-flash' to fix Quota Exceeded error.
-    // This model has a much higher free tier limit.
-    const MODEL_NAME = "gemini-1.5-flash"; 
+    // CHANGED: Using the 'Lite' model from your specific access list.
+    // This avoids the "Not Found" error of 1.5 and the "Quota" error of 2.0 standard.
+    const MODEL_NAME = "gemini-2.0-flash-lite-preview-02-05"; 
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
 
     try {
@@ -46,7 +46,6 @@ export default async function handler(req, res) {
         // 3. Error Handling
         if (data.error) {
             console.error("Gemini Error:", data.error);
-            // Return exact error message to help debugging
             return res.status(500).json({ answer: `Google API Error: ${data.error.message}` });
         }
 
