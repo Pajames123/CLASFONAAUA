@@ -12,151 +12,45 @@
                 mutation.addedNodes.forEach((node) => {
                     if (node.nodeName && node.nodeName.startsWith('A-')) {
                         node.parentNode.removeChild(node);
-                        console.log("Purged Rogue A-Frame Element:", node.nodeName);
                     }
                 });
             });
         });
         observer.observe(document.documentElement, { childList: true, subtree: true });
+
+        // Preloader Fade-out
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('preloader');
+                loader.classList.add('preloader-hidden');
+            }, 1800);
+        });
     </script>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;500;700&family=Libre+Baskerville&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 
-    <style>
-        :root {
-            --gold: #c5a059;
-            --gold-bright: #e2c285;
-            --gold-glow: rgba(197, 160, 89, 0.4);
-            --dark: #0a0a0b;
-            --slate: #121214;
-            --white: #ffffff;
-            --parchment: #fdfdfb;
-            --glass: rgba(10, 10, 11, 0.9);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { background: var(--dark); color: var(--white); font-family: 'Montserrat', sans-serif; overflow-x: hidden; line-height: 1.6; }
-
-        /* --- THE VIBE: NEWS TICKER --- */
-        .news-ticker-bar { 
-            position: fixed; top: 0; width: 100%; height: 40px; 
-            background: #000; border-bottom: 2px solid var(--gold); 
-            z-index: 2000; display: flex; align-items: center; overflow: hidden; 
-        }
-        .ticker-content { display: flex; white-space: nowrap; animation: broadcastFlow 30s linear infinite; }
-        .ticker-item { display: flex; align-items: center; padding: 0 50px; }
-        .news-badge { background: #d00000; color: white; font-size: 0.6rem; font-weight: 800; padding: 2px 8px; margin-right: 15px; }
-        .news-badge.gold { background: var(--gold); color: #000; }
-        @keyframes broadcastFlow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-        /* --- THE VIBE: GLASS NAVIGATION --- */
-        .institutional-nav { 
-            position: sticky; top: 40px; background: var(--glass); 
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            z-index: 1000; padding: 15px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.1); 
-        }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-        .brand-text { display: flex; flex-direction: column; margin-left: 10px; }
-        .logo-main { font-family: 'Cinzel'; color: var(--gold); font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; }
-        .logo-sub { font-size: 0.6rem; letter-spacing: 3px; opacity: 0.8; }
-        .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
-        .nav-links a { text-decoration: none; color: white; font-size: 0.7rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; transition: 0.3s; }
-        .nav-links a:hover { color: var(--gold); }
-        .nav-cta { border: 1px solid var(--gold); padding: 8px 15px !important; color: var(--gold) !important; border-radius: 2px; }
-
-        /* --- THE VIBE: CINEMATIC HERO --- */
-        .hero { 
-            height: 85vh; width: 100%; display: flex; align-items: center; justify-content: center; 
-            background: url('background1.jpg') center/cover no-repeat; 
-            position: relative; text-align: center; margin-top: -40px;
-        }
-        .hero-lighting { 
-            position: absolute; inset: 0; 
-            background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.9) 80%); 
-            z-index: 1; 
-        }
-        .hero-content { position: relative; z-index: 10; padding: 0 20px; }
-        .hero-main-title { font-family: 'Cinzel'; font-size: clamp(2.5rem, 8vw, 5rem); line-height: 1; margin-bottom: 20px; }
-        .gold-italic { color: var(--gold); font-family: 'Playfair Display'; font-style: italic; }
-        .hero-motto { font-size: 0.8rem; letter-spacing: 6px; color: #ccc; text-transform: uppercase; margin-bottom: 40px; }
-        
-        .btn-gold { background: var(--gold); color: #000; padding: 15px 35px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; transition: 0.3s; margin-right: 15px; display: inline-block; }
-        .btn-outline { border: 1px solid var(--white); color: var(--white); padding: 15px 35px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; transition: 0.3s; display: inline-block; }
-
-        /* --- NEWS EDITION GRID --- */
-        .news-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; margin-top: 40px; }
-        .news-card-featured { background: var(--slate); border: 1px solid rgba(197, 160, 89, 0.1); position: relative; overflow: hidden; }
-        .news-img { width: 100%; height: 350px; object-fit: cover; }
-        .news-tag { position: absolute; top: 20px; left: 20px; background: var(--gold); color: #000; padding: 5px 12px; font-weight: 800; font-size: 0.6rem; z-index: 5; }
-        .news-info { padding: 30px; }
-        .news-info h3 { font-family: 'Cinzel'; color: var(--gold); margin-bottom: 15px; }
-        .secondary-news-list { display: flex; flex-direction: column; gap: 20px; }
-        .mini-news-item { display: flex; gap: 20px; background: rgba(255,255,255,0.03); padding: 15px; border-left: 3px solid var(--gold); transition: 0.3s; cursor: pointer; }
-        .mini-news-item:hover { background: rgba(255,255,255,0.08); }
-
-        /* --- PRESIDENTIAL SECTION --- */
-        .section-padding { padding: 100px 0; }
-        .parchment-doc { 
-            background: var(--parchment); color: #1a1a1a; padding: 80px 60px; 
-            max-width: 950px; margin: 0 auto; border-top: 8px solid var(--gold); 
-            box-shadow: 0 50px 100px rgba(0,0,0,0.5); 
-        }
-        .doc-header { display: flex; gap: 40px; align-items: center; margin-bottom: 50px; flex-wrap: wrap; }
-        .doc-portrait { width: 200px; height: 260px; border: 1px solid #ddd; padding: 6px; background: white; flex-shrink: 0; }
-        .doc-portrait img { width: 100%; height: 100%; object-fit: cover; }
-        .stamp { font-family: 'Montserrat'; font-weight: 800; font-size: 0.6rem; color: var(--gold); letter-spacing: 4px; display: block; margin-bottom: 10px; }
-        .doc-h2 { font-family: 'Cinzel'; font-size: 2rem; color: #111; }
-        .doc-main { text-align: justify; line-height: 2.1; font-family: 'Libre Baskerville', serif; font-size: 1.1rem; color: #333; }
-        .first-letter { float: left; font-size: 4.5rem; color: var(--gold); line-height: 0.8; padding: 10px 15px 0 0; font-family: 'Cinzel'; }
-
-        /* --- GRIDS & CARDS --- */
-        .bg-slate { background: var(--slate); }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .info-block { border-left: 2px solid var(--gold); padding-left: 25px; height: 100%; }
-        .cinzel-title { font-family: 'Cinzel'; margin-bottom: 25px; }
-        .gold { color: var(--gold); }
-        
-        /* --- LEADERS GRID --- */
-        .sophisticated-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; margin-top: 50px; }
-        .leader-box { background: #080808; padding: 15px; border: 1px solid rgba(255,255,255,0.03); text-align: center; transition: 0.4s; }
-        .leader-img-wrap { width: 100%; height: 240px; overflow: hidden; margin-bottom: 15px; border: 1px solid var(--gold); filter: grayscale(1); transition: 0.6s; }
-        .leader-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-        .leader-box:hover { border-color: var(--gold); transform: translateY(-10px); }
-        .leader-box:hover .leader-img-wrap { filter: grayscale(0); }
-
-        /* --- AI LECTERN --- */
-        .moses-avatar-glow {
-            width: 110px; height: 110px; margin: 0 auto 20px; border-radius: 50%;
-            border: 2px solid var(--gold); padding: 5px; background: #000;
-            box-shadow: 0 0 20px var(--gold-glow); animation: mosesPulse 4s infinite ease-in-out;
-        }
-        @keyframes mosesPulse {
-            0%, 100% { box-shadow: 0 0 15px var(--gold-glow); transform: scale(1); }
-            50% { box-shadow: 0 0 35px var(--gold); transform: scale(1.05); }
-        }
-        #ai-trigger { position: fixed; bottom: 30px; right: 30px; background: var(--gold); color: #000; padding: 15px 25px; border-radius: 50px; cursor: pointer; z-index: 3000; font-weight: 800; text-transform: uppercase; font-size: 0.7rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        #moses-lectern { position: fixed; bottom: 100px; right: 30px; width: 380px; height: 550px; background: rgba(10,10,11,0.98); border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 3000; backdrop-filter: blur(20px); box-shadow: 0 30px 60px rgba(0,0,0,0.8); border-radius: 12px; overflow: hidden; }
-        .lectern-header { padding: 20px; background: #000; border-bottom: 1px solid var(--gold); display: flex; justify-content: space-between; align-items: center; font-family: 'Cinzel'; color: var(--gold); }
-        #chat-archive { flex: 1; padding: 20px; overflow-y: auto; font-size: 0.85rem; scrollbar-width: thin; }
-        .moses-response { border-left: 2px solid var(--gold); padding-left: 15px; margin-bottom: 25px; color: #efefef; font-size: 0.9rem; line-height: 1.8; }
-        .input-box { display: flex; padding: 15px; gap: 10px; background: #000; }
-        .input-box input { flex: 1; background: #111; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 4px; }
-
-        @media (max-width: 992px) { .news-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { .nav-links { display: none; } .parchment-doc { padding: 40px 20px; } .hero-main-title { font-size: 3rem; } #moses-lectern { width: 90%; right: 5%; bottom: 90px; } }
-    </style>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#c5a059">
 </head>
 <body>
 
+    <div id="preloader">
+        <div class="preloader-content">
+            <img src="logo.png" alt="CLASFON Logo" class="preloader-logo">
+            <h1 class="preloader-title">CLASFON</h1>
+            <span class="preloader-sub">AAUA CHAPTER</span>
+            <div class="preloader-bar">
+                <div class="preloader-progress"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="news-ticker-bar">
-        <div class="ticker-content">
-            <div class="ticker-item"><span class="news-badge gold">SCRIPTURE OF THE DAY</span><span class="news-text">"Justice, and only justice, you shall follow..." — Deut 16:20 | <small>Apostle Moses: May your legal robe serve as a priestly garment.</small></span></div>
-            <div class="ticker-item"><span class="news-badge">LIVE</span><span class="news-text">A NEW LEGAL PROFESSION ANCHORED ON CHRIST</span></div>
-            <div class="ticker-item"><span class="news-badge">UPDATE</span><span class="news-text">FRIDAY FELLOWSHIP — 12:00 PM | LAW LT B1</span></div>
+        <div class="ticker-content" id="automated-ticker">
+            <div class="ticker-item"><span class="news-badge gold">DAILY DECREE</span> Consulting the Scribe for today's verse...</div>
+            <div class="ticker-item"><span class="news-badge">LIVE</span> A NEW LEGAL PROFESSION ANCHORED ON CHRIST</div>
         </div>
     </div>
 
@@ -167,10 +61,9 @@
                 <div class="brand-text"><span class="logo-main">CLASFON</span><span class="logo-sub">AAUA CHAPTER</span></div>
             </div>
             <ul class="nav-links">
+                <li><a href="#news-edition">News Edition</a></li>
                 <li><a href="#president-message">Welcome</a></li>
-                <li><a href="#news-edition">News</a></li>
                 <li><a href="#schedule">Liturgy</a></li>
-                <li><a href="games.html" class="nav-cta" style="background:var(--gold); color:#000 !important; margin-right:15px;">Scripture Arena</a></li>
                 <li><a href="#leaders">Leadership</a></li>
                 <li><a href="hall-of-fame.html" class="nav-cta">Witnesses</a></li>
             </ul>
@@ -183,8 +76,8 @@
             <h1 class="hero-main-title">Established Upon <br><span class="gold-italic">The Advocate.</span></h1>
             <p class="hero-motto">A New Legal Profession Anchored on Christ</p>
             <div class="hero-actions">
-                <a href="#president-message" class="btn-gold">Read Address</a>
-                <a href="#news-edition" class="btn-outline">News Edition</a>
+                <a href="#news-edition" class="btn-gold">Read Daily News</a>
+                <button onclick="toggleMoses()" class="btn-outline">Consult Apostle Moses</button>
             </div>
         </div>
     </header>
@@ -192,26 +85,27 @@
     <section id="news-edition" class="section-padding" style="background: #080808;">
         <div class="container">
             <div style="text-align: center; margin-bottom: 50px;">
-                <span class="stamp">WEEKLY COMMUNIQUÉ</span>
-                <h2 class="cinzel-title gold" style="font-size: 2.5rem; margin-bottom: 0;">News Edition</h2>
+                <span class="stamp" id="today-date">OFFICIAL GAZETTE</span>
+                <h2 class="cinzel-title gold" style="font-size: 2.5rem; margin-bottom: 0;">News & Revelation</h2>
+                <p style="color: #666; font-size: 0.8rem; letter-spacing: 2px;">DAILY BIBLICAL NARRATIVES & GLOBAL CHRISTIAN UPDATES</p>
             </div>
+            
             <div class="news-grid">
                 <div class="news-card-featured">
-                    <span class="news-tag">LATEST EDITION</span>
-                    <img src="event1.jpg" alt="Featured News" class="news-img">
+                    <span class="news-tag">Daily Biblical Narrative</span>
                     <div class="news-info">
-                        <span class="news-date">January 2, 2026</span>
-                        <h3>The Call to the Bar: A Spiritual Mandate for the Modern Advocate</h3>
-                        <p style="color: #bbb; font-size: 0.9rem;">Exploring the duality of the legal profession as both a civil duty and a spiritual ministry...</p>
-                        <a href="#" style="color: var(--gold); text-decoration: none; font-weight: 700; font-size: 0.75rem; margin-top: 20px; display: inline-block;">READ FULL ARTICLE →</a>
+                        <h3 id="story-title" class="cinzel-title">The Scribe is preparing...</h3>
+                        <p id="story-body" style="color: #bbb; font-size: 0.9rem; line-height: 1.8;"></p>
+                        <p id="story-implication" style="color: var(--gold); font-style: italic; margin-top: 15px; border-top: 1px solid #222; padding-top: 10px;"></p>
                     </div>
                 </div>
+                
                 <div class="secondary-news-list">
                     <div class="mini-news-item">
-                        <div><span class="news-date" style="font-size: 0.6rem;">Dec 28, 2025</span><h4>Orientation 2026: Anchoring Freshmen in Kingdom Values</h4></div>
-                    </div>
-                    <div class="mini-news-item">
-                        <div><span class="news-date" style="font-size: 0.6rem;">Dec 20, 2025</span><h4>Community Outreach: Legal Aid Clinic in Akungba-Akoko</h4></div>
+                        <span class="news-tag" style="background:none; color:var(--gold); border:1px solid var(--gold); padding:2px 8px;">GLOBAL WITNESS</span>
+                        <h4 id="global-news-title" style="margin: 15px 0;">Fetching global Christian headlines...</h4>
+                        <p id="global-news-summary" style="font-size: 0.8rem; color: #888; margin-bottom: 15px;"></p>
+                        <a href="#" class="read-more-link">View Full Record</a>
                     </div>
                 </div>
             </div>
@@ -233,7 +127,6 @@
                     <p class="first-letter">S</p>
                     <p>halom to you in the precious name of our Lord Jesus Christ. It is with a heart full of gratitude and divine purpose that I welcome you to the official digital portal of the Christian Law Students’ Fellowship of Nigeria (CLASFON), Adekunle Ajasin University Chapter.</p>
                     <p>At CLASFON AAUA, we believe that the legal profession is not merely a career path or a means of livelihood; it is a high calling and a sacred ministry. We are raising a <strong>"New Network of Lawyers"</strong> governed by the laws of the Kingdom of God.</p>
-                    <p>Our mandate is clear: to integrate our legal training with our spiritual convictions, producing advocates who are not only learned in the law of the land but are deeply rooted in the Law of the Spirit of Life in Christ Jesus.</p>
                 </div>
                 <div class="doc-footer">
                     <p class="sig-name" style="margin-top:40px; font-weight:700;">Ajisafe Koyinsola</p>
@@ -243,79 +136,75 @@
         </div>
     </section>
 
-    <section id="schedule" class="section-padding bg-slate">
-        <div class="container grid-3">
-            <div class="info-block">
-                <h2 class="cinzel-title gold">Weekly Liturgy</h2>
-                <div class="schedule-item"><p><strong>Monday:</strong> Intercession — 5:00 PM | Faculty Lawn</p></div>
-                <div class="schedule-item"><p><strong>Friday:</strong> Fellowship — 12:00 PM | Law LT B1</p></div>
-            </div>
-            <div class="info-block">
-                <h2 class="cinzel-title gold">Digital Library</h2>
-                <a href="body-of-christ.pdf" download style="color:var(--gold); display:block; text-decoration:none; margin-bottom:10px;"><i class="fa-solid fa-file-pdf"></i> Body of Christ Reality</a>
-            </div>
-            <div class="info-block">
-                <h2 class="cinzel-title gold">Partnership</h2>
-                <p class="acc-num">0051649056</p>
-                <button onclick="copyAcc()" class="btn-gold" style="padding:10px 20px; font-size:0.6rem;">Copy Access Details</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="arena" class="section-padding" style="background:#050505;">
-        <div class="container text-center">
-            <div class="moses-avatar-glow"><img src="moses_avatar.jpg" alt="Apostle Moses" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"></div>
-            <h2 class="cinzel-title gold" style="font-size:3rem; margin-bottom:10px;">The Scripture Arena</h2>
-            <p style="letter-spacing:4px; opacity:0.7; text-transform:uppercase; margin-bottom:40px;">"Future Advocate, the scrolls are ready. Decipher the Law of Liberty."</p>
-            <a href="games.html" class="btn-gold" style="padding:20px 50px;">Enter The Arena</a>
-        </div>
-    </section>
-
     <section id="leaders" class="section-padding bg-slate">
         <div class="container">
             <h2 class="cinzel-title text-center" style="margin-bottom:50px;">Leadership Council</h2>
             <div class="sophisticated-grid">
                 <div class="leader-box"><div class="leader-img-wrap"><img src="president.jpg"></div><h3>Ajisafe Koyinsola</h3><p>President</p></div>
                 <div class="leader-box"><div class="leader-img-wrap"><img src="vp.jpg"></div><h3>Salami Princess</h3><p>Vice President</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="gensec.jpg"></div><h3>Babatunde Olamide</h3><p>Gen Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="asst_gensec.jpg"></div><h3>Ogunesan Hannah</h3><p>Asst. Gen Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="tech_sec.jpg"></div><h3>Adegboro Adetomiwa</h3><p>Technical Sec</p></div>
-            </div>
+                </div>
         </div>
     </section>
 
-    <div id="ai-trigger" onclick="toggleMoses()"><i class="fa-solid fa-scale-balanced"></i> Consult Apostle Moses</div>
+    <div id="ai-trigger" onclick="toggleMoses()">
+        <div class="pulse-ring"></div>
+        <i class="fa-solid fa-scale-balanced"></i> Ask Apostle Moses
+    </div>
+
     <div id="moses-lectern">
-        <div class="lectern-header"><span>Apostolic Lectern</span><button onclick="toggleMoses()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button></div>
-        <div id="chat-archive"></div>
-        <div class="input-box">
+        <div class="lectern-header">
+            <div class="moses-mini-avatar">
+                <img src="logo.png" alt="Apostle Moses">
+                <div class="online-indicator"></div>
+            </div>
+            <div class="lectern-title-group">
+                <span class="lectern-main">Apostle Moses</span>
+                <span class="lectern-status">Legal-Spiritual AI Consultant</span>
+            </div>
+            <button onclick="toggleMoses()" class="close-lectern">&times;</button>
+        </div>
+        
+        <div id="chat-archive">
+            <div class="moses-msg-initial">
+                "Peace be with you, Future Advocate. I am the Scribe of this Arena. Pose your inquiry concerning the Statutes of Men or the Decrees of the Spirit."
+            </div>
+        </div>
+
+        <div class="input-area">
             <input type="text" id="user-q" placeholder="Consult the Law & the Testimony..." onkeypress="if(event.key==='Enter') askMoses()">
-            <button onclick="askMoses()" style="background:var(--gold); border:none; padding:10px 15px; cursor:pointer;"><i class="fa-solid fa-paper-plane"></i></button>
+            <button onclick="askMoses()" class="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
     </div>
 
-    <footer id="contact" class="luxury-footer">
-        <div class="container footer-grid">
-            <div class="f-col">
-                <img src="logo.png" style="height:60px; margin-bottom:20px;">
-                <p style="font-size:0.8rem; color:#888;">"A new legal profession anchored on Christ."</p>
-            </div>
-            <div class="f-col">
-                <h3 class="cinzel-title gold">Prayer Altar</h3>
-                <form class="altar-form" action="https://formspree.io/f/mojqoajk" method="POST">
-                    <input type="email" name="email" placeholder="Email Address" required>
-                    <textarea name="message" placeholder="Submit your petition..." required></textarea>
-                    <button type="submit">Send to Altar</button>
-                </form>
-            </div>
-        </div>
-    </footer>
-
     <script>
+        // Automatic News Sync
+        async function fetchDailyRevelation() {
+            try {
+                const res = await fetch('/api/daily-reveal');
+                const data = await res.json();
+                
+                document.getElementById('automated-ticker').innerHTML = `
+                    <div class="ticker-item"><span class="news-badge gold">DAILY DECREE</span> ${data.verse}</div>
+                    <div class="ticker-item"><span class="news-badge">CHARGE</span> ${data.charge}</div>
+                `;
+
+                document.getElementById('story-title').innerText = data.storyTitle;
+                document.getElementById('story-body').innerText = data.storyText;
+                document.getElementById('story-implication').innerHTML = `<b>Legal Implication:</b> ${data.implication}`;
+                
+                document.getElementById('global-news-title').innerText = data.globalNewsTitle;
+                document.getElementById('global-news-summary').innerText = data.globalNewsSummary;
+            } catch (e) {
+                console.log("Scribe offline.");
+            }
+        }
+
         function toggleMoses() {
-            const l = document.getElementById('moses-lectern');
-            l.style.display = (l.style.display === 'flex') ? 'none' : 'flex';
-            if (l.style.display === 'flex') document.getElementById('user-q').focus();
+            const lectern = document.getElementById('moses-lectern');
+            lectern.classList.toggle('lectern-active');
+            if (lectern.classList.contains('lectern-active')) {
+                document.getElementById('user-q').focus();
+            }
         }
 
         async function askMoses() {
@@ -323,20 +212,29 @@
             const archive = document.getElementById('chat-archive');
             const q = input.value.trim();
             if(!q) return;
-            archive.innerHTML += `<div style="color:var(--gold); margin-bottom:15px; text-align:right;"><b>Advocate:</b> ${q}</div>`;
+
+            archive.innerHTML += `<div class="user-bubble"><b>Advocate:</b> ${q}</div>`;
             input.value = "";
+            archive.scrollTop = archive.scrollHeight;
+
             try {
-                const res = await fetch('/api/apostle-moses', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({question: q}) });
+                const res = await fetch('/api/apostle-moses', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({question: q})
+                });
                 const data = await res.json();
-                archive.innerHTML += `<div class="moses-response"><b>Apostle Moses:</b> ${data.answer}</div>`;
-            } catch (err) { archive.innerHTML += `<div style="color:red; font-size:0.8rem;">Shalom. Connection lost.</div>`; }
+                archive.innerHTML += `<div class="moses-response-bubble">${data.answer}</div>`;
+            } catch (err) {
+                archive.innerHTML += `<div style="color:#ff4444; font-size:0.7rem; padding:10px;">Connection to the inner court lost...</div>`;
+            }
             archive.scrollTop = archive.scrollHeight;
         }
 
-        function copyAcc() {
-            navigator.clipboard.writeText("0051649056");
-            alert("Account details copied to clipboard.");
-        }
+        window.onload = () => {
+            fetchDailyRevelation();
+            document.getElementById('today-date').innerText = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+        };
     </script>
 </body>
 </html>

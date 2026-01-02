@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Arena | Marketplace | CLASFON AAUA</title>
+
+    <script>
+        window.AFRAME = null; 
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeName && node.nodeName.startsWith('A-')) {
+                        node.parentNode.removeChild(node);
+                        console.log("Purged Rogue A-Frame Element:", node.nodeName);
+                    }
+                });
+            });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -96,7 +112,6 @@
         let questionQueue = [];
         let playerName = localStorage.getItem('clasfon_user');
 
-        // Render Stalls
         const grid = document.getElementById('marketGrid');
         STALLS.forEach(s => {
             const div = document.createElement('div');
@@ -138,7 +153,6 @@
                     body: JSON.stringify({question: q})
                 });
                 const data = await res.json();
-                // Ensure the response includes the Statutory and Testamental dual-parts
                 archive.innerHTML += `<div class="moses-response"><b>Apostle Moses:</b> ${data.answer}</div>`;
             } catch (err) {
                 archive.innerHTML += `<div style="color:red; font-size:0.8rem;">Sanctuary connection lost...</div>`;
