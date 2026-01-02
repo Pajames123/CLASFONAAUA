@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Revelation | CLASFON AAUA</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-slate">
+    <nav class="institutional-nav">
+        <div class="container nav-flex">
+            <a href="/" class="gold" style="font-weight:700;">← Return to Portal</a>
+            <span class="logo-main">THE CLASFON GAZETTE</span>
+        </div>
+    </nav>
+    <section class="section-padding">
+        <div class="container">
+            <span class="stamp" id="today-date">TODAY'S EDITION</span>
+            <div class="news-grid">
+                <div class="news-card-featured">
+                    <div class="news-info">
+                        <h3 id="story-title" class="gold">Fetching the Scroll...</h3>
+                        <p id="story-body" style="color:#bbb;">The Scribe is writing...</p>
+                        <p id="story-implication" style="margin-top:20px; color:var(--gold); border-top:1px solid #333; padding-top:15px; font-style:italic;"></p>
+                    </div>
+                </div>
+                <div class="mini-news-item">
+                    <span class="news-badge gold">GLOBAL WITNESS</span>
+                    <h4 id="global-news-title">Loading Headlines...</h4>
+                    <p id="global-news-summary" style="font-size:0.85rem; color:#888;">Searching Christian News Archives...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        async function load() {
+            document.getElementById('today-date').innerText = new Date().toDateString().toUpperCase();
+            try {
+                const res = await fetch('/api/apostle-moses?type=daily-news');
+                const data = await res.json();
+                document.getElementById('story-title').innerText = data.storyTitle;
+                document.getElementById('story-body').innerText = data.storyText;
+                document.getElementById('story-implication').innerHTML = `<b>Legal Takeaway:</b> ${data.implication}`;
+                document.getElementById('global-news-title').innerText = data.globalNewsTitle;
+                document.getElementById('global-news-summary').innerText = data.globalNewsSummary;
+            } catch(e) { console.error("Error loading news"); }
+        }
+        window.onload = load;
+    </script>
+</body>
+</html>

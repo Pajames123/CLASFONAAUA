@@ -1,24 +1,11 @@
 {
   "short_name": "CLASFON",
-  "name": "CLASFON AAUA Chapter",
-  "description": "The Christian Law Students' Fellowship of Nigeria, Adekunle Ajasin University.",
-  "icons": [
-    {
-      "src": "logo_192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo_512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any maskable"
-    }
-  ],
+  "name": "CLASFON AAUA Portal",
   "start_url": "/index.html",
-  "background_color": "#0d0d0e",
+  "background_color": "#050505",
   "display": "standalone",
   "theme_color": "#c5a059",
-  "orientation": "portrait-primary",
-  "categories": ["education", "lifestyle"]
+  "icons": [
+    { "src": "logo_192.png", "sizes": "192x192", "type": "image/png" }
+  ]
 }

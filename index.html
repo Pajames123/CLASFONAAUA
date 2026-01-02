@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLASFON AAUA | The Official Portal</title>
-    
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#c5a059">
-    <link rel="apple-touch-icon" href="/logo_192.png">
-
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Montserrat:wght@300;400;600;700&family=Libre+Baskerville&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Montserrat:wght@300;400;600;700&family=Libre+Baskerville&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -25,12 +22,9 @@
 
     <nav class="institutional-nav">
         <div class="container nav-flex">
-            <div class="brand">
-                <img src="/logo.png" alt="Logo" class="nav-logo">
-                <div class="brand-text"><span class="logo-main">CLASFON</span><span class="logo-sub">AAUA CHAPTER</span></div>
-            </div>
+            <a href="/" class="logo-main">CLASFON <span style="font-size:0.5em; opacity:0.7;">AAUA</span></a>
             <ul class="nav-links">
-                <li><a href="/news.html">News & Articles</a></li>
+                <li><a href="/news.html">News</a></li>
                 <li><a href="#president-message">Address</a></li>
                 <li><a href="#library">Library</a></li>
                 <li><a href="#leaders">Leadership</a></li>
@@ -40,13 +34,12 @@
     </nav>
 
     <header class="hero">
-        <div class="hero-lighting"></div>
         <div class="hero-content">
             <h1 class="hero-main-title">CLASFON <br><span class="gold-italic">AAUA.</span></h1>
             <p class="hero-motto">A New Legal Profession Anchored on Christ</p>
             <div class="hero-actions">
-                <a href="/news.html" class="btn-gold">Read Daily Revelation</a>
-                <button onclick="toggleMoses()" class="btn-outline">Ask Apostle Moses</button>
+                <a href="/news.html" class="nav-cta" style="background:var(--gold); color:#000 !important;">Read Daily Revelation</a>
+                <button onclick="toggleMoses()" class="nav-cta">Ask Apostle Moses</button>
             </div>
         </div>
     </header>
@@ -65,9 +58,8 @@
                 <div class="doc-main">
                     <p class="first-letter">S</p>
                     <p>halom to you in the precious name of our Lord Jesus Christ. It is with a heart full of gratitude and divine purpose that I welcome you to the official digital portal of the Christian Law Students’ Fellowship of Nigeria (CLASFON), Adekunle Ajasin University Chapter.</p>
-                    <p>At CLASFON AAUA, we believe that the legal profession is not merely a career path or a means of livelihood; it is a high calling and a sacred ministry. We are raising a <strong>"New Network of Lawyers"</strong> governed by the laws of the Kingdom of God. In a world where the lines of justice are often blurred, we stand as a beacon of integrity, excellence, and spiritual fervor.</p>
-                    <p>Our mandate is clear: to integrate our legal training with our spiritual convictions, producing advocates who are not only learned in the law of the land but are deeply rooted in the Law of the Spirit of Life in Christ Jesus. We exist to provide a sanctuary where your faith is not compromised by your studies, but rather strengthened by it.</p>
-                    <p>We are established upon the Advocate, and in Him, our victory is certain.</p>
+                    <p>At CLASFON AAUA, we believe that the legal profession is not merely a career path or a means of livelihood; it is a high calling and a sacred ministry. We are raising a <strong>"New Network of Lawyers"</strong> governed by the laws of the Kingdom of God.</p>
+                    <p>Our mandate is clear: to integrate our legal training with our spiritual convictions, producing advocates who are not only learned in the law of the land but are deeply rooted in the Law of the Spirit of Life in Christ Jesus.</p>
                 </div>
             </div>
         </div>
@@ -77,27 +69,25 @@
         <div class="container grid-3">
             <div class="info-block">
                 <h2 class="cinzel-title gold">Weekly Liturgy</h2>
-                <div style="margin-top: 20px;">
+                <div style="margin-top:20px;">
                     <p style="margin-bottom:15px;"><b class="gold">Monday Intercession</b><br>5:00 PM | Faculty Lawn</p>
                     <p><b class="gold">Friday Fellowship</b><br>12:00 PM | Law LT B1</p>
                 </div>
             </div>
-            
             <div class="info-block">
                 <h2 class="cinzel-title gold">Apostolic Library</h2>
-                <div style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
+                <div style="margin-top:20px;">
                     <a href="/docs/constitution.pdf" class="lib-link" download><i class="fas fa-file-pdf"></i> CLASFON Constitution</a>
                     <a href="/docs/ethics.pdf" class="lib-link" download><i class="fas fa-file-pdf"></i> Kingdom Ethics in Law</a>
                     <a href="/docs/anthem.mp3" class="lib-link" download><i class="fas fa-music"></i> CLASFON Anthem</a>
                 </div>
             </div>
-            
             <div class="info-block">
                 <h2 class="cinzel-title gold">Partnership Altar</h2>
-                <p style="opacity:0.7; margin-top:20px;">Support the work of the ministry.</p>
+                <p style="margin-top:20px; opacity:0.7;">Support the vision.</p>
                 <h3 style="color:#fff; margin:10px 0;">Access Bank</h3>
-                <p class="acc-num" style="font-size: 1.8rem; color: var(--gold); font-weight:800; letter-spacing:3px;">0051649056</p>
-                <button onclick="copyAcc()" class="btn-gold" style="width:100%;">Copy Account Details</button>
+                <p style="font-size:1.5rem; color:var(--gold); font-weight:800; letter-spacing:2px;">0051649056</p>
+                <button onclick="copyAcc()" class="nav-cta" style="width:100%; margin-top:10px;">Copy Account Details</button>
             </div>
         </div>
     </section>
@@ -134,32 +124,31 @@
 
     <div id="moses-lectern">
         <div class="lectern-header">
-            <div class="moses-mini-avatar"><img src="/logo.png"><div class="online-indicator"></div></div>
-            <div class="lectern-title-group"><span class="lectern-main">Apostle Moses</span><span class="lectern-status">Legal-Spiritual AI</span></div>
-            <button onclick="toggleMoses()" class="close-lectern">&times;</button>
+            <span class="cinzel-title gold" style="font-size:0.9rem;">Apostle Moses AI</span>
+            <button onclick="toggleMoses()" style="background:none; border:none; color:#fff; cursor:pointer;"><i class="fas fa-times"></i></button>
         </div>
         <div id="chat-archive">
-            <div class="moses-msg-initial">
-                "Peace be with you, Future Advocate. I am the Scribe of this Arena. Ask of the Statutes of Men or the Decrees of the Spirit."
+            <div style="text-align:center; color:var(--gold); font-style:italic; padding:20px; border:1px dashed var(--gold); border-radius:10px;">
+                "Peace, Future Advocate. I am the Scribe. Ask of the Statutes or the Spirit."
             </div>
         </div>
         <div class="input-area">
-            <input type="text" id="user-q" placeholder="Pose a legal-spiritual query..." onkeypress="if(event.key==='Enter') askMoses()">
-            <button onclick="askMoses()" class="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+            <input type="text" id="user-q" placeholder="Ask a question..." onkeypress="if(event.key==='Enter') askMoses()">
+            <button onclick="askMoses()" class="send-btn"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <footer class="luxury-footer">
         <div class="container footer-grid">
-            <div class="f-col">
+            <div>
                 <img src="/logo.png" style="height:60px; margin-bottom:20px;">
-                <p>"A new legal profession anchored on Christ."</p>
+                <p style="opacity:0.7;">Anchoring the legal profession on the Rock of Ages.</p>
             </div>
-            <div class="f-col">
+            <div>
                 <h3 class="cinzel-title gold">The Prayer Altar</h3>
                 <form class="altar-form" action="https://formspree.io/f/mojqoajk" method="POST">
-                    <input type="email" name="email" placeholder="Your Email Address" required>
-                    <textarea name="message" placeholder="Submit your petition..." required></textarea>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Petition..." required></textarea>
                     <button type="submit">Lay on Altar</button>
                 </form>
             </div>
@@ -167,48 +156,34 @@
     </footer>
 
     <script>
-        // --- LOGIC: Ticker Sync, AI Chat, Copy Account ---
         async function fetchDailyRevelation() {
             try {
-                // Fetches data generated at 12:01 AM
                 const res = await fetch('/api/apostle-moses?type=daily-news');
                 const data = await res.json();
                 document.getElementById('ticker-verse').innerText = data.verse || "Loading Scripture...";
                 document.getElementById('ticker-news').innerText = data.charge || "Loading Update...";
-            } catch (e) { console.log("Scribe connection standby..."); }
+            } catch (e) { console.log("Scribe offline."); }
         }
-
-        function toggleMoses() {
-            document.getElementById('moses-lectern').classList.toggle('lectern-active');
-        }
-
+        function toggleMoses() { document.getElementById('moses-lectern').classList.toggle('lectern-active'); }
         async function askMoses() {
             const input = document.getElementById('user-q');
             const archive = document.getElementById('chat-archive');
             const q = input.value.trim();
             if(!q) return;
-
-            archive.innerHTML += `<div class="user-bubble"><b>Advocate:</b> ${q}</div>`;
+            archive.innerHTML += `<div class="user-bubble">${q}</div>`;
             input.value = "";
             archive.scrollTop = archive.scrollHeight;
-
             try {
                 const res = await fetch('/api/apostle-moses', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({question: q, type: 'chat'})
                 });
                 const data = await res.json();
                 archive.innerHTML += `<div class="moses-response-bubble">${data.answer}</div>`;
-            } catch (err) { archive.innerHTML += `<div style="color:red; font-size:0.7rem;">Connection lost.</div>`; }
+            } catch (err) { archive.innerHTML += `<div style="color:red; padding:10px;">Connection lost.</div>`; }
             archive.scrollTop = archive.scrollHeight;
         }
-
-        function copyAcc() {
-            navigator.clipboard.writeText("0051649056");
-            alert("Partnership Account (Access Bank) Copied.");
-        }
-
+        function copyAcc() { navigator.clipboard.writeText("0051649056"); alert("Copied!"); }
         window.onload = fetchDailyRevelation;
     </script>
 </body>
