@@ -13,8 +13,9 @@ export default async function handler(req, res) {
     const question = req.body?.question || req.query.question;
 
     // --- CONFIGURATION ---
-    // We use gemini-2.0-flash because your logs confirmed this is available to your key.
-    const MODEL_NAME = "gemini-2.0-flash"; 
+    // CHANGED: Switched to 'gemini-1.5-flash' to fix Quota Exceeded error.
+    // This model has a much higher free tier limit.
+    const MODEL_NAME = "gemini-1.5-flash"; 
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
 
     try {
@@ -28,7 +29,7 @@ export default async function handler(req, res) {
                2. NARRATIVE: Write a 150-word Biblical story linking scripture to legal integrity.
                3. TICKER: Select a Bible Verse and a short charge.
                OUTPUT RAW JSON ONLY: {"verse":"", "charge":"", "storyTitle":"", "storyText":"", "implication":"", "globalNewsTitle":"", "globalNewsSummary":""}`
-            : `You are Apostle Moses, the Legal and Spiritual AI. Address user as 'Future Advocate'. Provide a 'Statutory Precedent' (OT) and 'Testamental Application' (NT).`;
+            : `You are Apostle Moses, the Legal and Spiritual AI. Address user as 'Future Advocate'. Provide a 'Statutory Precedent' (Old Testament) and 'Testamental Application' (New Testament).`;
 
         // 2. Attempt Generation
         const response = await fetch(endpoint, {
@@ -42,25 +43,10 @@ export default async function handler(req, res) {
 
         const data = await response.json();
 
-        // 3. ERROR HANDLER: If Model Not Found, LIST AVAILABLE MODELS
+        // 3. Error Handling
         if (data.error) {
             console.error("Gemini Error:", data.error);
-
-            // If the specific model wasn't found, list what IS available
-            if (data.error.code === 404 || data.error.message.includes("not found")) {
-                const listModelsUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${API_KEY}`;
-                const listResp = await fetch(listModelsUrl);
-                const listData = await listResp.json();
-                
-                const availableModels = listData.models 
-                    ? listData.models.map(m => m.name.replace('models/', '')).join(', ')
-                    : "No models found. Check API Key permissions.";
-
-                return res.status(500).json({ 
-                    answer: `Configuration Error: Model '${MODEL_NAME}' not found. Your Key has access to: [ ${availableModels} ]. Please update the variable MODEL_NAME in the code.` 
-                });
-            }
-
+            // Return exact error message to help debugging
             return res.status(500).json({ answer: `Google API Error: ${data.error.message}` });
         }
 
