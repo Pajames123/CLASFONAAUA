@@ -1,8 +1,16 @@
 export default async function handler(req, res) {
+    // Security: Only allow POST
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method Not Allowed' });
+    }
+
     const { stallTitle, difficulty } = req.body;
     const API_KEY = process.env.GEMINI_API_KEY;
 
-    // Mapping titles to specific Bible focuses for Gemini
+    if (!API_KEY) {
+        return res.status(500).json({ error: "The Scribe's key is missing." });
+    }
+
     const prompts = {
         "Torah": "the first five books of the Bible (Genesis to Deuteronomy)",
         "Gospels": "the life and teachings of Jesus (Matthew, Mark, Luke, John)",
@@ -18,21 +26,53 @@ export default async function handler(req, res) {
 
     const focus = prompts[stallTitle] || "the whole Bible";
 
-    const prompt = `You are a Biblical Scribe. Generate 5 unique word scrambles for the category: "${stallTitle}".
-    Focus strictly on ${focus}.
-    Difficulty Level: ${difficulty} (Novice = common, Disciple = intermediate, Apostle = rare/theological).
-    Return ONLY a JSON array: [{"w": "WORD", "h": "Theological hint"}].`;
+    /**
+     * PREMIUM APOSTOLIC PROMPT
+     * Forces the AI to generate legally-flavored spiritual hints.
+     */
+    const prompt = `You are Apostle Moses, Scribe of the CLASFON Arena. 
+    Generate 5 unique word scrambles for the category: "${stallTitle}" (Focus: ${focus}).
+    Difficulty: ${difficulty}.
+    
+    STRICT DATA FORMAT: Return ONLY a raw JSON array. No markdown, no preamble.
+    Example: [{"w": "WORD", "h": "Statutory Precedent: [OT Verse] | Testamental Application: [NT Verse]"}]
+    
+    The hint (h) MUST include:
+    1. A Statutory Precedent (Old Testament reference).
+    2. A Testamental Application (New Testament/Grace reference).
+    3. Use a high-authority legal-spiritual tone.`;
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${API_KEY}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: {
+                    temperature: 0.8,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 1024,
+                }
+            })
         });
+
         const data = await response.json();
-        const textResponse = data.candidates[0].content.parts[0].text.replace(/```json|```/g, "").trim();
-        res.status(200).json(JSON.parse(textResponse));
+
+        if (!data.candidates || !data.candidates[0].content) {
+            throw new Error("Invalid AI Response");
+        }
+
+        // Clean the AI response of any markdown backticks
+        let textResponse = data.candidates[0].content.parts[0].text;
+        textResponse = textResponse.replace(/```json|```/gi, "").trim();
+
+        // Parse and send
+        const cleanedData = JSON.parse(textResponse);
+        res.status(200).json(cleanedData);
+
     } catch (error) {
-        res.status(500).json({ error: "The Scribe is offline." });
+        console.error("Scribe Error:", error);
+        res.status(500).json({ error: "The Scribe is in deep meditation. Try again." });
     }
 }

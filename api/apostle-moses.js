@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-    // Only allow POST requests for security
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
@@ -7,7 +6,6 @@ export default async function handler(req, res) {
     const { question } = req.body;
     const API_KEY = process.env.GEMINI_API_KEY;
 
-    // Premium Check: Verify API Key existence before attempting fetch
     if (!API_KEY) {
         return res.status(500).json({ 
             answer: "Apostle Moses: The key to the sanctuary is missing. Please check environment variables." 
@@ -15,51 +13,50 @@ export default async function handler(req, res) {
     }
 
     try {
-        /**
-         * BUG FIX & PREMIUM OPTIMIZATION:
-         * 1. Uses 'v1beta' endpoint for enhanced 2026 compatibility.
-         * 2. Uses 'gemini-2.0-flash-lite' to significantly reduce token usage and avoid quota errors.
-         */
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${API_KEY}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{ 
                     parts: [{ 
-                        text: `System Instruction: You are Apostle Moses, the Digital Theological Assistant for CLASFON AAUA. 
-                        Respond as a biblical and legal scholar with a reverent tone. 
-                        Always include relevant scripture to support your counsel.
+                        text: `System Instruction: You are Apostle Moses, the Legal and Spiritual AI for CLASFON AAUA. 
+                        Your persona is a high-court advocate combined with a spirit-filled apostle.
+                        
+                        STRICT PROTOCOLS:
+                        1. ADDRESSING: Always address the user as 'Future Advocate' or 'Beloved Disciple'.
+                        2. MANDATE: Provide guidance that bridges the gap between the Legal Profession and Biblical Theology.
+                        3. BIBLE REFERENCES (MANDATORY): You must provide at least TWO biblical references for every answer:
+                           - A 'Statutory Precedent' (Old Testament/Law focused).
+                           - A 'Testamental Application' (New Testament/Grace focused).
+                        4. TONE: Reverent, professional, and authoritative. Use legal jargon where appropriate (e.g., 'Covenantal Evidence', 'Supreme Decree').
                         
                         User Question: ${question}` 
                     }] 
                 }],
                 generationConfig: {
-                    temperature: 0.7,
+                    temperature: 0.75,
                     topK: 40,
                     topP: 0.95,
-                    maxOutputTokens: 1024, // Optimized for comprehensive but efficient responses
+                    maxOutputTokens: 1024,
                 }
             })
         });
 
         const data = await response.json();
 
-        // COMPREHENSIVE ERROR HANDLING
+        // Error Handling for Quota or API issues
         if (data.error) {
-            // Handle Quota Exceeded specifically to inform the user gently
-            if (data.error.message.includes("quota") || data.error.code === 429) {
+            if (data.error.code === 429) {
                 return res.status(429).json({ 
-                    answer: "Apostle Moses is currently attending to many seekers. Please wait a few moments before seeking counsel again." 
+                    answer: "Apostle Moses is currently attending to many seekers in the inner court. Please wait a few moments before seeking counsel again." 
                 });
             }
-            
-            // Handle Model Not Found or Maintenance errors
             return res.status(500).json({ 
-                answer: "The sanctuary is undergoing maintenance. (Error: " + data.error.message + ")" 
+                answer: "The sanctuary is currently unaccessible. Error: " + data.error.message 
             });
         }
 
-        // Validate response structure before accessing data
+        // Success Response
         if (data.candidates && data.candidates[0].content) {
             const mosesAnswer = data.candidates[0].content.parts[0].text;
             return res.status(200).json({ answer: mosesAnswer });
@@ -68,8 +65,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ answer: "Apostle Moses is deep in meditation. Please try again later." });
 
     } catch (error) {
-        // Catch network or unexpected server-side interruptions
         console.error("Sanctuary Connection Error:", error);
-        return res.status(500).json({ answer: "Shalom. The connection to the sanctuary was interrupted." });
+        return res.status(500).json({ answer: "Shalom. The connection to the sanctuary was interrupted. Please check your internet or Vercel logs." });
     }
 }
