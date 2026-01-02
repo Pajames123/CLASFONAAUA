@@ -4,9 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLASFON AAUA | World-Class Institutional Portal</title>
+
+    <script>
+        window.AFRAME = null; 
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeName && node.nodeName.startsWith('A-')) {
+                        node.parentNode.removeChild(node);
+                        console.log("Purged Rogue A-Frame Element:", node.nodeName);
+                    }
+                });
+            });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+    </script>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;500;700&family=Libre+Baskerville&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 
     <style>
         :root {
@@ -15,7 +31,6 @@
             --gold-glow: rgba(197, 160, 89, 0.4);
             --dark: #0a0a0b;
             --slate: #121214;
-            --village: #2a1b0a;
             --white: #ffffff;
             --parchment: #fdfdfb;
             --glass: rgba(10, 10, 11, 0.9);
@@ -45,7 +60,6 @@
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-        .nav-logo { height: 50px; }
         .brand-text { display: flex; flex-direction: column; margin-left: 10px; }
         .logo-main { font-family: 'Cinzel'; color: var(--gold); font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; }
         .logo-sub { font-size: 0.6rem; letter-spacing: 3px; opacity: 0.8; }
@@ -72,20 +86,17 @@
         
         .btn-gold { background: var(--gold); color: #000; padding: 15px 35px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; transition: 0.3s; margin-right: 15px; display: inline-block; }
         .btn-outline { border: 1px solid var(--white); color: var(--white); padding: 15px 35px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; transition: 0.3s; display: inline-block; }
-        .btn-gold:hover { background: var(--gold-bright); transform: translateY(-3px); }
 
-        /* --- NEWS EDITION SECTION --- */
+        /* --- NEWS EDITION GRID --- */
         .news-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; margin-top: 40px; }
         .news-card-featured { background: var(--slate); border: 1px solid rgba(197, 160, 89, 0.1); position: relative; overflow: hidden; }
-        .news-img { width: 100%; height: 350px; object-fit: cover; transition: 0.5s; }
-        .news-card-featured:hover .news-img { transform: scale(1.03); }
+        .news-img { width: 100%; height: 350px; object-fit: cover; }
         .news-tag { position: absolute; top: 20px; left: 20px; background: var(--gold); color: #000; padding: 5px 12px; font-weight: 800; font-size: 0.6rem; z-index: 5; }
         .news-info { padding: 30px; }
         .news-info h3 { font-family: 'Cinzel'; color: var(--gold); margin-bottom: 15px; }
         .secondary-news-list { display: flex; flex-direction: column; gap: 20px; }
         .mini-news-item { display: flex; gap: 20px; background: rgba(255,255,255,0.03); padding: 15px; border-left: 3px solid var(--gold); transition: 0.3s; cursor: pointer; }
         .mini-news-item:hover { background: rgba(255,255,255,0.08); }
-        .mini-news-item h4 { font-family: 'Cinzel'; font-size: 0.85rem; line-height: 1.4; }
 
         /* --- PRESIDENTIAL SECTION --- */
         .section-padding { padding: 100px 0; }
@@ -95,13 +106,11 @@
             box-shadow: 0 50px 100px rgba(0,0,0,0.5); 
         }
         .doc-header { display: flex; gap: 40px; align-items: center; margin-bottom: 50px; flex-wrap: wrap; }
-        .doc-portrait { width: 200px; height: 260px; border: 1px solid #ddd; padding: 6px; background: white; flex-shrink: 0; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .doc-portrait { width: 200px; height: 260px; border: 1px solid #ddd; padding: 6px; background: white; flex-shrink: 0; }
         .doc-portrait img { width: 100%; height: 100%; object-fit: cover; }
         .stamp { font-family: 'Montserrat'; font-weight: 800; font-size: 0.6rem; color: var(--gold); letter-spacing: 4px; display: block; margin-bottom: 10px; }
         .doc-h2 { font-family: 'Cinzel'; font-size: 2rem; color: #111; }
-        .pres-meta { font-size: 0.8rem; font-style: italic; color: #666; }
         .doc-main { text-align: justify; line-height: 2.1; font-family: 'Libre Baskerville', serif; font-size: 1.1rem; color: #333; }
-        .doc-main p { margin-bottom: 25px; }
         .first-letter { float: left; font-size: 4.5rem; color: var(--gold); line-height: 0.8; padding: 10px 15px 0 0; font-family: 'Cinzel'; }
 
         /* --- GRIDS & CARDS --- */
@@ -110,32 +119,21 @@
         .info-block { border-left: 2px solid var(--gold); padding-left: 25px; height: 100%; }
         .cinzel-title { font-family: 'Cinzel'; margin-bottom: 25px; }
         .gold { color: var(--gold); }
-        .schedule-item { margin-bottom: 20px; }
-        .day { display: block; font-weight: 700; color: var(--gold); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
         
         /* --- LEADERS GRID --- */
         .sophisticated-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; margin-top: 50px; }
         .leader-box { background: #080808; padding: 15px; border: 1px solid rgba(255,255,255,0.03); text-align: center; transition: 0.4s; }
         .leader-img-wrap { width: 100%; height: 240px; overflow: hidden; margin-bottom: 15px; border: 1px solid var(--gold); filter: grayscale(1); transition: 0.6s; }
-        .leader-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+        .leader-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
         .leader-box:hover { border-color: var(--gold); transform: translateY(-10px); }
         .leader-box:hover .leader-img-wrap { filter: grayscale(0); }
-        .leader-box h3 { font-size: 0.9rem; color: var(--gold); margin-bottom: 5px; font-family: 'Cinzel'; }
-        .leader-box p { font-size: 0.7rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- FOOTER --- */
-        .luxury-footer { padding: 80px 0; border-top: 1px solid rgba(197, 160, 89, 0.1); background: #050505; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; }
-        .altar-form input, .altar-form textarea { width: 100%; background: #111; border: 1px solid #333; padding: 15px; color: white; margin-bottom: 20px; font-family: 'Montserrat'; }
-        .altar-form button { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-        
-        /* --- AI LECTERN (APOSTLE MOSES) --- */
+        /* --- AI LECTERN --- */
         .moses-avatar-glow {
             width: 110px; height: 110px; margin: 0 auto 20px; border-radius: 50%;
             border: 2px solid var(--gold); padding: 5px; background: #000;
             box-shadow: 0 0 20px var(--gold-glow); animation: mosesPulse 4s infinite ease-in-out;
         }
-        .moses-avatar-glow img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         @keyframes mosesPulse {
             0%, 100% { box-shadow: 0 0 15px var(--gold-glow); transform: scale(1); }
             50% { box-shadow: 0 0 35px var(--gold); transform: scale(1.05); }
@@ -165,7 +163,7 @@
     <nav class="institutional-nav">
         <div class="container nav-flex">
             <div class="brand">
-                <img src="logo.png" alt="Logo" class="nav-logo">
+                <img src="logo.png" alt="Logo" class="nav-logo" style="height:50px;">
                 <div class="brand-text"><span class="logo-main">CLASFON</span><span class="logo-sub">AAUA CHAPTER</span></div>
             </div>
             <ul class="nav-links">
@@ -196,9 +194,7 @@
             <div style="text-align: center; margin-bottom: 50px;">
                 <span class="stamp">WEEKLY COMMUNIQUÉ</span>
                 <h2 class="cinzel-title gold" style="font-size: 2.5rem; margin-bottom: 0;">News Edition</h2>
-                <p style="color: #666; font-size: 0.8rem; letter-spacing: 2px;">STAY INFORMED ON DIVINE ASSIGNMENTS</p>
             </div>
-            
             <div class="news-grid">
                 <div class="news-card-featured">
                     <span class="news-tag">LATEST EDITION</span>
@@ -206,29 +202,16 @@
                     <div class="news-info">
                         <span class="news-date">January 2, 2026</span>
                         <h3>The Call to the Bar: A Spiritual Mandate for the Modern Advocate</h3>
-                        <p style="color: #bbb; font-size: 0.9rem;">As we usher in the new academic session, the fellowship focuses on the duality of the legal profession as both a civil duty and a spiritual ministry...</p>
+                        <p style="color: #bbb; font-size: 0.9rem;">Exploring the duality of the legal profession as both a civil duty and a spiritual ministry...</p>
                         <a href="#" style="color: var(--gold); text-decoration: none; font-weight: 700; font-size: 0.75rem; margin-top: 20px; display: inline-block;">READ FULL ARTICLE →</a>
                     </div>
                 </div>
-                
                 <div class="secondary-news-list">
                     <div class="mini-news-item">
-                        <div>
-                            <span class="news-date" style="font-size: 0.6rem;">Dec 28, 2025</span>
-                            <h4>Orientation 2026: Anchoring Freshmen in Kingdom Values</h4>
-                        </div>
+                        <div><span class="news-date" style="font-size: 0.6rem;">Dec 28, 2025</span><h4>Orientation 2026: Anchoring Freshmen in Kingdom Values</h4></div>
                     </div>
                     <div class="mini-news-item">
-                        <div>
-                            <span class="news-date" style="font-size: 0.6rem;">Dec 20, 2025</span>
-                            <h4>Community Outreach: Legal Aid Clinic in Akungba-Akoko</h4>
-                        </div>
-                    </div>
-                    <div class="mini-news-item">
-                        <div>
-                            <span class="news-date" style="font-size: 0.6rem;">Dec 15, 2025</span>
-                            <h4>End of Year Thanksgiving: Celebrating God's Faithfulness</h4>
-                        </div>
+                        <div><span class="news-date" style="font-size: 0.6rem;">Dec 20, 2025</span><h4>Community Outreach: Legal Aid Clinic in Akungba-Akoko</h4></div>
                     </div>
                 </div>
             </div>
@@ -249,14 +232,8 @@
                 <div class="doc-main">
                     <p class="first-letter">S</p>
                     <p>halom to you in the precious name of our Lord Jesus Christ. It is with a heart full of gratitude and divine purpose that I welcome you to the official digital portal of the Christian Law Students’ Fellowship of Nigeria (CLASFON), Adekunle Ajasin University Chapter.</p>
-                    
-                    <p>At CLASFON AAUA, we believe that the legal profession is not merely a career path or a means of livelihood; it is a high calling and a sacred ministry. We are raising a <strong>"New Network of Lawyers"</strong> governed by the laws of the Kingdom of God. In a world where the lines of justice are often blurred, we stand as a beacon of integrity, excellence, and spiritual fervor.</p>
-                    
-                    <p>Our mandate is clear: to integrate our legal training with our spiritual convictions, producing advocates who are not only learned in the law of the land but are deeply rooted in the Law of the Spirit of Life in Christ Jesus. We exist to provide a sanctuary where your faith is not compromised by your studies, but rather strengthened by it.</p>
-                    
-                    <p>As you navigate this portal, I invite you to explore our spiritual liturgy, engage with the Scripture Arena, and connect with the Leadership Council. Whether you are a seeker, a disciple, or a partner in this ministry, there is a word for you here. May your stay on this portal and your membership in this fellowship be the catalyst for your spiritual and academic transformation.</p>
-                    
-                    <p>We are established upon the Advocate, and in Him, our victory is certain.</p>
+                    <p>At CLASFON AAUA, we believe that the legal profession is not merely a career path or a means of livelihood; it is a high calling and a sacred ministry. We are raising a <strong>"New Network of Lawyers"</strong> governed by the laws of the Kingdom of God.</p>
+                    <p>Our mandate is clear: to integrate our legal training with our spiritual convictions, producing advocates who are not only learned in the law of the land but are deeply rooted in the Law of the Spirit of Life in Christ Jesus.</p>
                 </div>
                 <div class="doc-footer">
                     <p class="sig-name" style="margin-top:40px; font-weight:700;">Ajisafe Koyinsola</p>
@@ -270,74 +247,47 @@
         <div class="container grid-3">
             <div class="info-block">
                 <h2 class="cinzel-title gold">Weekly Liturgy</h2>
-                <div class="schedule-item"><span class="day">Monday</span><p>Intercession — 5:00 PM | Faculty Lawn</p></div>
-                <div class="schedule-item"><span class="day">Friday</span><p>Fellowship — 12:00 PM | Law LT B1</p></div>
+                <div class="schedule-item"><p><strong>Monday:</strong> Intercession — 5:00 PM | Faculty Lawn</p></div>
+                <div class="schedule-item"><p><strong>Friday:</strong> Fellowship — 12:00 PM | Law LT B1</p></div>
             </div>
             <div class="info-block">
                 <h2 class="cinzel-title gold">Digital Library</h2>
-                <p style="font-size:0.8rem; margin-bottom:15px;">Official fellowship archives and spiritual resources.</p>
                 <a href="body-of-christ.pdf" download style="color:var(--gold); display:block; text-decoration:none; margin-bottom:10px;"><i class="fa-solid fa-file-pdf"></i> Body of Christ Reality</a>
-                <a href="spiritual-authority.pdf" download style="color:var(--gold); display:block; text-decoration:none;"><i class="fa-solid fa-file-pdf"></i> Spiritual Authority</a>
             </div>
             <div class="info-block">
                 <h2 class="cinzel-title gold">Partnership</h2>
-                <p>Access Bank</p>
                 <p class="acc-num">0051649056</p>
-                <button onclick="copyAcc()" class="btn-gold" style="padding:10px 20px; font-size:0.6rem;">Copy Details</button>
+                <button onclick="copyAcc()" class="btn-gold" style="padding:10px 20px; font-size:0.6rem;">Copy Access Details</button>
             </div>
         </div>
     </section>
 
     <section id="arena" class="section-padding" style="background:#050505;">
         <div class="container text-center">
-            <div class="moses-avatar-glow">
-                <img src="moses_avatar.jpg" alt="Apostle Moses">
-            </div>
+            <div class="moses-avatar-glow"><img src="moses_avatar.jpg" alt="Apostle Moses" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"></div>
             <h2 class="cinzel-title gold" style="font-size:3rem; margin-bottom:10px;">The Scripture Arena</h2>
             <p style="letter-spacing:4px; opacity:0.7; text-transform:uppercase; margin-bottom:40px;">"Future Advocate, the scrolls are ready. Decipher the Law of Liberty."</p>
-            <div style="background:var(--slate); padding:60px; border:1px solid var(--gold); border-radius:15px;">
-                <p style="font-family:'Libre Baskerville'; font-size:1.2rem; margin-bottom:30px;">Step into the Virtual Sanctuary and compete in our Biblical word challenges.</p>
-                <a href="games.html" class="btn-gold" style="padding:20px 50px;">Enter The Arena</a>
-            </div>
+            <a href="games.html" class="btn-gold" style="padding:20px 50px;">Enter The Arena</a>
         </div>
     </section>
 
-    <section id="leaders" class="section-padding">
+    <section id="leaders" class="section-padding bg-slate">
         <div class="container">
             <h2 class="cinzel-title text-center" style="margin-bottom:50px;">Leadership Council</h2>
             <div class="sophisticated-grid">
                 <div class="leader-box"><div class="leader-img-wrap"><img src="president.jpg"></div><h3>Ajisafe Koyinsola</h3><p>President</p></div>
                 <div class="leader-box"><div class="leader-img-wrap"><img src="vp.jpg"></div><h3>Salami Princess</h3><p>Vice President</p></div>
                 <div class="leader-box"><div class="leader-img-wrap"><img src="gensec.jpg"></div><h3>Babatunde Olamide</h3><p>Gen Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="asst_gensec.jpg"></div><h3>Ogunesan Hannah</h3><p>Asst Gen Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="academic_sec.jpg"></div><h3>Olajide Comfort</h3><p>Academic Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="asst_academic.jpg"></div><h3>Abraham Favour</h3><p>Asst Academic</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="prayer_sec.jpg"></div><h3>Adesina Blessing</h3><p>Prayer Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="welfare_sec.jpg"></div><h3>Fakomogbon Praises</h3><p>Welfare Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="asst_welfare.jpg"></div><h3>Ogunniyi Beatrice</h3><p>Asst Welfare</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="fin_sec.jpg"></div><h3>Arotiba Adesewa</h3><p>Financial Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="org_sec.jpg"></div><h3>Akinniyi Bridget</h3><p>Organising Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="asst_org.jpg"></div><h3>Ayoola Taiwo</h3><p>Asst Org Sec</p></div>
+                <div class="leader-box"><div class="leader-img-wrap"><img src="asst_gensec.jpg"></div><h3>Ogunesan Hannah</h3><p>Asst. Gen Sec</p></div>
                 <div class="leader-box"><div class="leader-img-wrap"><img src="tech_sec.jpg"></div><h3>Adegboro Adetomiwa</h3><p>Technical Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="freshers_coord.jpg"></div><h3>Paul Ibukun Daniella</h3><p>Freshers Coord</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="media_sec.jpg"></div><h3>Akinlade Goodness</h3><p>Media Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="asst_media.jpg"></div><h3>Williams Peace</h3><p>Asst Media Sec</p></div>
-                <div class="leader-box"><div class="leader-img-wrap"><img src="choir_dir.jpg"></div><h3>Olasele Adenike</h3><p>Choir Director</p></div>
             </div>
         </div>
     </section>
 
     <div id="ai-trigger" onclick="toggleMoses()"><i class="fa-solid fa-scale-balanced"></i> Consult Apostle Moses</div>
     <div id="moses-lectern">
-        <div class="lectern-header">
-            <span>Apostolic Lectern</span>
-            <button onclick="toggleMoses()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button>
-        </div>
-        <div id="chat-archive">
-            <div style="color:var(--gold); font-size:0.8rem; font-style:italic; margin-bottom:10px;">
-                "Peace be with you. Pose your legal or spiritual inquiry, Future Advocate."
-            </div>
-        </div>
+        <div class="lectern-header"><span>Apostolic Lectern</span><button onclick="toggleMoses()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button></div>
+        <div id="chat-archive"></div>
         <div class="input-box">
             <input type="text" id="user-q" placeholder="Consult the Law & the Testimony..." onkeypress="if(event.key==='Enter') askMoses()">
             <button onclick="askMoses()" style="background:var(--gold); border:none; padding:10px 15px; cursor:pointer;"><i class="fa-solid fa-paper-plane"></i></button>
@@ -349,13 +299,9 @@
             <div class="f-col">
                 <img src="logo.png" style="height:60px; margin-bottom:20px;">
                 <p style="font-size:0.8rem; color:#888;">"A new legal profession anchored on Christ."</p>
-                <div style="margin-top:20px; display:flex; gap:15px;">
-                    <a href="#" style="color:var(--gold);"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" style="color:var(--gold);"><i class="fa-brands fa-whatsapp"></i></a>
-                </div>
             </div>
             <div class="f-col">
-                <h3 class="cinzel-title gold" style="font-size:1rem;">Prayer Altar</h3>
+                <h3 class="cinzel-title gold">Prayer Altar</h3>
                 <form class="altar-form" action="https://formspree.io/f/mojqoajk" method="POST">
                     <input type="email" name="email" placeholder="Email Address" required>
                     <textarea name="message" placeholder="Submit your petition..." required></textarea>
@@ -366,20 +312,10 @@
     </footer>
 
     <script>
-        // Identify the user
-        window.onload = function() {
-            if (!localStorage.getItem('clasfon_user')) {
-                let name = prompt("Identify yourself, Disciple (Enter your full name):");
-                localStorage.setItem('clasfon_user', name || 'Disciple');
-            }
-        };
-
         function toggleMoses() {
             const l = document.getElementById('moses-lectern');
-            if (l) {
-                l.style.display = (l.style.display === 'flex') ? 'none' : 'flex';
-                if (l.style.display === 'flex') document.getElementById('user-q').focus();
-            }
+            l.style.display = (l.style.display === 'flex') ? 'none' : 'flex';
+            if (l.style.display === 'flex') document.getElementById('user-q').focus();
         }
 
         async function askMoses() {
@@ -387,34 +323,19 @@
             const archive = document.getElementById('chat-archive');
             const q = input.value.trim();
             if(!q) return;
-
             archive.innerHTML += `<div style="color:var(--gold); margin-bottom:15px; text-align:right;"><b>Advocate:</b> ${q}</div>`;
             input.value = "";
-            archive.scrollTop = archive.scrollHeight;
-
             try {
-                // Ensure this connects to your Vercel/Gemini API endpoint
-                const res = await fetch('/api/apostle-moses', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({question: q})
-                });
+                const res = await fetch('/api/apostle-moses', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({question: q}) });
                 const data = await res.json();
-                
-                let answer = data.answer;
-                if (res.status === 429) answer = "Apostle Moses is attending to many seekers. Please wait.";
-
-                // Formatted response block
-                archive.innerHTML += `<div class="moses-response"><b>Apostle Moses:</b> ${answer}</div>`;
-            } catch (err) {
-                archive.innerHTML += `<div style="color:red; font-size:0.8rem;">Shalom. Connection to the sanctuary lost.</div>`;
-            }
+                archive.innerHTML += `<div class="moses-response"><b>Apostle Moses:</b> ${data.answer}</div>`;
+            } catch (err) { archive.innerHTML += `<div style="color:red; font-size:0.8rem;">Shalom. Connection lost.</div>`; }
             archive.scrollTop = archive.scrollHeight;
         }
 
         function copyAcc() {
             navigator.clipboard.writeText("0051649056");
-            alert("Account details copied to clipboard. May your partnership be rewarded.");
+            alert("Account details copied to clipboard.");
         }
     </script>
 </body>
