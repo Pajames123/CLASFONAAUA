@@ -1,44 +1,55 @@
 export default async function handler(req, res) {
-    if (req.method !== 'POST' && req.method !== 'GET') return res.status(405).json({ error: 'Method Not Allowed' });
-    
+    // 1. CORS & Method Protection
+    if (req.method !== 'POST' && req.method !== 'GET') {
+        return res.status(405).json({ answer: "Method Not Allowed" });
+    }
+
+    // 2. Critical Environment Check
+    const API_KEY = process.env.GEMINI_API_KEY;
+    if (!API_KEY) {
+        return res.status(500).json({ 
+            answer: "Scribe Error: GEMINI_API_KEY is missing from Vercel Environment Variables." 
+        });
+    }
+
     const type = req.query.type || req.body?.type;
     const question = req.body?.question || req.query.question;
-    const API_KEY = process.env.GEMINI_API_KEY;
-
-    if (!API_KEY) return res.status(500).json({ answer: "Sanctuary Key Missing." });
 
     try {
-        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
         const isNews = type === 'daily-news';
-        const sysMsg = isNews 
-            ? `Role: CLASFON Scribe. Date: ${new Date().toDateString()}.
-               1. SEARCH: Factual global Christian news (last 24h).
-               2. WRITE: 150-word Biblical narrative linking scripture to law.
-               3. TICKER: Verse & Charge.
-               OUTPUT JSON: {"verse":"", "charge":"", "storyTitle":"", "storyText":"", "implication":"", "globalNewsTitle":"", "globalNewsSummary":""}`
-            : `Role: Apostle Moses, Legal-Spiritual AI. 
-               - Address user: 'Future Advocate'.
-               - Provide: 'Statutory Precedent' (OT) & 'Testamental Application' (NT).`;
+
+        const prompt = isNews 
+            ? "Generate a JSON response for CLASFON news with keys: verse, charge, storyTitle, storyText, implication, globalNewsTitle, globalNewsSummary."
+            : `You are Apostle Moses. Answer: ${question}`;
 
         const response = await fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                contents: [{ parts: [{ text: `${sysMsg}\nInput: ${question || 'Generate Daily News'}` }] }],
-                tools: isNews ? [{ google_search: {} }] : [],
-                generationConfig: { temperature: isNews ? 1.0 : 0.7 }
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: { temperature: 0.7 }
             })
         });
 
         const data = await response.json();
-        if (data.candidates && data.candidates[0].content) {
-            let text = data.candidates[0].content.parts[0].text;
-            if (isNews) {
-                const jsonMatch = text.match(/\{[\s\S]*\}/);
-                if (jsonMatch) return res.status(200).json(JSON.parse(jsonMatch[0]));
-            }
-            return res.status(200).json({ answer: text });
+
+        // Check if Gemini returned an error
+        if (data.error) {
+            return res.status(500).json({ answer: `Gemini API Error: ${data.error.message}` });
         }
-        return res.status(500).json({ answer: "Scribe Silent." });
-    } catch (e) { return res.status(500).json({ answer: "Connection Error." }); }
+
+        if (data.candidates && data.candidates[0].content) {
+            const output = data.candidates[0].content.parts[0].text;
+            if (isNews) {
+                const cleanJson = output.match(/\{[\s\S]*\}/)[0];
+                return res.status(200).json(JSON.parse(cleanJson));
+            }
+            return res.status(200).json({ answer: output });
+        }
+
+        return res.status(500).json({ answer: "Scribe is empty-handed." });
+    } catch (err) {
+        return res.status(500).json({ answer: "Sanctuary Server Crash: " + err.message });
+    }
 }
