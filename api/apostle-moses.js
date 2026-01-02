@@ -1,17 +1,12 @@
 export default async function handler(req, res) {
-    // 1. Support both POST (Chat) and GET (Vercel Cron)
+    // Support POST (Frontend Chat) and GET (Vercel Cron / Daily News)
     if (req.method !== 'POST' && req.method !== 'GET') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    /**
-     * EXTRACT PARAMETERS
-     * type: 'daily-news' or 'chat'
-     * question: the user's inquiry
-     */
+    // Extract Parameters from Query (Cron) or Body (Chat)
     const type = req.query.type || req.body?.type;
     const question = req.body?.question || req.query.question;
-    
     const API_KEY = process.env.GEMINI_API_KEY;
 
     if (!API_KEY) {
@@ -23,19 +18,21 @@ export default async function handler(req, res) {
     try {
         const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
-        // Define the instruction based on the request type
-        const systemInstruction = type === 'daily-news' 
-            ? `You are the Scribe of CLASFON AAUA. 
-               1. SEARCH THE WEB for positive Christian global news from the last 24 hours.
-               2. WRITE a Daily Biblical Narrative (150 words) linking a Bible story to legal integrity.
-               3. PROVIDE a Bible Verse for the ticker.
-               RETURN ONLY RAW JSON: {"verse": "Verse + Ref", "charge": "1-sentence apostolic charge", "storyTitle": "Narrative Title", "storyText": "3 paragraphs", "globalNewsTitle": "Headline", "globalNewsSummary": "Summary", "implication": "Law student takeaway"}`
+        // Define specific instructions based on request type
+        const isNewsRequest = type === 'daily-news';
+        
+        const systemInstruction = isNewsRequest
+            ? `You are the Scribe of CLASFON AAUA. Today is ${new Date().toDateString()}.
+               1. Use your search capability to find positive global Christian news from the last 24 hours.
+               2. Write a 150-word Biblical Narrative linking a scripture story to legal integrity.
+               3. Select a Bible Verse for the ticker and an apostolic charge.
+               OUTPUT MUST BE ONLY RAW JSON: 
+               {"verse": "Verse + Ref", "charge": "1-sentence command", "storyTitle": "Title", "storyText": "Narrative", "globalNewsTitle": "Headline", "globalNewsSummary": "Summary", "implication": "Takeaway"}`
             : `You are Apostle Moses, the Legal and Spiritual AI for CLASFON AAUA. 
                Persona: High-court advocate + spirit-filled apostle.
-               STRICT PROTOCOLS:
                - Address user as 'Future Advocate'.
-               - Provide a 'Statutory Precedent' (Old Testament) and 'Testamental Application' (New Testament) for EVERY answer.
-               - Use professional legal-theological tone.`;
+               - Provide a 'Statutory Precedent' (Old Testament) and 'Testamental Application' (New Testament) for every answer.
+               - Tone: Authority, Grace, and Professionalism.`;
 
         const response = await fetch(endpoint, {
             method: 'POST',
@@ -46,8 +43,10 @@ export default async function handler(req, res) {
                         text: `${systemInstruction}\n\nUser Input: ${question || 'Generate Daily Revelation'}` 
                     }] 
                 }],
+                // Enable tools for the news request to allow web searching
+                tools: isNewsRequest ? [{ google_search: {} }] : [],
                 generationConfig: {
-                    temperature: 0.75,
+                    temperature: isNewsRequest ? 1.0 : 0.7, // Higher creativity for stories
                     maxOutputTokens: 1500,
                 }
             })
@@ -57,7 +56,7 @@ export default async function handler(req, res) {
 
         if (data.error) {
             if (data.error.code === 429) {
-                return res.status(429).json({ answer: "The inner court is full of seekers. Please wait a moment." });
+                return res.status(429).json({ answer: "The inner court is full. Please wait a moment." });
             }
             throw new Error(data.error.message);
         }
@@ -65,15 +64,16 @@ export default async function handler(req, res) {
         if (data.candidates && data.candidates[0].content) {
             let mosesAnswer = data.candidates[0].content.parts[0].text;
             
-            if (type === 'daily-news') {
-                // Sanitize AI markdown and parse JSON
-                mosesAnswer = mosesAnswer.replace(/```json|```/gi, "").trim();
-                try {
-                    const newsObject = JSON.parse(mosesAnswer);
-                    return res.status(200).json(newsObject);
-                } catch (parseError) {
-                    console.error("JSON Parse Error:", mosesAnswer);
-                    return res.status(500).json({ error: "Scribe's handwriting was illegible. Try again." });
+            if (isNewsRequest) {
+                // Regex to pull JSON out even if Gemini adds prose around it
+                const jsonMatch = mosesAnswer.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    try {
+                        const newsObject = JSON.parse(jsonMatch[0]);
+                        return res.status(200).json(newsObject);
+                    } catch (e) {
+                        return res.status(500).json({ error: "Scribe's scroll was corrupted." });
+                    }
                 }
             }
 
