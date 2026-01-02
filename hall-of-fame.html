@@ -5,74 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hall of Fame | CLASFON AAUA Legacy</title>
     
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#c5a059">
+    <link rel="apple-touch-icon" href="/logo_192.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* --- PREMIUM ARCHAIC THEME --- */
         :root {
             --gold: #c5a059;
-            --dark: #0a0a0b;
-            --slate: #121214;
-            --white: #ffffff;
-            --glass: rgba(10, 10, 11, 0.9);
+            --gold-dim: #8a6d3b;
+            --dark: #050505;
+            --slate: #0f0f10;
+            --white: #e0e0e0;
+            --glass: rgba(5, 5, 5, 0.95);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--dark); color: var(--white); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-        /* Navigation Style matching Home Portal */
+        /* Navigation */
         .institutional-nav { 
             position: sticky; top: 0; background: var(--glass); 
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            z-index: 1000; padding: 20px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.1); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            z-index: 1000; padding: 25px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.15); 
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo-main { font-family: 'Cinzel'; color: var(--gold); font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; text-decoration: none; }
-        .nav-cta { border: 1px solid var(--gold); padding: 8px 15px; color: var(--gold); text-decoration: none; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; transition: 0.3s; }
-        .nav-cta:hover { background: var(--gold); color: #000; }
+        .logo-main { font-family: 'Cinzel'; color: var(--gold); font-weight: 800; font-size: 1.1rem; letter-spacing: 3px; text-decoration: none; text-transform: uppercase; }
+        .nav-cta { 
+            border: 1px solid var(--gold); padding: 10px 20px; color: var(--gold); 
+            text-decoration: none; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; 
+            transition: 0.4s ease; text-transform: uppercase;
+        }
+        .nav-cta:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(197, 160, 89, 0.3); }
 
         /* Header Section */
         .archive-header { 
-            text-align: center; padding: 100px 20px; 
-            background: radial-gradient(circle at center, #1a1a1c 0%, #0a0a0b 100%);
-            border-bottom: 1px solid rgba(197, 160, 89, 0.05);
+            text-align: center; padding: 120px 20px 80px; 
+            background: radial-gradient(circle at center, #151515 0%, #050505 80%);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+            position: relative;
         }
-        .archive-title { font-family: 'Cinzel'; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--gold); margin-bottom: 10px; }
-        .archive-subtitle { font-family: 'Playfair Display'; font-style: italic; color: #888; font-size: 1.1rem; letter-spacing: 1px; }
+        .archive-header::after {
+            content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 3px; background: var(--gold);
+        }
+        .archive-title { font-family: 'Cinzel'; font-size: clamp(3rem, 8vw, 5rem); color: var(--gold); margin-bottom: 15px; letter-spacing: 5px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .archive-subtitle { font-family: 'Playfair Display'; font-style: italic; color: #888; font-size: 1.2rem; letter-spacing: 1px; opacity: 0.8; }
 
         /* The Grid */
         .sophisticated-grid { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-            gap: 30px; margin-top: 60px; padding-bottom: 100px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+            gap: 50px; margin-top: 80px; padding-bottom: 120px;
         }
         .leader-box { 
-            background: #080808; padding: 20px; border: 1px solid rgba(255,255,255,0.03); 
-            text-align: center; transition: 0.4s; position: relative;
+            background: #0a0a0a; padding: 30px 20px; border: 1px solid rgba(197, 160, 89, 0.1); 
+            text-align: center; transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative;
         }
+        .leader-box::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; 
+            background: var(--gold); transform: scaleX(0); transition: 0.5s;
+        }
+        .leader-box:hover::before { transform: scaleX(1); }
+        
         .leader-img-wrap { 
-            width: 100%; height: 280px; overflow: hidden; margin-bottom: 20px; 
-            border: 1px solid var(--gold); filter: grayscale(1); transition: 0.6s; 
+            width: 180px; height: 180px; margin: 0 auto 25px; border-radius: 50%;
+            overflow: hidden; border: 2px solid var(--gold-dim); 
+            filter: sepia(0.5) grayscale(0.8); transition: 0.6s ease; 
         }
         .leader-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
         
-        .leader-box:hover { border-color: var(--gold); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .leader-box:hover .leader-img-wrap { filter: grayscale(0); }
-        .leader-box:hover img { transform: scale(1.1); }
+        .leader-box:hover { transform: translateY(-15px); border-color: var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .leader-box:hover .leader-img-wrap { filter: sepia(0) grayscale(0); border-color: var(--gold); transform: scale(1.05); }
         
-        .tenure { display: block; font-size: 0.65rem; letter-spacing: 3px; color: var(--gold); font-weight: 700; margin-bottom: 12px; text-transform: uppercase; }
-        .leader-name { font-family: 'Cinzel'; font-size: 1.1rem; color: var(--white); margin-bottom: 5px; }
-        .leader-rank { font-size: 0.75rem; color: #666; font-style: italic; }
+        .tenure { 
+            display: block; font-family: 'Cinzel'; font-size: 0.8rem; color: var(--gold); 
+            margin-bottom: 15px; opacity: 0.7; letter-spacing: 2px;
+        }
+        .leader-name { font-family: 'Playfair Display'; font-weight: 700; font-size: 1.4rem; color: var(--white); margin-bottom: 8px; }
+        .leader-rank { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
 
-        .footer-line { text-align: center; padding: 50px 0; border-top: 1px solid rgba(255,255,255,0.05); opacity: 0.5; font-size: 0.7rem; letter-spacing: 2px; }
+        .footer-line { text-align: center; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); color: #444; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
     <nav class="institutional-nav">
         <div class="container nav-flex">
-            <a href="index.html" class="logo-main">ARCHIVE OF HEROES</a>
-            <a href="index.html" class="nav-cta">RETURN TO PORTAL</a>
+            <a href="index.html" class="logo-main">The Scroll of Witnesses</a>
+            <a href="index.html" class="nav-cta">Return to Portal</a>
         </div>
     </nav>
 
@@ -86,49 +110,49 @@
             
             <div class="leader-box">
                 <span class="tenure">2025 - 2026</span>
-                <div class="leader-img-wrap"><img src="president.jpg" alt="Ajisafe Koyinsola"></div>
+                <div class="leader-img-wrap"><img src="/president.jpg" alt="Ajisafe Koyinsola"></div>
                 <h3 class="leader-name">Ajisafe Koyinsola</h3>
                 <p class="leader-rank">Incumbent President</p>
             </div>
 
             <div class="leader-box">
                 <span class="tenure">2024 - 2025</span>
-                <div class="leader-img-wrap"><img src="pres_24.jpg" alt="Ogungbade Taiwo James"></div>
+                <div class="leader-img-wrap"><img src="/pres_24.jpg" alt="Ogungbade Taiwo James"></div>
                 <h3 class="leader-name">Ogungbade Taiwo James</h3>
                 <p class="leader-rank">Immediate Past President</p>
             </div>
 
             <div class="leader-box">
                 <span class="tenure">2023 - 2024</span>
-                <div class="leader-img-wrap"><img src="pres_23.jpg" alt="Adeshina Nifemi"></div>
+                <div class="leader-img-wrap"><img src="/pres_23.jpg" alt="Adeshina Nifemi"></div>
                 <h3 class="leader-name">Adeshina Nifemi</h3>
                 <p class="leader-rank">Past President</p>
             </div>
 
             <div class="leader-box">
                 <span class="tenure">2022 - 2023</span>
-                <div class="leader-img-wrap"><img src="pres_22.jpg" alt="Olumide Badeniyi"></div>
+                <div class="leader-img-wrap"><img src="/pres_22.jpg" alt="Olumide Badeniyi"></div>
                 <h3 class="leader-name">Olumide Badeniyi</h3>
                 <p class="leader-rank">Past President</p>
             </div>
 
             <div class="leader-box">
                 <span class="tenure">2021 - 2022</span>
-                <div class="leader-img-wrap"><img src="pres_21.jpg" alt="Olushola Rolake George"></div>
+                <div class="leader-img-wrap"><img src="/pres_21.jpg" alt="Olushola Rolake George"></div>
                 <h3 class="leader-name">Olushola Rolake George</h3>
                 <p class="leader-rank">Past President</p>
             </div>
 
             <div class="leader-box">
                 <span class="tenure">2020 - 2021</span>
-                <div class="leader-img-wrap"><img src="pres_20.jpg" alt="Oluwagbenga Ifeoluwa Ali"></div>
+                <div class="leader-img-wrap"><img src="/pres_20.jpg" alt="Oluwagbenga Ifeoluwa Ali"></div>
                 <h3 class="leader-name">Oluwagbenga Ifeoluwa Ali</h3>
                 <p class="leader-rank">Past President</p>
             </div>
 
             <div class="leader-box">
                 <span class="tenure">2018 - 2019</span>
-                <div class="leader-img-wrap"><img src="pres_18.jpg" alt="Okezie Daniel"></div>
+                <div class="leader-img-wrap"><img src="/pres_18.jpg" alt="Okezie Daniel"></div>
                 <h3 class="leader-name">Okezie Daniel</h3>
                 <p class="leader-rank">Past President</p>
             </div>
@@ -137,7 +161,7 @@
     </div>
 
     <footer class="footer-line">
-        <p>A NEW LEGAL PROFESSION ANCHORED ON CHRIST &copy; 2026</p>
+        <p>A New Legal Profession Anchored on Christ &copy; 2026</p>
     </footer>
 
 </body>
