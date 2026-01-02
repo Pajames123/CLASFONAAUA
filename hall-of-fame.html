@@ -2,62 +2,136 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scroll of Honor | CLASFON AAUA</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#c5a059">
+    <link rel="apple-touch-icon" href="/logo_192.png">
+    
     <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- HALL OF FAME SPECIFIC STYLES --- */
+        
+        /* 1. ARCHAIC PORTRAIT FRAME */
+        .fame-frame {
+            width: 220px;
+            height: 280px; /* Portrait Ratio */
+            margin: 0 auto 30px;
+            position: relative;
+            border: 3px solid var(--gold); /* Inner Frame */
+            outline: 1px solid var(--gold); /* Outer Frame */
+            outline-offset: 8px; /* Spacing between frames */
+            overflow: hidden;
+            transition: all 0.5s ease;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            background: #000;
+        }
+
+        /* 2. VINTAGE IMAGE FILTER */
+        .fame-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* The Archaic Vibe: Sepia + High Contrast + Dimmed */
+            filter: sepia(0.7) grayscale(0.4) contrast(1.2) brightness(0.8); 
+            transition: transform 0.8s ease, filter 0.5s ease;
+        }
+
+        /* 3. HOVER EFFECT: "BRING TO LIFE" */
+        .leader-box:hover .fame-frame {
+            outline-offset: 12px; /* Frame expands */
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 25px rgba(197, 160, 89, 0.4);
+        }
+
+        .leader-box:hover .fame-frame img {
+            transform: scale(1.1); /* Gentle Zoom */
+            filter: sepia(0) grayscale(0) contrast(1) brightness(1); /* Restore Color */
+        }
+
+        /* Typography Refinement */
+        .leader-box h3 { font-family: 'Cinzel', serif; font-size: 1.3rem; margin-bottom: 5px; color: #fff; }
+        .tenure-badge { display: inline-block; border-bottom: 1px solid var(--gold); padding-bottom: 5px; margin-bottom: 20px; color: var(--gold); font-family: 'Cinzel'; letter-spacing: 3px; font-size: 0.8rem; }
+    </style>
 </head>
 <body style="background:#050505;">
+
     <nav class="institutional-nav">
         <div class="container nav-flex">
-            <a href="/" class="logo-main">SCROLL OF WITNESSES</a>
-            <a href="/" class="nav-cta">Return to Portal</a>
+            <a href="/index.html" class="logo-main">THE SCROLL OF WITNESSES</a>
+            <a href="/index.html" class="nav-cta">RETURN TO PORTAL</a>
         </div>
     </nav>
-    <header class="hero" style="height:40vh; margin-top:0;">
+
+    <header class="hero" style="height:50vh; margin-top:0; background: linear-gradient(to bottom, rgba(5,5,5,0.3), #050505), url('/background1.jpg'); background-size: cover; background-position: center;">
         <div class="hero-content">
-            <h1 class="hero-main-title" style="font-size:3rem;">HALL OF FAME</h1>
-            <p class="hero-motto">"Compassed about with so great a cloud of witnesses"</p>
+            <h1 class="hero-main-title" style="font-size:3.5rem; text-shadow: 0 10px 30px #000;">HALL OF FAME</h1>
+            <p class="hero-motto" style="color: #ccc;">"Being compassed about with so great a cloud of witnesses"</p>
         </div>
     </header>
+
     <section class="section-padding">
         <div class="container">
             <div class="sophisticated-grid">
+                
                 <div class="leader-box">
-                    <span class="gold" style="font-size:0.8rem; letter-spacing:2px;">2025 - 2026</span>
-                    <div class="leader-img-wrap" style="border-radius:50%; width:180px; height:180px; margin:20px auto;"><img src="/president.jpg"></div>
-                    <h3>Ajisafe Koyinsola</h3><p>Incumbent President</p>
+                    <span class="tenure-badge">2025 - 2026</span>
+                    <div class="fame-frame"><img src="/president.jpg" alt="President"></div>
+                    <h3>Ajisafe Koyinsola</h3>
+                    <p style="opacity:0.6; font-style:italic;">Incumbent President</p>
                 </div>
+
                 <div class="leader-box">
-                    <span class="gold" style="font-size:0.8rem; letter-spacing:2px;">2024 - 2025</span>
-                    <div class="leader-img-wrap" style="border-radius:50%; width:180px; height:180px; margin:20px auto;"><img src="/pres_24.jpg"></div>
-                    <h3>Ogungbade Taiwo James</h3><p>Immediate Past President</p>
+                    <span class="tenure-badge">2024 - 2025</span>
+                    <div class="fame-frame"><img src="/pres_24.jpg" alt="Past President"></div>
+                    <h3>Ogungbade Taiwo James</h3>
+                    <p style="opacity:0.6; font-style:italic;">Immediate Past President</p>
                 </div>
+
                 <div class="leader-box">
-                    <span class="gold" style="font-size:0.8rem; letter-spacing:2px;">2023 - 2024</span>
-                    <div class="leader-img-wrap" style="border-radius:50%; width:180px; height:180px; margin:20px auto;"><img src="/pres_23.jpg"></div>
-                    <h3>Adeshina Nifemi</h3><p>Past President</p>
+                    <span class="tenure-badge">2023 - 2024</span>
+                    <div class="fame-frame"><img src="/pres_23.jpg" alt="Past President"></div>
+                    <h3>Adeshina Nifemi</h3>
+                    <p style="opacity:0.6; font-style:italic;">Past President</p>
                 </div>
+
                 <div class="leader-box">
-                    <span class="gold" style="font-size:0.8rem; letter-spacing:2px;">2022 - 2023</span>
-                    <div class="leader-img-wrap" style="border-radius:50%; width:180px; height:180px; margin:20px auto;"><img src="/pres_22.jpg"></div>
-                    <h3>Olumide Badeniyi</h3><p>Past President</p>
+                    <span class="tenure-badge">2022 - 2023</span>
+                    <div class="fame-frame"><img src="/pres_22.jpg" alt="Past President"></div>
+                    <h3>Olumide Badeniyi</h3>
+                    <p style="opacity:0.6; font-style:italic;">Past President</p>
                 </div>
+
                 <div class="leader-box">
-                    <span class="gold" style="font-size:0.8rem; letter-spacing:2px;">2021 - 2022</span>
-                    <div class="leader-img-wrap" style="border-radius:50%; width:180px; height:180px; margin:20px auto;"><img src="/pres_21.jpg"></div>
-                    <h3>Olushola Rolake George</h3><p>Past President</p>
+                    <span class="tenure-badge">2021 - 2022</span>
+                    <div class="fame-frame"><img src="/pres_21.jpg" alt="Past President"></div>
+                    <h3>Olushola Rolake George</h3>
+                    <p style="opacity:0.6; font-style:italic;">Past President</p>
                 </div>
+
                 <div class="leader-box">
-                    <span class="gold" style="font-size:0.8rem; letter-spacing:2px;">2020 - 2021</span>
-                    <div class="leader-img-wrap" style="border-radius:50%; width:180px; height:180px; margin:20px auto;"><img src="/pres_20.jpg"></div>
-                    <h3>Oluwagbenga Ifeoluwa Ali</h3><p>Past President</p>
+                    <span class="tenure-badge">2020 - 2021</span>
+                    <div class="fame-frame"><img src="/pres_20.jpg" alt="Past President"></div>
+                    <h3>Oluwagbenga Ifeoluwa Ali</h3>
+                    <p style="opacity:0.6; font-style:italic;">Past President</p>
                 </div>
+
                 <div class="leader-box">
-                    <span class="gold" style="font-size:0.8rem; letter-spacing:2px;">2018 - 2019</span>
-                    <div class="leader-img-wrap" style="border-radius:50%; width:180px; height:180px; margin:20px auto;"><img src="/pres_18.jpg"></div>
-                    <h3>Okezie Daniel</h3><p>Past President</p>
+                    <span class="tenure-badge">2018 - 2019</span>
+                    <div class="fame-frame"><img src="/pres_18.jpg" alt="Past President"></div>
+                    <h3>Okezie Daniel</h3>
+                    <p style="opacity:0.6; font-style:italic;">Past President</p>
                 </div>
+
             </div>
         </div>
     </section>
+
+    <footer style="text-align:center; padding:50px 0; border-top:1px solid rgba(197, 160, 89, 0.2); color:#555; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase;">
+        Established Upon the Advocate &copy; 2026
+    </footer>
+
 </body>
 </html>
