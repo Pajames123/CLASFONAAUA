@@ -1,9 +1,8 @@
 {
   "crons": [
     {
-      "path": "/api/apostle-moses",
-      "schedule": "1 0 * * *",
-      "body": { "type": "daily-news" }
+      "path": "/api/apostle-moses?type=daily-news",
+      "schedule": "1 0 * * *"
     }
   ]
 }
