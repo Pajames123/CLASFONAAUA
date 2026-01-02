@@ -5,7 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLASFON AAUA | Christian Law Students' Fellowship of Nigeria</title>
 
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#c5a059">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CLASFON AAUA">
+    <link rel="apple-touch-icon" href="logo_192.png">
+
     <script>
+        // Force-block legacy 3D remnants
         window.AFRAME = null; 
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
@@ -22,17 +31,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;500;700&family=Libre+Baskerville&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#c5a059">
 </head>
 <body>
 
     <div class="news-ticker-bar">
         <div class="ticker-content" id="automated-ticker">
-            <div class="ticker-item"><span class="news-badge gold">SERVICE DAYS</span> <b>Monday:</b> Intercession (5 PM) | <b>Friday:</b> Fellowship (12 PM)</div>
-            <div class="ticker-item"><span class="news-badge">DAILY VERSE</span> <span id="ticker-verse">"If anyone is in Christ, he is a new creation..." — 2 Cor 5:17</span></div>
-            <div class="ticker-item"><span class="news-badge gold">UPDATE</span> <span id="ticker-news">Welcome to the 2025/2026 Session!</span></div>
+            <div class="ticker-item"><span class="news-badge gold">LITURGY</span> <b>Monday:</b> Intercession (5 PM) | <b>Friday:</b> Fellowship (12 PM)</div>
+            <div class="ticker-item"><span class="news-badge">DAILY VERSE</span> <span id="ticker-verse">"Justice, and only justice, you shall follow..." — Deut 16:20</span></div>
+            <div class="ticker-item"><span class="news-badge gold">UPDATE</span> <span id="ticker-news">Consulting the Scribe for the morning update...</span></div>
         </div>
     </div>
 
@@ -43,10 +49,10 @@
                 <div class="brand-text"><span class="logo-main">CLASFON</span><span class="logo-sub">AAUA CHAPTER</span></div>
             </div>
             <ul class="nav-links">
-                <li><a href="#news-edition">Daily Revelation</a></li>
+                <li><a href="#news-edition">Revelation</a></li>
                 <li><a href="#president-message">Address</a></li>
                 <li><a href="#leaders">Leadership</a></li>
-                <li><a href="hall-of-fame.html" class="nav-cta">Scroll of Honor</a></li>
+                <li><a href="hall-of-fame.html" class="nav-cta">Witnesses</a></li>
             </ul>
         </div>
     </nav>
@@ -57,8 +63,8 @@
             <h1 class="hero-main-title">CLASFON <br><span class="gold-italic">AAUA.</span></h1>
             <p class="hero-motto">A New Legal Profession Anchored on Christ</p>
             <div class="hero-actions">
-                <a href="#news-edition" class="btn-gold">Today's Revelation</a>
-                <button onclick="toggleMoses()" class="btn-outline">Consult Apostle Moses</button>
+                <a href="#news-edition" class="btn-gold">Read Daily News</a>
+                <button onclick="toggleMoses()" class="btn-outline">Ask Apostle Moses</button>
             </div>
         </div>
     </header>
@@ -68,25 +74,24 @@
             <div style="text-align: center; margin-bottom: 50px;">
                 <span class="stamp" id="today-date">JANUARY 2, 2026</span>
                 <h2 class="cinzel-title gold" style="font-size: 2.5rem; margin-bottom: 0;">Daily News & Revelation</h2>
-                <p style="color: #666; font-size: 0.8rem; letter-spacing: 2px;">SPIRITUAL NARRATIVES & GLOBAL WITNESS</p>
             </div>
             
             <div class="news-grid">
                 <div class="news-card-featured">
-                    <span class="news-tag">Daily Biblical Narrative</span>
+                    <span class="news-tag">Apostolic Narrative</span>
                     <div class="news-info">
-                        <h3 id="story-title" class="cinzel-title">The Call to Integrity</h3>
-                        <p id="story-body" style="color: #bbb; font-size: 0.9rem; line-height: 1.8;">Loading today's apostolic insight...</p>
+                        <h3 id="story-title" class="cinzel-title">The Call to the Bar</h3>
+                        <p id="story-body" style="color: #bbb; font-size: 0.95rem; line-height: 1.8;">Loading today's spiritual analysis for the advocates...</p>
                         <p id="story-implication" style="color: var(--gold); font-style: italic; margin-top: 15px; border-top: 1px solid #222; padding-top: 10px;"></p>
                     </div>
                 </div>
                 
                 <div class="secondary-news-list">
                     <div class="mini-news-item">
-                        <span class="news-tag" style="background:none; color:var(--gold); border:1px solid var(--gold); padding:2px 8px;">GLOBAL CHRISTIAN NEWS</span>
-                        <h4 id="global-news-title" style="margin: 15px 0;">Pope Leo XIV Calls for 2026 to be a Year of Peace</h4>
-                        <p id="global-news-summary" style="font-size: 0.8rem; color: #888; margin-bottom: 15px;">Celebrating New Year's Mass, the Pontiff urged the world to reject violence and embrace forgiveness.</p>
-                        <a href="#" class="read-more-link">View Full Record</a>
+                        <span class="news-badge gold">GLOBAL WITNESS</span>
+                        <h4 id="global-news-title" style="margin: 15px 0;">Searching for Global Christian News...</h4>
+                        <p id="global-news-summary" style="font-size: 0.85rem; color: #888; margin-bottom: 15px;"></p>
+                        <a href="#" class="read-more-link">Full Record →</a>
                     </div>
                 </div>
             </div>
@@ -109,6 +114,7 @@
                     <p>halom to you in the precious name of our Lord Jesus Christ. It is with a heart full of gratitude and divine purpose that I welcome you to the official digital portal of the Christian Law Students’ Fellowship of Nigeria (CLASFON), Adekunle Ajasin University Chapter.</p>
                     <p>At CLASFON AAUA, we believe that the legal profession is not merely a career path or a means of livelihood; it is a high calling and a sacred ministry. We are raising a <strong>"New Network of Lawyers"</strong> governed by the laws of the Kingdom of God.</p>
                     <p>Our mandate is clear: to integrate our legal training with our spiritual convictions, producing advocates who are not only learned in the law of the land but are deeply rooted in the Law of the Spirit of Life in Christ Jesus.</p>
+                    <p>We are established upon the Advocate, and in Him, our victory is certain.</p>
                 </div>
             </div>
         </div>
@@ -141,18 +147,18 @@
 
     <div id="ai-trigger" onclick="toggleMoses()">
         <div class="pulse-ring"></div>
-        <i class="fa-solid fa-scale-balanced"></i> Ask Apostle Moses
+        <i class="fa-solid fa-scale-balanced"></i> Consult Apostle Moses
     </div>
 
     <div id="moses-lectern">
         <div class="lectern-header">
             <div class="moses-mini-avatar"><img src="logo.png"><div class="online-indicator"></div></div>
-            <div class="lectern-title-group"><span class="lectern-main">Apostle Moses</span><span class="lectern-status">Legal-Spiritual AI</span></div>
+            <div class="lectern-title-group"><span class="lectern-main">Apostle Moses</span><span class="lectern-status">Legal-Spiritual Consultant</span></div>
             <button onclick="toggleMoses()" class="close-lectern">&times;</button>
         </div>
         <div id="chat-archive"></div>
         <div class="input-area">
-            <input type="text" id="user-q" placeholder="Consult the Scribe..." onkeypress="if(event.key==='Enter') askMoses()">
+            <input type="text" id="user-q" placeholder="Consult the Law & the Testimony..." onkeypress="if(event.key==='Enter') askMoses()">
             <button onclick="askMoses()" class="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
     </div>
@@ -160,8 +166,11 @@
     <footer class="luxury-footer">
         <div class="container footer-grid">
             <div class="f-col">
-                <img src="logo.png" style="height:60px;">
-                <p>"A new legal profession anchored on Christ."</p>
+                <img src="logo.png" style="height:60px; margin-bottom:20px;">
+                <h3 class="gold cinzel-title">Partnership</h3>
+                <p>Access Bank</p>
+                <p class="acc-num">0051649056</p>
+                <button onclick="copyAcc()" class="btn-gold" style="padding:10px 20px; font-size:0.6rem;">Copy Details</button>
             </div>
             <div class="f-col">
                 <h3 class="cinzel-title gold">Prayer Altar</h3>
@@ -179,7 +188,6 @@
             try {
                 const res = await fetch('/api/apostle-moses?type=daily-news');
                 const data = await res.json();
-                
                 document.getElementById('ticker-verse').innerText = data.verse;
                 document.getElementById('ticker-news').innerText = data.charge;
                 document.getElementById('story-title').innerText = data.storyTitle;
@@ -187,12 +195,11 @@
                 document.getElementById('story-implication').innerHTML = `<b>Legal Implication:</b> ${data.implication}`;
                 document.getElementById('global-news-title').innerText = data.globalNewsTitle;
                 document.getElementById('global-news-summary').innerText = data.globalNewsSummary;
-            } catch (e) { console.log("Manual connection to sanctuary required."); }
+            } catch (e) { console.log("Scribe connection standby..."); }
         }
 
         function toggleMoses() {
-            const l = document.getElementById('moses-lectern');
-            l.classList.toggle('lectern-active');
+            document.getElementById('moses-lectern').classList.toggle('lectern-active');
         }
 
         async function askMoses() {
@@ -215,6 +222,11 @@
                 archive.innerHTML += `<div class="moses-response-bubble">${data.answer}</div>`;
             } catch (err) { archive.innerHTML += `<div style="color:red; font-size:0.7rem;">Connection lost.</div>`; }
             archive.scrollTop = archive.scrollHeight;
+        }
+
+        function copyAcc() {
+            navigator.clipboard.writeText("0051649056");
+            alert("Account details copied to clipboard.");
         }
 
         window.onload = () => {
