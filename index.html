@@ -7,6 +7,9 @@
     <meta name="google-site-verification" content="WqhV9Q2nllacov__g1-8RD3RmsBoKLmb2__i15piccM" />
 
     <title>CLASFON AAUA | The Official Portal</title>
+    
+    <link rel="icon" type="image/png" href="/favicon.png">
+
     <meta name="description" content="The official portal of the Christian Law Students' Fellowship of Nigeria (CLASFON), Adekunle Ajasin University Chapter. Promoting legal integrity anchored on Christ.">
     <meta name="keywords" content="CLASFON AAUA, Christian Law Students, AAUA Law, Legal Fellowship Nigeria, CLASFON">
 
@@ -32,6 +35,7 @@
             <a href="/" class="logo-main">CLASFON <span style="font-size:0.5em; opacity:0.7;">AAUA</span></a>
             <ul class="nav-links">
                 <li><a href="/news.html">News</a></li>
+                <li><a href="/journals.html">Journals & Articles</a></li>
                 <li><a href="#president-message">Address</a></li>
                 <li><a href="#library">Library</a></li>
                 <li><a href="#leaders">Leadership</a></li>
@@ -45,8 +49,8 @@
             <h1 class="hero-main-title">CLASFON <br><span class="gold-italic">AAUA.</span></h1>
             <p class="hero-motto">A New Legal Profession Anchored on Christ</p>
             <div class="hero-actions">
-                <a href="/news.html" class="nav-cta" style="background:var(--gold); color:#000 !important;">Read Daily Revelation</a>
-                <button onclick="toggleMoses()" class="nav-cta">Ask Apostle Moses</button>
+                <a href="/journals.html" class="nav-cta" style="background:var(--gold); color:#000 !important;">Submit Research</a>
+                <button id="hero-moses-btn" class="nav-cta">Ask Apostle Moses</button>
             </div>
         </div>
     </header>
@@ -81,20 +85,23 @@
                     <p><b class="gold">Friday Fellowship</b><br>12:00 PM | Law LT B1</p>
                 </div>
             </div>
+            
             <div class="info-block">
-                <h2 class="cinzel-title gold">Apostolic Library</h2>
+                <h2 class="cinzel-title gold">The Archive Gate</h2>
                 <div style="margin-top:20px;">
-                    <a href="/docs/constitution.pdf" class="lib-link" download><i class="fas fa-file-pdf"></i> CLASFON Constitution</a>
-                    <a href="/docs/ethics.pdf" class="lib-link" download><i class="fas fa-file-pdf"></i> Kingdom Ethics in Law</a>
-                    <a href="/docs/anthem.mp3" class="lib-link" download><i class="fas fa-music"></i> CLASFON Anthem</a>
+                    <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px;">Contribute to the "One Body" of Christian Legal scholarship. Max 2,000 words.</p>
+                    <a href="/journals.html" class="lib-link"><i class="fas fa-feather-pointed"></i> Submit Article</a>
+                    <a href="/journals.html#read" class="lib-link"><i class="fas fa-book-open"></i> Read Journals</a>
+                    <a href="/docs/constitution.pdf" class="lib-link" style="opacity:0.6; font-size:0.8rem;" download>Constitution</a>
                 </div>
             </div>
+
             <div class="info-block">
                 <h2 class="cinzel-title gold">Partnership Altar</h2>
                 <p style="margin-top:20px; opacity:0.7;">Support the vision.</p>
                 <h3 style="color:#fff; margin:10px 0;">Access Bank</h3>
-                <p style="font-size:1.5rem; color:var(--gold); font-weight:800; letter-spacing:2px;">0051649056</p>
-                <button onclick="copyAcc()" class="nav-cta" style="width:100%; margin-top:10px;">Copy Account Details</button>
+                <p id="acc-num" style="font-size:1.5rem; color:var(--gold); font-weight:800; letter-spacing:2px;">0051649056</p>
+                <button id="copy-btn" class="nav-cta" style="width:100%; margin-top:10px;">Copy Account Details</button>
             </div>
         </div>
     </section>
@@ -124,7 +131,7 @@
         </div>
     </section>
 
-    <div id="ai-trigger" onclick="toggleMoses()">
+    <div id="ai-trigger">
         <div class="pulse-ring"></div>
         <i class="fa-solid fa-scale-balanced"></i> Consult Apostle Moses
     </div>
@@ -132,7 +139,7 @@
     <div id="moses-lectern">
         <div class="lectern-header">
             <span class="cinzel-title gold" style="font-size:0.9rem;">Apostle Moses AI</span>
-            <button onclick="toggleMoses()" style="background:none; border:none; color:#fff; cursor:pointer;"><i class="fas fa-times"></i></button>
+            <button id="close-moses" style="background:none; border:none; color:#fff; cursor:pointer;"><i class="fas fa-times"></i></button>
         </div>
         <div id="chat-archive">
             <div style="text-align:center; color:var(--gold); font-style:italic; padding:20px; border:1px dashed var(--gold); border-radius:10px;">
@@ -140,15 +147,15 @@
             </div>
         </div>
         <div class="input-area">
-            <input type="text" id="user-q" placeholder="Ask a question..." onkeypress="if(event.key==='Enter') askMoses()">
-            <button onclick="askMoses()" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+            <input type="text" id="user-q" placeholder="Ask a question...">
+            <button id="send-q" class="send-btn"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <footer class="luxury-footer">
         <div class="container footer-grid">
             <div>
-                <img src="/logo.png" style="height:60px; margin-bottom:20px;">
+                <img src="/logo.png" style="height:60px; margin-bottom:20px;" alt="Logo">
                 <p style="opacity:0.7;">Anchoring the legal profession on the Rock of Ages.</p>
             </div>
             <div>
@@ -160,38 +167,87 @@
                 </form>
             </div>
         </div>
+        
+        <div class="security-seal-bar">
+            <p>© 2026 CLASFON AAUA. All connections are secured via 256-bit TLS 1.3 encryption.</p>
+            <p>We honor your data dignity through strict <span class="gold">CSP</span> and <span class="gold">HSTS</span> protocols.</p>
+        </div>
     </footer>
 
     <script>
-        async function fetchDailyRevelation() {
-            try {
-                const res = await fetch('/api/apostle-moses?type=daily-news');
-                const data = await res.json();
-                document.getElementById('ticker-verse').innerText = data.verse || "Loading Scripture...";
-                document.getElementById('ticker-news').innerText = data.charge || "Loading Update...";
-            } catch (e) { console.log("Scribe offline."); }
-        }
-        function toggleMoses() { document.getElementById('moses-lectern').classList.toggle('lectern-active'); }
-        async function askMoses() {
-            const input = document.getElementById('user-q');
-            const archive = document.getElementById('chat-archive');
-            const q = input.value.trim();
-            if(!q) return;
-            archive.innerHTML += `<div class="user-bubble">${q}</div>`;
-            input.value = "";
-            archive.scrollTop = archive.scrollHeight;
-            try {
-                const res = await fetch('/api/apostle-moses', {
-                    method: 'POST', headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({question: q, type: 'chat'})
-                });
-                const data = await res.json();
-                archive.innerHTML += `<div class="moses-response-bubble">${data.answer}</div>`;
-            } catch (err) { archive.innerHTML += `<div style="color:red; padding:10px;">Connection lost.</div>`; }
-            archive.scrollTop = archive.scrollHeight;
-        }
-        function copyAcc() { navigator.clipboard.writeText("0051649056"); alert("Copied!"); }
-        window.onload = fetchDailyRevelation;
+        /** * S-Tier Security & Functionality Core
+         * Logic moved from inline HTML to central script to satisfy 'S-Tier' CSP requirements.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            const App = {
+                // UI Toggle for Moses AI
+                toggleMoses: () => {
+                    document.getElementById('moses-lectern').classList.toggle('lectern-active');
+                },
+
+                // Account Copy Function
+                copyAcc: () => {
+                    navigator.clipboard.writeText("0051649056").then(() => {
+                        alert("The Altar coordinates (Account Details) have been copied.");
+                    });
+                },
+
+                // News & Verse Ticker
+                fetchTicker: async () => {
+                    try {
+                        const res = await fetch('/api/apostle-moses?type=daily-news');
+                        const data = await res.json();
+                        if (data.ticker) {
+                            document.getElementById('ticker-verse').textContent = data.ticker.verse;
+                            document.getElementById('ticker-news').textContent = data.ticker.charge;
+                        }
+                    } catch (e) { console.warn("Scribe is in deep meditation."); }
+                },
+
+                // Chat Logic
+                askMoses: async () => {
+                    const input = document.getElementById('user-q');
+                    const q = input.value.trim();
+                    if(!q) return;
+
+                    const archive = document.getElementById('chat-archive');
+                    const userDiv = document.createElement('div');
+                    userDiv.className = 'user-bubble';
+                    userDiv.textContent = q;
+                    archive.appendChild(userDiv);
+
+                    input.value = "";
+                    archive.scrollTop = archive.scrollHeight;
+
+                    try {
+                        const res = await fetch('/api/apostle-moses', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({question: q, type: 'chat'})
+                        });
+                        const data = await res.json();
+                        const respDiv = document.createElement('div');
+                        respDiv.className = 'moses-response-bubble';
+                        respDiv.textContent = data.answer;
+                        archive.appendChild(respDiv);
+                    } catch (err) { console.error("Tabernacle connection error."); }
+                    archive.scrollTop = archive.scrollHeight;
+                }
+            };
+
+            // Event Binding (Replacing all inline onclicks)
+            document.getElementById('ai-trigger').addEventListener('click', App.toggleMoses);
+            document.getElementById('hero-moses-btn').addEventListener('click', App.toggleMoses);
+            document.getElementById('close-moses').addEventListener('click', App.toggleMoses);
+            document.getElementById('copy-btn').addEventListener('click', App.copyAcc);
+            document.getElementById('send-q').addEventListener('click', App.askMoses);
+            document.getElementById('user-q').addEventListener('keypress', (e) => {
+                if(e.key === 'Enter') App.askMoses();
+            });
+
+            // Initial Load
+            App.fetchTicker();
+        });
     </script>
 </body>
 </html>

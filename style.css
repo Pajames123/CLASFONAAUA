@@ -3,9 +3,9 @@
     --gold: #c5a059;
     --gold-bright: #e2c285;
     --gold-glow: rgba(197, 160, 89, 0.3);
-    --dark: #050505;       /* Deepest Black */
-    --surface: #0f0f10;    /* Card Surface */
-    --slate: #161618;      /* Secondary Surface */
+    --dark: #050505;        /* Deepest Black */
+    --surface: #0f0f10;     /* Card Surface */
+    --slate: #161618;        /* Secondary Surface */
     --white: #f0f0f2;
     --text-muted: #a0a0a0;
     --glass: rgba(5, 5, 5, 0.92);
@@ -76,6 +76,8 @@ body {
 .doc-portrait { width: 180px; height: 240px; background: #fff; padding: 5px; border: 1px solid #ddd; flex-shrink: 0; }
 .doc-portrait img { width: 100%; height: 100%; object-fit: cover; }
 .doc-main { font-family: 'Libre Baskerville'; font-size: 1.1rem; line-height: 2.2; text-align: justify; }
+.first-letter { float: left; font-size: 4rem; line-height: 0.8; margin-right: 15px; font-family: 'Cinzel'; color: #000; }
+.stamp { display: inline-block; border: 1px solid #000; padding: 2px 5px; font-size: 0.6rem; letter-spacing: 2px; margin-bottom: 10px; }
 
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
 .info-block { border-left: 3px solid var(--gold); padding-left: 25px; }
@@ -124,6 +126,46 @@ body {
 .news-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; margin-top: 40px; }
 .news-card-featured { background: var(--surface); padding: 40px; border: 1px solid rgba(197,160,89,0.1); }
 
+/* --- NEW: JOURNALS & ARCHIVE STYLES --- */
+.journal-hero { 
+    height: 40vh; background: #000; display: flex; align-items: center; justify-content: center; 
+    border-bottom: 1px solid var(--gold);
+}
+.article-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; margin-top: 40px; }
+.journal-card { 
+    background: var(--surface); padding: 30px; border: 1px solid rgba(255,255,255,0.05); 
+    transition: 0.3s; position: relative;
+}
+.journal-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+.card-tag { 
+    display: inline-block; background: rgba(197, 160, 89, 0.1); color: var(--gold); 
+    font-size: 0.7rem; padding: 4px 10px; border-radius: 2px; margin-bottom: 15px;
+}
+.journal-card h3 { font-family: 'Cinzel'; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.4; }
+.journal-card .author { font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-bottom: 15px; }
+.journal-card .abstract { font-size: 0.9rem; color: #ccc; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.btn-read { 
+    display: inline-block; border: 1px solid var(--gold); padding: 8px 20px; 
+    color: var(--gold); text-decoration: none; font-size: 0.8rem; font-weight: 700; transition: 0.3s;
+}
+.btn-read:hover { background: var(--gold); color: #000; }
+
+/* UPLOAD FORM */
+.upload-container { 
+    background: var(--slate); padding: 40px; border: 1px solid rgba(197, 160, 89, 0.2); 
+    max-width: 600px; margin: 0 auto; 
+}
+.upload-form input, .upload-form select { 
+    width: 100%; background: #000; border: 1px solid #333; padding: 15px; 
+    color: #fff; margin-bottom: 15px; font-family: 'Montserrat';
+}
+.upload-form button { 
+    width: 100%; background: var(--gold); color: #000; padding: 15px; 
+    font-weight: 800; border: none; cursor: pointer; transition: 0.3s;
+}
+.upload-form button:hover { background: var(--gold-bright); }
+.upload-form button:disabled { background: #333; color: #666; cursor: not-allowed; }
+
 /* FOOTER */
 .luxury-footer { padding: 80px 0; background: #000; border-top: 1px solid rgba(197,160,89,0.1); }
 .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
@@ -131,4 +173,59 @@ body {
 .altar-form button { width: 100%; background: var(--gold); padding: 15px; font-weight: 800; border: none; cursor: pointer; }
 
 /* MOBILE */
-@media(max-width: 768px) { .nav-links { display: none; } .grid-3, .news-grid, .footer-grid { grid-template-columns: 1fr; } #moses-lectern { width: 94%; right: 3%; } .parchment-doc { padding: 40px 20px; } }
+@media(max-width: 768px) { 
+    .nav-links { display: none; } 
+    .grid-3, .news-grid, .footer-grid, .article-grid { grid-template-columns: 1fr; } 
+    #moses-lectern { width: 94%; right: 3%; } 
+    .parchment-doc { padding: 40px 20px; } 
+    .hero-main-title { font-size: 3rem; }
+}
+
+/* --- ADDITIONS FOR S-TIER SECURITY & REFINEMENT --- */
+
+.security-seal-bar {
+    text-align: center;
+    padding: 30px 20px;
+    background: #000;
+    border-top: 1px solid rgba(197, 160, 89, 0.15);
+    margin-top: 60px;
+}
+
+.security-seal-bar p {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.security-seal-bar .gold {
+    color: var(--gold);
+    font-weight: 800;
+}
+
+/* Re-adjusting Lectern for CSP Compatibility */
+#moses-lectern {
+    display: flex !important;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.4s ease;
+    pointer-events: none;
+}
+
+#moses-lectern.lectern-active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+/* Section Anchor Padding */
+section { scroll-margin-top: 110px; }
+
+/* Copy Button Visual Feedback */
+#copy-btn:active {
+    background: var(--gold-bright);
+    transform: scale(0.98);
+}
